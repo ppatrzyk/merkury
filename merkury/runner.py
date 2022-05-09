@@ -25,9 +25,9 @@ def get_code_out(node, file_name):
     Get code output from given node
     """
     f = StringIO()
+    code = compile(ast.Module([node, ], type_ignores=[]), file_name, 'exec')
     with redirect_stdout(f):
-        print(node)
-        exec(compile(ast.Module([node, ], type_ignores=[]), file_name, 'exec'), ENV)
+        exec(code, ENV)
     return f.getvalue()
 
 def execute(path):
@@ -42,8 +42,9 @@ def execute(path):
     
     end_lines = tuple(map(get_node_end, module.body))
     start_lines = (0, ) + tuple(el-1 for el in end_lines[:-1])
-    indices = zip(start_lines, end_lines)
-    print(tuple(indices))
+    code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
     code_outputs = tuple(starmap(get_code_out, ((node, file_name, ) for node in module.body)))
+    # TODO merge with previous if empty string printed
+    print(code_inputs)
     print(code_outputs)
     
