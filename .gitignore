@@ -1,0 +1,6 @@
+**/__pycache__
+merkuryvenv
+build
+dist
+merkury.egg-info
+.vscode
