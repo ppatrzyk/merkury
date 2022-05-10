@@ -1,8 +1,5 @@
 """
-Module for running the script.
-
-Code is adapted from the following SO question
-https://stackoverflow.com/questions/60297105/python-write-both-commands-and-their-output-to-a-file
+Functions for running the script.
 """
 
 import ast
@@ -39,12 +36,9 @@ def execute(path):
         source = file.read()
     lines = source.split("\n")
     module = ast.parse(source, file_name)
-    
     end_lines = tuple(map(get_node_end, module.body))
     start_lines = (0, ) + tuple(el-1 for el in end_lines[:-1])
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
     code_outputs = tuple(starmap(get_code_out, ((node, file_name, ) for node in module.body)))
-    # TODO merge with previous if empty string printed
-    print(code_inputs)
-    print(code_outputs)
+    return code_inputs, code_outputs
     
