@@ -10,6 +10,7 @@ Options:
 """
 
 from docopt import docopt
+from .renderer import produce_report
 from .runner import execute
 
 def main():
@@ -18,7 +19,8 @@ def main():
     """
     args = docopt(__doc__, version="merkury 0.1")
     print(args)
-    output = execute(args.get("<file>"))
+    code_inputs, code_outputs = execute(args.get("<file>"))
+    produce_report(code_inputs, code_outputs)
 
 if __name__ == "__main__":
     main()
