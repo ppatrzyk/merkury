@@ -2,6 +2,13 @@
 Reformats code output into report.
 """
 
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+jinja = Environment(
+    loader=FileSystemLoader("merkury/templates"),
+    autoescape=select_autoescape()
+)
+
 def join_chunks(code_inputs, code_outputs):
     """
     Join code nodes without anything printed
@@ -17,11 +24,17 @@ def join_chunks(code_inputs, code_outputs):
                 yield {"in": in_chunk, "out": out_chunk}
                 in_chunk = out_chunk = ""
 
+def generate_template(chunks):
+    """
+    Put code chunks into proper template
+    """
+    template = jinja.get_template("template.html")
+    print(template.render({"content": "here"}))
+    print(chunks)
+
 def produce_report(code_inputs, code_outputs):
     """
     Main function for transforming raw code
     """
-    print(code_inputs)
-    print(code_outputs)
     chunks = tuple(join_chunks(code_inputs, code_outputs))
-    print(chunks)
+    generate_template(chunks)

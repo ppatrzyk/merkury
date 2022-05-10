@@ -16,6 +16,7 @@ setup(name='merkury',
     python_requires='>=3.10',
     install_requires=[
         'docopt>=0.6.2',
+        'Jinja2>=3.1.2',
     ],
     entry_points={
         'console_scripts': [
