@@ -9,13 +9,12 @@ from itertools import starmap
 
 ENV = {'__name__': '__main__'}
 
-def get_node_end(node):
+def get_node_line(node):
     """
-    Helper for finding last line for ast node
+    Helper for finding starting line for ast node
+    Line numbers are 1-indexed, hence conversion
     """
-    max_line_no = getattr(node, "max_lineno") if hasattr(node, "max_lineno") else 0
-    line_no = getattr(node, "lineno") if hasattr(node, "lineno") else 0
-    return max(max_line_no, line_no)
+    return (getattr(node, "lineno") - 1)
 
 def get_code_out(node, file_name):
     """
@@ -36,9 +35,8 @@ def execute(path):
         source = file.read()
     lines = source.split("\n")
     module = ast.parse(source, file_name)
-    end_lines = tuple(map(get_node_end, module.body))
-    start_lines = (0, ) + tuple(el-1 for el in end_lines[:-1])
+    start_lines = tuple(map(get_node_line, module.body))
+    end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
     code_outputs = tuple(starmap(get_code_out, ((node, file_name, ) for node in module.body)))
     return code_inputs, code_outputs
-    
