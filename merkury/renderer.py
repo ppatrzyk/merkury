@@ -29,8 +29,7 @@ def generate_template(chunks):
     Put code chunks into proper template
     """
     template = jinja.get_template("template.html")
-    print(template.render({"content": "here"}))
-    print(chunks)
+    print(template.render({"chunks": chunks}))
 
 def produce_report(code_inputs, code_outputs):
     """

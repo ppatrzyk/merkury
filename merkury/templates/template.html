@@ -7,6 +7,11 @@
     <title>Merkury</title>
 </head>
 <body>
-    {{ content }}
+    {% for chunk in chunks %}
+        <h2>IN</h2>
+        <pre><code>{{ chunk.in }}</code></pre>
+        <h2>OUT</h2>
+        <pre><code>{{ chunk.out }}</code></pre>
+    {% endfor %}
 </body>
 </html>
