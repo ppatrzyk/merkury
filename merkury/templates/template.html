@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merkury</title>
+    <style>{% include "assets/pico.min.css" %}</style>
+    <style>{% include "assets/prism-night.css" %}</style>
 </head>
 <body>
     {% for chunk in chunks %}
         <h2>IN</h2>
-        <pre><code>{{ chunk.in }}</code></pre>
+        <pre><code class="language-python">{{ chunk.in }}</code></pre>
         <h2>OUT</h2>
         <pre><code>{{ chunk.out }}</code></pre>
     {% endfor %}
+    <script>{% include "assets/prism.js" %}</script>
 </body>
 </html>
