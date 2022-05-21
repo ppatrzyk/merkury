@@ -15,10 +15,13 @@
 <body>
     {% for chunk in chunks %}
         <h2>IN</h2>
-        <div><p>{{ chunk.raw_html }}</p></div>
-        <pre><code class="language-python">{{ chunk.in }}</code></pre>
+        <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
         <h2>OUT</h2>
-        <pre><code class="language-python">{{ chunk.out }}</code></pre>
+        {% if chunk.raw_html %}
+            <div>{{ chunk.out }}</div>
+        {% else %}
+            <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
+        {% endif %}
     {% endfor %}
     <script>
         {% include "assets/prism.js" %}

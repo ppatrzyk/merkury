@@ -3,11 +3,10 @@ Reformats code output into report.
 """
 
 import re
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 jinja = Environment(
-    loader=FileSystemLoader("merkury/templates"),
-    autoescape=select_autoescape()
+    loader=FileSystemLoader("merkury/templates")
 )
 
 def join_chunks(code_inputs, code_outputs):
