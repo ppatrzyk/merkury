@@ -4,10 +4,12 @@ Reformats code output into report.
 
 import re
 from jinja2 import Environment, FileSystemLoader
+from markdown import markdown
 
 jinja = Environment(
     loader=FileSystemLoader("merkury/templates")
 )
+jinja.filters['markdown'] = markdown
 
 def join_chunks(code_inputs, code_outputs):
     """

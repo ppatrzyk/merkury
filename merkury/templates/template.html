@@ -1,3 +1,7 @@
+{% macro markdown(content) %}
+    <div>{{ content|markdown }}</div>
+{% endmacro %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +24,7 @@
         {% if chunk.html %}
             <object>{{ chunk.out }}</object>
         {% elif chunk.markdown %}
-            <p>TODO markdown</p>
+            {{ markdown(chunk.out) }}
         {% else %}
             <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
         {% endif %}
