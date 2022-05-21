@@ -14,15 +14,17 @@ def join_chunks(code_inputs, code_outputs):
     Join code nodes without anything printed
     """
     in_chunk = out_chunk = ""
-    raw_html = False
+    html = markdown = False
     for input, output in zip(code_inputs, code_outputs):
-        raw_html = raw_html or any((bool(re.match("^#RAW", line)) for line in input))
+        html = html or any((bool(re.match("^#HTML", line)) for line in input))
+        markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
         in_chunk += "".join((line+"\n" for line in input))
         if output != '':
             out_chunk += output
-            yield {"in": in_chunk, "out": out_chunk, "raw_html": raw_html}
+            assert(sum([html, markdown]) <= 1, "Only one option can be specified")
+            yield {"in": in_chunk, "out": out_chunk, "html": html, "markdown": markdown}
             in_chunk = out_chunk = ""
-            raw_html = False
+            html = markdown = False
 
 def generate_template(chunks):
     """

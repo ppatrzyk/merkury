@@ -17,8 +17,10 @@
         <h2>IN</h2>
         <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
         <h2>OUT</h2>
-        {% if chunk.raw_html %}
-            <div>{{ chunk.out }}</div>
+        {% if chunk.html %}
+            <object>{{ chunk.out }}</object>
+        {% elif chunk.markdown %}
+            <p>TODO markdown</p>
         {% else %}
             <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
         {% endif %}
