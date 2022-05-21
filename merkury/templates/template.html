@@ -15,6 +15,7 @@
 <body>
     {% for chunk in chunks %}
         <h2>IN</h2>
+        <div><p>{{ chunk.raw_html }}</p></div>
         <pre><code class="language-python">{{ chunk.in }}</code></pre>
         <h2>OUT</h2>
         <pre><code class="language-python">{{ chunk.out }}</code></pre>
