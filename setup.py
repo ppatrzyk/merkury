@@ -17,6 +17,7 @@ setup(name='merkury',
     install_requires=[
         'docopt>=0.6.2',
         'Jinja2>=3.1.2',
+        'Markdown>=3.3.7'
     ],
     entry_points={
         'console_scripts': [
