@@ -18,9 +18,10 @@ def main():
     Program entrypoint
     """
     args = docopt(__doc__, version="merkury 0.1")
-    print(args)
-    code_inputs, code_outputs = execute(args.get("<file>"))
-    produce_report(code_inputs, code_outputs)
+    file_path = args.get("<file>")
+    code = execute(file_path)
+    file_name = file_path.split("/")[-1]
+    produce_report(code, file_name)
 
 if __name__ == "__main__":
     main()

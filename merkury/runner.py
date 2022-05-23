@@ -39,4 +39,4 @@ def execute(path):
     end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
     code_outputs = tuple(starmap(get_code_out, ((node, file_name, ) for node in module.body)))
-    return code_inputs, code_outputs
+    return zip(code_inputs, code_outputs)
