@@ -16,23 +16,13 @@
         {% include "assets/prism-night.css" %}
     </style>
     <style>
-        .code-block {
-            padding-bottom: 2em;
-        }
-        .foot {
-            text-align: center;
-            margin-top: 1em;
-            margin-bottom: 1em;
-        }
-        .main-head {
-            padding-bottom: 4em;
-        }
+        {% include "assets/merkury.css" %}
     </style>
 </head>
 <body>
     <main class="container">
-        <hgroup class="main-head">
-            <h2>{{ file_name }}</h2>
+        <hgroup class="head">
+            <h1>{{ file_name }}</h1>
             <h3>{{ timestamp }}</h3>
         </hgroup>
     {% for chunk in chunks %}
@@ -53,10 +43,10 @@
             </details>
         </div>
     {% endfor %}
+        <footer class="container foot">
+            <small>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a>.</small>
+        </footer>
     </main>
-    <footer class="container foot">
-        <small>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a>.</small>
-    </footer>
     <script>
         {% include "assets/prism.js" %}
     </script>
