@@ -4,3 +4,6 @@ build
 dist
 merkury.egg-info
 .vscode
+
+**/_site/
+**/.jekyll-cache/
