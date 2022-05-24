@@ -14,7 +14,9 @@ _Any_ library that can produce plot in HTML format will work fine with Merkury. 
 
 ## Altair
 
-todo
+Save chart as html and print the string.
+
+- [Example Merkury report](examples/altair.html)
 
 ## Bokeh
 
@@ -26,6 +28,6 @@ todo
 
 ## Plotly
 
-Print output of [`plotly.io.to_html`](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html).
+Print output of [`plotly.io.to_html`](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html). Please refer to plotly docs on different options how to provide javascript dependencies.
 
 - [Example Merkury report](examples/plotly.html)
