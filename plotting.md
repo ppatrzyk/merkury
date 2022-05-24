@@ -14,17 +14,19 @@ _Any_ library that can produce plot in HTML format will work fine with Merkury. 
 
 ## Altair
 
-Save chart as html and print the string.
+Save chart as html and print contents of the file.
 
 - [Example Merkury report](examples/altair.html)
 
 ## Bokeh
 
-todo
+Print output of [`file_html`](https://docs.bokeh.org/en/latest/docs/user_guide/embed.html#userguide-embed-standalone).
+
+- [Example Merkury report](examples/bokeh.html)
 
 ## Matplotlib
 
-todo
+- [Example Merkury report](examples/?????.html)
 
 ## Plotly
 
