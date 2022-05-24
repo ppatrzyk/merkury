@@ -1,4 +1,9 @@
 import pandas as pd
+from bokeh.plotting import figure
+from bokeh.resources import CDN
+from bokeh.embed import file_html
+
+iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
 
 intro = """
 # Merkury example
@@ -10,9 +15,9 @@ This code block is written in markdown. You can use any valid markdown sytax. E.
 | Column 1    | Column 2 | Column 3   |
 | ----------- | -------- | ---------- |
 | Some value  | _1_      | **3**      |
-| Other value | 2        | 4          |
+| Other value | **2**    | _4_        |
 
-If you don't specify [formatting options](https://github.com/ppatrzyk/merkury#formatting-and-plots), outpur will be treated as python code. 
+If you don't specify [formatting options](https://github.com/ppatrzyk/merkury#formatting-and-plots), output will be treated as python code. 
 
 """
 
@@ -22,6 +27,8 @@ print(intro)
 for i in range(10):
     msg = f'Loop iteration: {i}'
     print(msg)
+
+print(iris.head())
 
 html = """
 <h3>Custom html header</h3>
@@ -36,8 +43,25 @@ See printing dataframes with pandas and plotting with bokeh below.
 print(html)
 #HTML
 
-iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
 iris_html = iris.head(10).to_html(border=0)
-
 print(f"<h3>Iris dataset</h3>{iris_html}")
+#HTML
+
+colors = pd.DataFrame({"species": ["setosa", "virginica", "versicolor", ], "color": ["blue", "green", "red"]})
+iris = iris.merge(colors, how="left")
+
+plot = figure(
+    title="You've seen that before",
+    x_axis_label="petal_width",
+    y_axis_label="sepal_width"
+)
+plot.circle(
+    iris["petal_width"],
+    iris["sepal_width"],
+    fill_color = iris["color"],
+    size = 10
+)
+
+html = file_html(plot, CDN, "Iris species")
+print(html)
 #HTML
