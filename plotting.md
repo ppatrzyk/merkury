@@ -14,7 +14,7 @@ _Any_ library that can produce plot in HTML format will work fine with Merkury. 
 
 ## Altair
 
-Save chart as html and print contents of the file.
+[Save chart as html](https://altair-viz.github.io/user_guide/saving_charts.html) and print contents of the file.
 
 - [Example Merkury report](examples/altair.html)
 
@@ -26,7 +26,9 @@ Print output of [`file_html`](https://docs.bokeh.org/en/latest/docs/user_guide/e
 
 ## Matplotlib
 
-- [Example Merkury report](examples/?????.html)
+You need to export figure to html using [`mpld3`](https://mpld3.github.io/modules/API.html#mpld3.fig_to_html).
+
+- [Example Merkury report](examples/matplotlib.html)
 
 ## Plotly
 
