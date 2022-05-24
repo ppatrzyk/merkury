@@ -14,8 +14,30 @@ Merkury processes files with any python code and by default treats output as sta
 
 ## HTML
 
-todo
+You need to put a comment `#HTML` after a line that outputs raw HTML.
+
+Example:
+
+```
+print("""<img src="https://www.python.org/static/img/python-logo-large.c36dccadd999.png" alt="python">""")
+#HTML
+```
 
 ## Markdown
 
-todo
+You need to put a comment `#MARKDOWN` after a line that outputs markdown text.
+
+Example:
+
+```
+print("""
+# I'm a markdown header
+
+List:
+
+* l1
+* l2
+
+""")
+#MARKDOWN
+```

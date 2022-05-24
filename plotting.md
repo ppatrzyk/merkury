@@ -26,4 +26,6 @@ todo
 
 ## Plotly
 
-todo
+Print output of [`plotly.io.to_html`](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html).
+
+- [Example Merkury report](examples/plotly.html)
