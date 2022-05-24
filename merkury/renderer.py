@@ -11,7 +11,7 @@ import sys
 jinja = Environment(
     loader=PackageLoader("merkury", "templates")
 )
-jinja.filters['markdown'] = markdown
+jinja.filters['markdown'] = lambda content: markdown(content, extensions=['tables', ])
 
 def join_chunks(code):
     """
