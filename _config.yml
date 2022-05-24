@@ -1,1 +1,17 @@
 theme: "just-the-docs"
+title: Merkury
+description: Generate HTML reports from pure Python scripts
+search_enabled: false
+
+aux_links:
+  "Merkury on GitHub":
+    - "https://github.com/ppatrzyk/merkury"
+aux_links_new_tab: true
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+kramdown:
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false

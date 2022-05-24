@@ -2,10 +2,10 @@
 layout: default
 title: Home
 nav_order: 1
-description: "Just the Docs is a responsive Jekyll theme with built-in search that is easily customizable and hosted on GitHub Pages."
+description: "Merkury is a simple tool to generate HTML reports from Python scripts"
 permalink: /
 ---
 
-# Just the docs init
+# Merkury
 
-content TODO.
+Merkury is a lightweight tool to render static HTML pages from pure python code.
