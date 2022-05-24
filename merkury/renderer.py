@@ -3,9 +3,10 @@ Reformats code output into report.
 """
 
 from datetime import datetime
-import re
 from jinja2 import Environment, FileSystemLoader
 from markdown import markdown
+import re
+import sys
 
 jinja = Environment(
     loader=FileSystemLoader("merkury/templates")
@@ -29,7 +30,7 @@ def join_chunks(code):
             in_chunk = out_chunk = ""
             html = markdown = False
 
-def produce_report(code, file_name):
+def produce_report(code, file_name, output_file_path):
     """
     Main function for transforming raw code
     """
@@ -37,4 +38,9 @@ def produce_report(code, file_name):
     chunks = tuple(join_chunks(code))
     data = {"chunks": chunks, "timestamp": timestamp, "file_name": file_name}
     template = jinja.get_template("template.html")
-    print(template.render(data))
+    report = template.render(data)
+    if output_file_path:
+        with open(output_file_path, 'w') as out:
+            out.write(report)
+    else:
+        sys.stdout.write(report)
