@@ -3,13 +3,13 @@ Reformats code output into report.
 """
 
 from datetime import datetime
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, PackageLoader
 from markdown import markdown
 import re
 import sys
 
 jinja = Environment(
-    loader=FileSystemLoader("merkury/templates")
+    loader=PackageLoader("merkury", "templates")
 )
 jinja.filters['markdown'] = markdown
 
