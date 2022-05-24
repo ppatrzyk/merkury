@@ -1,4 +1,4 @@
-remote_theme: just-the-docs/just-the-docs
+theme: "just-the-docs"
 title: Merkury
 description: Generate HTML reports from pure Python scripts
 search_enabled: false
