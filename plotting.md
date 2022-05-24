@@ -7,7 +7,7 @@ nav_order: 3
 # Plotting
 {: .no_toc }
 
-_Any_ library that can produce plot in HTML format will work fine with Merkury. Below are examples on how to achieve that with some of them.
+_Any_ library that can produce plot in HTML format will work fine with _Merkury_. Below are examples on how to achieve that with some of them.
 
 1. TOC
 {:toc}
