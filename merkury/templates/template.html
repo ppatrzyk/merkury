@@ -27,11 +27,19 @@
 </head>
 <body>
     <main class="container">
-        <hgroup class="head">
-            <h1>{{ file_name }}</h1>
-            <h3>{{ timestamp }}</h3>
-        </hgroup>
-        <button class="contrast" onclick="change_theme()">Dark/Light</button>
+        <nav class="head">
+            <ul>
+                <li>
+                    <hgroup>
+                        <h1>{{ file_name }}</h1>
+                        <h3>{{ timestamp }}</h3>
+                    </hgroup>
+                </li>
+            </ul>
+            <ul>
+                <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
+            </ul>
+        </nav>
     {% for chunk in chunks %}
         <div class="code-block">
             <details>
