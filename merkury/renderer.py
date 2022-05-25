@@ -30,13 +30,14 @@ def join_chunks(code):
             in_chunk = out_chunk = ""
             html = markdown = False
 
-def produce_report(code, file_name, output_file_path):
+def produce_report(code, python_file_path, output_file_path):
     """
     Main function for transforming raw code
     """
-    timestamp = datetime.isoformat(datetime.now())
+    timestamp = datetime.now().strftime("%c")
+    python_file_name = python_file_path.split("/")[-1]
     chunks = tuple(join_chunks(code))
-    data = {"chunks": chunks, "timestamp": timestamp, "file_name": file_name}
+    data = {"chunks": chunks, "timestamp": timestamp, "file_name": python_file_name}
     template = jinja.get_template("template.html")
     report = template.render(data)
     if output_file_path:

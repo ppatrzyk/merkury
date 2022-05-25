@@ -18,12 +18,11 @@ def main():
     """
     Program entrypoint
     """
-    args = docopt(__doc__, version="merkury 0.1")
+    args = docopt(__doc__, version="merkury 0.2")
     python_file_path = args.get("<script>")
     output_file_path = args.get("--output")
     code = execute(python_file_path)
-    python_file_name = python_file_path.split("/")[-1]
-    produce_report(code, python_file_name, output_file_path)
+    produce_report(code, python_file_path, output_file_path)
 
 if __name__ == "__main__":
     main()
