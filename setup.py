@@ -4,7 +4,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(name='merkury',
-    version='0.1',
+    version='0.2',
     license='MIT',
     description='Turn Python scripts into HTML reports',
     long_description=long_description,
