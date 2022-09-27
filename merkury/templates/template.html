@@ -3,7 +3,7 @@
 {% endmacro %}
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="{{ data_theme }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +42,11 @@
         </nav>
     {% for chunk in chunks %}
         <div class="code-block">
-            <details>
+            {% if format=="pdf" %}
+                <details open>
+            {% else %}
+                <details>
+            {% endif %}
                 <summary>Source code</summary>
                 <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
             </details>

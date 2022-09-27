@@ -37,13 +37,18 @@ def produce_report(code, format, python_file_path, output_file_path):
     """
     Main function for transforming raw code
     """
-    timestamp = datetime.now().strftime("%c")
     chunks = list(join_chunks(code))
     # if last chunk does not print anything, it's appended to previous one
     if (chunks[-1]["out"] is None) and (len(chunks) > 1):
         chunks[-2]["in"] += chunks[-1]["in"]
         del chunks[-1]
-    data = {"chunks": chunks, "timestamp": timestamp, "file_name": python_file_path.name}
+    data = {
+        "chunks": chunks,
+        "data_theme": "dark" if (format == "html") else "light",
+        "file_name": python_file_path.name,
+        "format": format,
+        "timestamp": datetime.now().strftime("%c"),
+    }
     template = jinja.get_template("template.html")
     report = template.render(data)
     match format:
