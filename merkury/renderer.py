@@ -32,12 +32,11 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, python_file_path, output_file_path):
+def produce_report(code, format, python_file_name, output_file_path):
     """
     Main function for transforming raw code
     """
     timestamp = datetime.now().strftime("%c")
-    python_file_name = python_file_path.split("/")[-1]
     chunks = list(join_chunks(code))
     # if last chunk does not print anything, it's appended to previous one
     if (chunks[-1]["out"] is None) and (len(chunks) > 1):

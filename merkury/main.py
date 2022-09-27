@@ -26,8 +26,9 @@ def main():
     assert format in FORMATS, f'Unknown format: {format}. Options: html, pdf'
     python_file_path = args.get("<script>")
     output_file_path = args.get("--output")
+    python_file_name = python_file_path.split("/")[-1]
     code = execute(python_file_path)
-    produce_report(code, python_file_path, output_file_path)
+    produce_report(code, format, python_file_name, output_file_path)
 
 if __name__ == "__main__":
     main()
