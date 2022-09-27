@@ -38,5 +38,6 @@ def execute(path):
     start_lines = tuple(map(get_node_line, module.body))
     end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
+    assert code_inputs, 'Python file is empty'
     code_outputs = tuple(starmap(get_code_out, ((node, file_name, ) for node in module.body)))
     return zip(code_inputs, code_outputs)
