@@ -12,20 +12,22 @@
     <style>
         {% include "assets/pico.min.css" %}
     </style>
-    {% if data_theme=="dark" %}
-        <style id="prism-dark">
-    {% else %}
-        <style id="prism-dark" media="max-width: 1px">
+    {% if format=="html" %}
+        {% if data_theme=="dark" %}
+            <style id="prism-dark">
+        {% else %}
+            <style id="prism-dark" media="max-width: 1px">
+        {% endif %}
+            {% include "assets/prism-night.css" %}
+        </style>
+        {% if data_theme=="dark" %}
+            <style id="prism-light" media="max-width: 1px">
+        {% else %}
+            <style id="prism-light">
+        {% endif %}
+            {% include "assets/prism-default.css" %}
+        </style>
     {% endif %}
-        {% include "assets/prism-night.css" %}
-    </style>
-    {% if data_theme=="dark" %}
-        <style id="prism-light" media="max-width: 1px">
-    {% else %}
-        <style id="prism-light">
-    {% endif %}
-        {% include "assets/prism-default.css" %}
-    </style>
     <style>
         {% include "assets/merkury.css" %}
     </style>
@@ -76,8 +78,10 @@
             <small>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a>.</small>
         </footer>
     </main>
-    <script>
-        {% include "assets/prism.js" %}
-    </script>
+    {% if format=="html" %}
+        <script>
+            {% include "assets/prism.js" %}
+        </script>
+    {% endif %}
 </body>
 </html>
