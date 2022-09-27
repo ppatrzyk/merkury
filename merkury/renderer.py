@@ -56,7 +56,14 @@ def produce_report(code, format, python_file_path, output_file_path):
             with output_file_path.open("w") as out:
                 out.write(report)
         case 'pdf':
-            pdfkit.from_string(report, output_file_path)
+            options = {
+                'page-size': 'A4',
+                'margin-top': '25mm',
+                'margin-right': '25mm',
+                'margin-bottom': '25mm',
+                'margin-left': '25mm',
+            }
+            pdfkit.from_string(report, output_file_path, options=options)
     return True
 
 def get_default_path(python_file_path, format):

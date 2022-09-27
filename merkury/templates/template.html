@@ -12,10 +12,18 @@
     <style>
         {% include "assets/pico.min.css" %}
     </style>
-    <style id="prism-dark">
+    {% if data_theme=="dark" %}
+        <style id="prism-dark">
+    {% else %}
+        <style id="prism-dark" media="max-width: 1px">
+    {% endif %}
         {% include "assets/prism-night.css" %}
     </style>
-    <style id="prism-light" media="max-width: 1px">
+    {% if data_theme=="dark" %}
+        <style id="prism-light" media="max-width: 1px">
+    {% else %}
+        <style id="prism-light">
+    {% endif %}
         {% include "assets/prism-default.css" %}
     </style>
     <style>
@@ -36,16 +44,18 @@
                     </hgroup>
                 </li>
             </ul>
-            <ul>
-                <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
-            </ul>
+            {% if format=="html" %}
+                <ul>
+                    <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
+                </ul>
+            {% endif %}
         </nav>
     {% for chunk in chunks %}
         <div class="code-block">
-            {% if format=="pdf" %}
-                <details open>
-            {% else %}
+            {% if format=="html" %}
                 <details>
+            {% else %}
+                <details open>
             {% endif %}
                 <summary>Source code</summary>
                 <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
