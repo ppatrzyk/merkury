@@ -6,7 +6,6 @@ from datetime import datetime
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
 import re
-import sys
 
 jinja = Environment(
     loader=PackageLoader("merkury", "templates")
@@ -25,7 +24,7 @@ def join_chunks(code):
         in_chunk += "".join((line+"\n" for line in input))
         if output != "":
             out_chunk += output
-            assert(sum([html, markdown]) <= 1, "Only one option can be specified")
+            assert (sum([html, markdown]) <= 1), "Only one option can be specified"
             yield {"in": in_chunk, "out": out_chunk, "html": html, "markdown": markdown}
             in_chunk = out_chunk = ""
             html = markdown = False
@@ -45,8 +44,15 @@ def produce_report(code, format, python_file_name, output_file_path):
     data = {"chunks": chunks, "timestamp": timestamp, "file_name": python_file_name}
     template = jinja.get_template("template.html")
     report = template.render(data)
-    if output_file_path:
-        with open(output_file_path, "w") as out:
-            out.write(report)
-    else:
-        sys.stdout.write(report)
+    with open(output_file_path, "w") as out:
+        out.write(report)
+    return True
+
+def get_default_name(python_file_name, format):
+    """
+    Default file name for report
+    """
+    date_now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    file_name = re.sub(".py$", "", python_file_name)
+    out_file_name = f'{file_name}_{date_now}.{format}'
+    return out_file_name
