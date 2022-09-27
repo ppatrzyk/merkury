@@ -6,6 +6,7 @@ from datetime import datetime
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
 from pathlib import Path
+import pdfkit
 import re
 
 jinja = Environment(
@@ -32,7 +33,7 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, format, python_file_name, output_file_path):
+def produce_report(code, format, python_file_path, output_file_path):
     """
     Main function for transforming raw code
     """
@@ -42,11 +43,15 @@ def produce_report(code, format, python_file_name, output_file_path):
     if (chunks[-1]["out"] is None) and (len(chunks) > 1):
         chunks[-2]["in"] += chunks[-1]["in"]
         del chunks[-1]
-    data = {"chunks": chunks, "timestamp": timestamp, "file_name": python_file_name}
+    data = {"chunks": chunks, "timestamp": timestamp, "file_name": python_file_path.name}
     template = jinja.get_template("template.html")
     report = template.render(data)
-    with output_file_path.open("w") as out:
-        out.write(report)
+    match format:
+        case 'html':
+            with output_file_path.open("w") as out:
+                out.write(report)
+        case 'pdf':
+            pdfkit.from_string(report, output_file_path)
     return True
 
 def get_default_path(python_file_path, format):

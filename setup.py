@@ -14,7 +14,7 @@ setup(name='merkury',
     url='https://github.com/ppatrzyk/merkury',
     packages=['merkury'],
     package_data={'merkury': ['templates/*', 'templates/assets/*']},
-    python_requires='>=3.9',
+    python_requires='>=3.10',
     install_requires=[
         'docopt>=0.6.2',
         'Jinja2>=3.1.2',
