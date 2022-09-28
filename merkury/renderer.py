@@ -3,6 +3,7 @@ Reformats code output into report.
 """
 
 from datetime import datetime
+from importlib.metadata import version
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
 from pathlib import Path
@@ -47,7 +48,8 @@ def produce_report(code, format, python_file_path, output_file_path):
         "data_theme": "dark" if (format == "html") else "light",
         "file_name": python_file_path.name,
         "format": format,
-        "timestamp": datetime.now().strftime("%c"),
+        "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "version": version("merkury"),
     }
     template = jinja.get_template("template.html")
     report = template.render(data)
@@ -70,7 +72,7 @@ def get_default_path(python_file_path, format):
     """
     Default file name for report
     """
-    date_now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
     file_name = re.sub(".py$", "", python_file_path.name)
     out_file_name = f'{file_name}_{date_now}.{format}'
     return Path(python_file_path.parent, out_file_name)
