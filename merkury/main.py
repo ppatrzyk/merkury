@@ -17,7 +17,7 @@ from .runner import execute
 from docopt import docopt
 from pathlib import Path
 
-FORMATS = ('html', 'pdf', )
+FORMATS = ("html", "pdf", )
 THEMES = ("dark", "light", )
 
 def main():
@@ -25,10 +25,10 @@ def main():
     Program entrypoint
     """
     args = docopt(__doc__, version="merkury 0.3")
-    format = (args.get("--format") or 'html').lower()
-    assert format in FORMATS, f'Unknown format: {format}. Options: html, pdf'
-    color_theme = (args.get("--theme") or 'dark').lower()
-    assert color_theme in THEMES, f'Unknown color theme: {color_theme}. Options: dark, light'
+    format = (args.get("--format") or "html").lower()
+    assert format in FORMATS, f"Unknown format: {format}. Options: html, pdf"
+    color_theme = (args.get("--theme") or "dark").lower()
+    assert color_theme in THEMES, f"Unknown color theme: {color_theme}. Options: dark, light"
     python_file_path = Path(args.get("<script>"))
     output_file_path = Path(args.get("--output") or get_default_path(python_file_path, format))
     code = execute(python_file_path)

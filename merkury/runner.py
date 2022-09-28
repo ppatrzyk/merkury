@@ -7,7 +7,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from itertools import starmap
 
-ENV = {'__name__': '__main__'}
+ENV = {"__name__": "__main__"}
 
 def get_node_line(node):
     """
@@ -21,7 +21,7 @@ def get_code_out(node, file_name):
     Get code output from given node
     """
     f = StringIO()
-    code = compile(ast.Module([node, ], type_ignores=[]), file_name, 'exec')
+    code = compile(ast.Module([node, ], type_ignores=[]), file_name, "exec")
     with redirect_stdout(f):
         exec(code, ENV)
     return f.getvalue()
@@ -30,13 +30,13 @@ def execute(path):
     """
     Run python script
     """
-    with path.open('r') as file:
+    with path.open("r") as file:
         source = file.read()
     lines = source.split("\n")
     module = ast.parse(source, path.name)
     start_lines = tuple(map(get_node_line, module.body))
     end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
-    assert code_inputs, 'Python file is empty'
+    assert code_inputs, "Python file is empty"
     code_outputs = tuple(starmap(get_code_out, ((node, path.name, ) for node in module.body)))
     return zip(code_inputs, code_outputs)
