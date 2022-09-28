@@ -34,7 +34,7 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, format, python_file_path, output_file_path):
+def produce_report(code, format, color_theme, python_file_path, output_file_path):
     """
     Main function for transforming raw code
     """
@@ -45,7 +45,7 @@ def produce_report(code, format, python_file_path, output_file_path):
         del chunks[-1]
     data = {
         "chunks": chunks,
-        "data_theme": "dark" if (format == "html") else "light",
+        "color_theme": "light" if (format == "html") else color_theme,
         "file_name": python_file_path.name,
         "format": format,
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
