@@ -2,54 +2,59 @@
 Utility functions for code output formatting
 """
 
-import altair as alt
-import bokeh
-import matplotlib
-import plotly
+import base64
+import io
+import os
+import tempfile
 
-# TODO fix imports such that matching works
-# test on different plot classes (possible?)
+# TODO making altair and bokeh charts non-interactive (png)
+# for pdfs possible, but would require js dependencies see
+# https://pypi.org/project/altair-saver/
+# https://docs.bokeh.org/en/latest/docs/user_guide/export.html#additional-dependencies
 
-def fig_out(content, interactive=True):
-    """
-    Helper function to turn figure into html
-    """
-    match content:
-        case alt.Chart():
-            return _process_altair(content, interactive)
-        case bokeh.plotting.Figure():
-            return _process_bokeh(content, interactive)
-        case matplotlib.figure.Figure():
-            return _process_matplotlib(content, interactive)
-        case plotly.graph_objs._figure.Figure():
-            return _process_plotly(content, interactive)
-        case _:
-            raise ValueError(f"Cannot process type {str(type(content))}")
-
-def _process_altair(content, interactive):
+def output_altair(figure):
     """
     Process altair figure
     """
-    print("Altair detected")
-    return True
+    temp = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
+    figure.save(temp.name)
+    with open(temp.name, "r") as f:
+        rendered_figure = f.read()
+    os.remove(temp.name)
+    return rendered_figure
 
-def _process_bokeh(content, interactive):
+def output_bokeh(figure):
     """
     Process boheh figure
     """
-    print("Bokeh detected")
-    return True
+    from bokeh.embed import file_html
+    from bokeh.resources import CDN
+    return file_html(figure, CDN, "Bokeh plot")
 
-def _process_matplotlib(content, interactive):
+def output_matplotlib(figure):
     """
     Process matplotlib figure
     """
-    print("Matplotlib detected")
-    return True
+    fig_bytes = io.BytesIO()
+    figure.savefig(fig_bytes, format="png")
+    fig_bytes.seek(0)
+    return _bytes_to_html(fig_bytes.read())
 
-def _process_plotly(content, interactive):
+def output_plotly(figure, interactive=True):
     """
     Process plotly figure
     """
-    print("Plotly detected")
-    return True
+    import plotly
+    if interactive:
+        return plotly.io.to_html(figure, include_plotlyjs="cdn")
+    else:
+        img_bytes = figure.to_image(format="png")
+        return _bytes_to_html(img_bytes)
+
+def _bytes_to_html(bytes):
+    """
+    Helper for getting base64 encoded img html tag
+    """
+    img_encoded = base64.b64encode(bytes).decode()
+    img_html = f"""<img src="data:image/png;base64,{img_encoded}" />"""
+    return img_html
