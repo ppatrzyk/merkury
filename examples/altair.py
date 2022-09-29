@@ -1,5 +1,3 @@
-import os
-import tempfile
 import altair as alt
 from merkury.utils import output_altair
 

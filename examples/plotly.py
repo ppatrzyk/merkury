@@ -1,4 +1,3 @@
-import plotly
 import plotly.graph_objs as go
 from merkury.utils import output_plotly
 

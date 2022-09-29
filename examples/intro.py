@@ -1,7 +1,5 @@
 import pandas as pd
 from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.embed import file_html
 from merkury.utils import output_bokeh
 
 iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')

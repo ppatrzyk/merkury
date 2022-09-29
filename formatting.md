@@ -7,12 +7,7 @@ nav_order: 2
 # Formatting
 {: .no_toc }
 
-Merkury processes files with any python code and by default treats output as standard text. However, in some cases you might want to render code output as [raw html](#html) or treat program output as [markdown](#markdown). This section provides an overview on how to do it.
-
-Please also refer to [example report](examples/intro.html).
-
-1. TOC
-{:toc}
+By default merkury treats any output as simple print and puts it into `<code>` blocks. There is also a possibility to treat it as either raw HTML or markdown. This is achieved by placing a _magic comment_ after print statement in your script.
 
 ## HTML
 
@@ -25,11 +20,13 @@ print("""<img src="https://www.python.org/static/img/python-logo-large.c36dccadd
 #HTML
 ```
 
+In addition to writing HTML by hand or using libraries that allow formatting output as HTML, `merkury` provides [utility functions](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py) to format **plots** from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
+
 ## Markdown
 
-You need to put a comment `#MARKDOWN` after a line that outputs markdown text.
+It's also possible to print text formatted in markdown. You need to put magic comment `#MARKDOWN` after print statement.
 
-Example:
+For example:
 
 ```
 print("""
