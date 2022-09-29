@@ -6,7 +6,7 @@ Usage:
 
 Options:
     -h --help                       Show this screen.
-    -o <file>, --output <file>      Specify output file (if missing, "<script_name>_<utc_date>").
+    -o <file>, --output <file>      Specify output file (if missing, "<script_name>_<date>").
     -f <format>, --format <format>  Specify format: html (default), pdf.
     -t <theme>, --theme <theme>     Specify color theme: dark (default), light. Valid for HTML output.
     -v, --version                   Show version.
