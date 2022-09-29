@@ -2,6 +2,7 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.resources import CDN
 from bokeh.embed import file_html
+from merkury.utils import output_bokeh
 
 iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
 
@@ -14,8 +15,8 @@ This code block is written in markdown. You can use any valid markdown sytax. E.
 
 | Column 1    | Column 2 | Column 3   |
 | ----------- | -------- | ---------- |
-| Some value  | _1_      | **3**      |
-| Other value | **2**    | _4_        |
+| Some value  | _1_      | _3_        |
+| Other value | **2**    | **4**      |
 
 If you don't specify [formatting options](https://github.com/ppatrzyk/merkury#formatting-and-plots), output will be treated as python code. 
 
@@ -51,7 +52,7 @@ colors = pd.DataFrame({"species": ["setosa", "virginica", "versicolor", ], "colo
 iris = iris.merge(colors, how="left")
 
 plot = figure(
-    title="You've seen that before",
+    title="Iris species",
     x_axis_label="petal_width",
     y_axis_label="sepal_width"
 )
@@ -62,6 +63,5 @@ plot.circle(
     size = 10
 )
 
-html = file_html(plot, CDN, "Iris species")
-print(html)
+print(output_bokeh(plot))
 #HTML

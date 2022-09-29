@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import mpld3
+from merkury.utils import output_matplotlib
 
 intro = """
 # Matplotlib usage
@@ -12,6 +12,5 @@ print(intro)
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
 
-html = mpld3.fig_to_html(fig)
-print(html)
+print(output_matplotlib(fig))
 #HTML

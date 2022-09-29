@@ -1,5 +1,6 @@
 import plotly
 import plotly.graph_objs as go
+from merkury.utils import output_plotly
 
 intro = """
 # Plotly usage
@@ -16,5 +17,8 @@ data = [go.Scatter(
 
 fig = go.Figure(data=data)
 
-print(plotly.io.to_html(fig, include_plotlyjs="cdn"))
+print(output_plotly(fig))
+#HTML
+
+print(output_plotly(fig, interactive=False))
 #HTML

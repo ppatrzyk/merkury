@@ -1,6 +1,7 @@
 from bokeh.plotting import figure
 from bokeh.resources import CDN
 from bokeh.embed import file_html
+from merkury.utils import output_bokeh
 
 intro = """
 # Bokeh usage
@@ -13,6 +14,5 @@ print(intro)
 plot = figure()
 plot.circle([1, 2, 3, ], [3, 5, 4, ])
 
-html = file_html(plot, CDN, "Bokeh plot")
-print(html)
+print(output_bokeh(plot))
 #HTML

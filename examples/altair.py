@@ -1,6 +1,7 @@
 import os
 import tempfile
 import altair as alt
+from merkury.utils import output_altair
 
 intro = """
 # Altair usage
@@ -19,9 +20,5 @@ chart = alt.Chart(data).mark_point().encode(
 temp = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
 chart.save(temp.name)
 
-with open(temp.name, "r") as f:
-    rendered_chart = f.read()
-    print(rendered_chart)
+print(output_altair(chart))
 #HTML
-
-os.remove(temp.name)
