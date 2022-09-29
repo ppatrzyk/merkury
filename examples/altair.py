@@ -17,8 +17,5 @@ chart = alt.Chart(data).mark_point().encode(
     y="y:Q",
 )
 
-temp = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
-chart.save(temp.name)
-
 print(output_altair(chart))
 #HTML

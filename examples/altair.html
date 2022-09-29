@@ -59,7 +59,7 @@
                 <li>
                     <hgroup>
                         <h1>altair.py</h1>
-                        <h3>2022-09-29 15:00:39 CEST</h3>
+                        <h3>2022-09-29 15:20:57 CEST</h3>
                     </hgroup>
                 </li>
             </ul>
@@ -111,9 +111,6 @@ chart = alt.Chart(data).mark_point().encode(
     x=&#34;x:Q&#34;,
     y=&#34;y:Q&#34;,
 )
-
-temp = tempfile.NamedTemporaryFile(delete=False, suffix=&#34;.html&#34;)
-chart.save(temp.name)
 
 print(output_altair(chart))
 #HTML

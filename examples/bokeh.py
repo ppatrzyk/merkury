@@ -1,6 +1,4 @@
 from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.embed import file_html
 from merkury.utils import output_bokeh
 
 intro = """

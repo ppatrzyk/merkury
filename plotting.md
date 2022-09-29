@@ -7,14 +7,23 @@ nav_order: 3
 # Plotting
 {: .no_toc }
 
-_Any_ library that can produce plot in HTML format will work fine with _Merkury_. Below are examples on how to achieve that with some of them.
+In this section you can find description of tested libraries that are supported with merkury [utility functions](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py). In case you need to use something else: _any_ library that can produce plot in HTML format will work fine with _merkury_ when producing HTML report. For PDF reports it's necessary that library is able to produce images. Refer to [utility functions implementation](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py) how to achieve that.
 
 1. TOC
 {:toc}
 
+## Output compatibility
+
+|                 | HTML     | PDF        | Notes                    |
+| --------------- | -------- | ---------- | ------------------------ |
+| **Altair**      | yes      | no         | requires _altair_saver_  |
+| **Bokeh**       | yes      | no         |                          |
+| **Matplotlib**  | yes      | yes        |                          |
+| **Plotly**      | yes      | yes        | requires _kaleido_       |
+
 ## Altair
 
-[Save chart as html](https://altair-viz.github.io/user_guide/saving_charts.html) and print contents of the file.
+[Altair example](examples/altair.html)
 
 ```python
 import os
@@ -27,57 +36,42 @@ chart = alt.Chart(data).mark_point().encode(
     y="y:Q",
 )
 
-temp = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
-chart.save(temp.name)
-
-with open(temp.name, "r") as f:
-    rendered_chart = f.read()
-    print(rendered_chart)
+print(output_altair(chart))
 #HTML
 
-os.remove(temp.name)
 ```
-
-- [Altair example](examples/altair.html)
 
 ## Bokeh
 
-Print output of [`file_html`](https://docs.bokeh.org/en/latest/docs/user_guide/embed.html#userguide-embed-standalone).
+[Bokeh example](examples/bokeh.html)
 
 ```python
 from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.embed import file_html
 
 plot = figure()
 plot.circle([1, 2, 3, ], [3, 5, 4, ])
 
-html = file_html(plot, CDN, "Bokeh plot")
-print(html)
+print(output_bokeh(plot))
 #HTML
 ```
 
-- [Bokeh example](examples/bokeh.html)
-
 ## Matplotlib
 
-You need to export figure to html using [`mpld3`](https://mpld3.github.io/modules/API.html#mpld3.fig_to_html).
+[Matplotlib example](examples/matplotlib.html)
 
 ```python
 import matplotlib.pyplot as plt
-import mpld3
 
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
 
-html = mpld3.fig_to_html(fig)
-print(html)
+print(output_matplotlib(fig))
 #HTML
 ```
 
-- [Matplotlib example](examples/matplotlib.html)
-
 ## Plotly
+
+[Plotly example](examples/plotly.html)
 
 ```python
 import plotly
@@ -90,10 +84,9 @@ data = [go.Scatter(
 
 fig = go.Figure(data=data)
 
-print(plotly.io.to_html(fig, include_plotlyjs="cdn"))
+print(output_plotly(fig))
+#HTML
+
+print(output_plotly(fig, interactive=False))
 #HTML
 ```
-
-Print output of [`plotly.io.to_html`](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html). Please refer to plotly docs on different options how to provide javascript dependencies.
-
-- [Plotly example](examples/plotly.html)
