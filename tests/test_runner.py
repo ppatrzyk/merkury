@@ -9,4 +9,5 @@ def test_execute():
         (["""print(f"Test {s}")""", ""], "Test some string\n"),
         (["b = a + 5", ""], "")
     ]
-    assert list(execute(script)) == expected_code
+    code, _duration = execute(script)
+    assert list(code) == expected_code

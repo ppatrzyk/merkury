@@ -34,8 +34,16 @@ def main():
     author = (args.get("--author") or get_default_author())
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
-    code = execute(script_file_path)
-    produce_report(code, format, color_theme, author, script_file_path, report_file_path)
+    code, duration = execute(script_file_path)
+    produce_report(
+        code=code,
+        duration=duration,
+        format=format,
+        color_theme=color_theme,
+        author=author,
+        script_name=script_file_path.name,
+        report_file_path=report_file_path
+    )
 
 if __name__ == "__main__":
     main()

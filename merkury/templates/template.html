@@ -42,7 +42,7 @@
                 <li>
                     <hgroup>
                         <h1>{{ file_name }}</h1>
-                        <h3>Produced by {{ author }} on {{ timestamp }}</h3>
+                        <h3>{{ timestamp }}</h3>
                     </hgroup>
                 </li>
             </ul>
@@ -75,7 +75,10 @@
         </div>
     {% endfor %}
         <footer class="container foot">
-            <small>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</small>
+            <small>
+                <p>Script triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
+                <p>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
+            </small>
         </footer>
     </main>
     {% if format=="html" %}

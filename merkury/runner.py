@@ -6,6 +6,7 @@ import ast
 from contextlib import redirect_stdout
 from io import StringIO
 from itertools import starmap
+from time import time
 
 ENV = {"__name__": "__main__"}
 
@@ -30,6 +31,7 @@ def execute(path):
     """
     Run python script
     """
+    start = time()
     with path.open("r") as file:
         source = file.read()
     lines = source.split("\n")
@@ -39,4 +41,5 @@ def execute(path):
     code_inputs = tuple(lines[start:end] for start, end in zip(start_lines, end_lines))
     assert code_inputs, "Python file is empty"
     code_outputs = tuple(starmap(get_code_out, ((node, path.name, ) for node in module.body)))
-    return zip(code_inputs, code_outputs)
+    duration_ms = int(1000*(time()-start))
+    return zip(code_inputs, code_outputs), duration_ms
