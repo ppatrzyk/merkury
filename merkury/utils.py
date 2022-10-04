@@ -5,6 +5,8 @@ Utility functions for code output formatting
 import base64
 import io
 import os
+import re
+import subprocess
 import tempfile
 
 # TODO making altair and bokeh charts non-interactive (png)
@@ -58,3 +60,16 @@ def _bytes_to_html(bytes):
     img_encoded = base64.b64encode(bytes).decode()
     img_html = f"""<img src="data:image/png;base64,{img_encoded}" />"""
     return img_html
+
+def get_default_author():
+    """
+    Get default report author
+    """
+    whoami = subprocess.run(
+        "whoami",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+    author = re.sub("\n", "", whoami.stdout.decode())
+    return author

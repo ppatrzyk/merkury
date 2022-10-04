@@ -34,7 +34,7 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, format, color_theme, python_file_path, output_file_path):
+def produce_report(code, format, color_theme, author, python_file_path, output_file_path):
     """
     Main function for transforming raw code
     """
@@ -48,6 +48,7 @@ def produce_report(code, format, color_theme, python_file_path, output_file_path
         "color_theme": "light" if (format == "pdf") else color_theme,
         "file_name": python_file_path.name,
         "format": format,
+        "author": author,
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": version("merkury"),
     }
