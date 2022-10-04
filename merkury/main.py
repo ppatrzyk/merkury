@@ -24,7 +24,7 @@ def main():
     """
     Program entrypoint
     """
-    args = docopt(__doc__, version="merkury 0.3")
+    args = docopt(__doc__, version="merkury v0.4")
     format = (args.get("--format") or "html").lower()
     assert format in FORMATS, f"Unknown format: {format}. Options: html, pdf"
     color_theme = (args.get("--theme") or "dark").lower()
