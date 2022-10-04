@@ -13,9 +13,9 @@ Options:
     -v, --version                   Show version.
 """
 
-from .renderer import get_default_path, produce_report
+from .renderer import produce_report
 from .runner import execute
-from .utils import get_default_author
+from .utils import get_default_author, get_default_path
 from docopt import docopt
 from pathlib import Path
 
@@ -32,10 +32,10 @@ def main():
     color_theme = (args.get("--theme") or "dark").lower()
     assert color_theme in THEMES, f"Unknown color theme: {color_theme}. Options: dark, light"
     author = (args.get("--author") or get_default_author())
-    python_file_path = Path(args.get("<script>"))
-    output_file_path = Path(args.get("--output") or get_default_path(python_file_path, format))
-    code = execute(python_file_path)
-    produce_report(code, format, color_theme, author, python_file_path, output_file_path)
+    script_file_path = Path(args.get("<script>"))
+    report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
+    code = execute(script_file_path)
+    produce_report(code, format, color_theme, author, script_file_path, report_file_path)
 
 if __name__ == "__main__":
     main()

@@ -3,16 +3,15 @@ Utility functions for code output formatting
 """
 
 import base64
+from datetime import datetime
 import io
 import os
+from pathlib import Path
 import re
 import subprocess
 import tempfile
 
-# TODO making altair and bokeh charts non-interactive (png)
-# for pdfs possible, but would require js dependencies see
-# https://pypi.org/project/altair-saver/
-# https://docs.bokeh.org/en/latest/docs/user_guide/export.html#additional-dependencies
+### Helpers for Plotting ###
 
 def output_altair(figure):
     """
@@ -61,6 +60,13 @@ def _bytes_to_html(bytes):
     img_html = f"""<img src="data:image/png;base64,{img_encoded}" />"""
     return img_html
 
+# TODO making altair and bokeh charts non-interactive (png)
+# for pdfs possible, but would require js dependencies see
+# https://pypi.org/project/altair-saver/
+# https://docs.bokeh.org/en/latest/docs/user_guide/export.html#additional-dependencies
+
+### Other utils ###
+
 def get_default_author():
     """
     Get default report author
@@ -73,3 +79,12 @@ def get_default_author():
     )
     author = re.sub("\n", "", whoami.stdout.decode())
     return author
+
+def get_default_path(script_file_path, format):
+    """
+    Default file path for report
+    """
+    date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
+    file_name = re.sub(".py$", "", script_file_path.name)
+    out_file_name = f"{file_name}_{date_now}.{format}"
+    return Path(script_file_path.parent, out_file_name)

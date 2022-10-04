@@ -6,7 +6,6 @@ from datetime import datetime
 from importlib.metadata import version
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
-from pathlib import Path
 import pdfkit
 import re
 
@@ -34,7 +33,7 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, format, color_theme, author, python_file_path, output_file_path):
+def produce_report(code, format, color_theme, author, script_file_path, report_file_path):
     """
     Main function for transforming raw code
     """
@@ -46,7 +45,7 @@ def produce_report(code, format, color_theme, author, python_file_path, output_f
     data = {
         "chunks": chunks,
         "color_theme": "light" if (format == "pdf") else color_theme,
-        "file_name": python_file_path.name,
+        "file_name": script_file_path.name,
         "format": format,
         "author": author,
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
@@ -56,7 +55,7 @@ def produce_report(code, format, color_theme, author, python_file_path, output_f
     report = template.render(data)
     match format:
         case "html":
-            with output_file_path.open("w") as out:
+            with report_file_path.open("w") as out:
                 out.write(report)
         case "pdf":
             options = {
@@ -66,14 +65,5 @@ def produce_report(code, format, color_theme, author, python_file_path, output_f
                 "margin-bottom": "25mm",
                 "margin-left": "25mm",
             }
-            pdfkit.from_string(report, output_file_path, options=options)
+            pdfkit.from_string(report, report_file_path, options=options)
     return True
-
-def get_default_path(python_file_path, format):
-    """
-    Default file name for report
-    """
-    date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
-    file_name = re.sub(".py$", "", python_file_path.name)
-    out_file_name = f"{file_name}_{date_now}.{format}"
-    return Path(python_file_path.parent, out_file_name)
