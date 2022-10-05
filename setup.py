@@ -20,6 +20,7 @@ setup(name="merkury",
         "Jinja2>=3.1.2",
         "Markdown>=3.4.1",
         "pdfkit>=1.0.0",
+        "prettytable>=3.4.1",
     ],
     entry_points={
         "console_scripts": [

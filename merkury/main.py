@@ -19,6 +19,7 @@ from .runner import execute_python, execute_sqlite
 from .utils import get_default_author, get_default_path
 from docopt import docopt
 from pathlib import Path
+from time import time
 
 FORMATS = ("html", "pdf", )
 THEMES = ("dark", "light", )
@@ -35,13 +36,16 @@ def main():
     author = (args.get("--author") or get_default_author())
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
+    start = time()
     if args.get("sqlite"):
-        code, duration = execute_sqlite(script_file_path)
+        db_path = Path(args.get("<db_path>"))
+        code = execute_sqlite(db_path, script_file_path)
     else:
-        code, duration = execute_python(script_file_path)
+        code = execute_python(script_file_path)
+    duration_ms = int(1000*(time()-start))
     produce_report(
         code=code,
-        duration=duration,
+        duration=duration_ms,
         format=format,
         color_theme=color_theme,
         author=author,

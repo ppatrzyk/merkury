@@ -9,8 +9,7 @@ def test_execute_python():
         (["""print(f"Test {s}")""", ""], "Test some string\n"),
         (["b = a + 5", ""], "")
     ]
-    code, _duration = execute_python(script)
-    assert list(code) == expected_code
+    assert list(execute_python(script)) == expected_code
 
 def test_execute_sqlite():
     # TODO
