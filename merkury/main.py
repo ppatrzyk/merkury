@@ -16,8 +16,9 @@ Options:
 
 from .renderer import produce_report
 from .runner import execute_python, execute_sqlite
-from .utils import get_default_author, get_default_path
+from .utils import get_default_path
 from docopt import docopt
+from os import getlogin
 from pathlib import Path
 from time import time
 
@@ -33,7 +34,7 @@ def main():
     assert format in FORMATS, f"Unknown format: {format}. Options: html, pdf"
     color_theme = (args.get("--theme") or "dark").lower()
     assert color_theme in THEMES, f"Unknown color theme: {color_theme}. Options: dark, light"
-    author = (args.get("--author") or get_default_author())
+    author = (args.get("--author") or getlogin())
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
     start = time()

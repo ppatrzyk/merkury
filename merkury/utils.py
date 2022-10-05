@@ -8,7 +8,6 @@ import io
 import os
 from pathlib import Path
 import re
-import subprocess
 import tempfile
 
 ### Helpers for Plotting ###
@@ -66,19 +65,6 @@ def _bytes_to_html(bytes):
 # https://docs.bokeh.org/en/latest/docs/user_guide/export.html#additional-dependencies
 
 ### Other utils ###
-
-def get_default_author():
-    """
-    Get default report author
-    """
-    whoami = subprocess.run(
-        "whoami",
-        shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-    author = re.sub("\n", "", whoami.stdout.decode())
-    return author
 
 def get_default_path(script_file_path, format):
     """
