@@ -3,18 +3,19 @@
 
 Usage:
     merkury [options] <script>
+    merkury [options] sqlite <db_path> <script>
 
 Options:
     -h --help                       Show this screen.
-    -o <file>, --output <file>      Specify output file (if missing, "<script_name>_<date>").
-    -f <format>, --format <format>  Specify format: html (default), pdf.
-    -t <theme>, --theme <theme>     Specify color theme: dark (default), light. Valid for HTML output.
+    -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
+    -f <format>, --format <format>  Specify report format: html (default), pdf.
+    -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name)
-    -v, --version                   Show version.
+    -v, --version                   Show version and exit.
 """
 
 from .renderer import produce_report
-from .runner import execute
+from .runner import execute_python, execute_sqlite
 from .utils import get_default_author, get_default_path
 from docopt import docopt
 from pathlib import Path
@@ -34,7 +35,10 @@ def main():
     author = (args.get("--author") or get_default_author())
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
-    code, duration = execute(script_file_path)
+    if args.get("sqlite"):
+        code, duration = execute_sqlite(script_file_path)
+    else:
+        code, duration = execute_python(script_file_path)
     produce_report(
         code=code,
         duration=duration,

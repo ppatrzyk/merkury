@@ -27,7 +27,7 @@ def get_code_out(node, file_name):
         exec(code, ENV)
     return f.getvalue()
 
-def execute(path):
+def execute_python(path):
     """
     Run python script
     """
@@ -43,3 +43,9 @@ def execute(path):
     code_outputs = tuple(starmap(get_code_out, ((node, path.name, ) for node in module.body)))
     duration_ms = int(1000*(time()-start))
     return zip(code_inputs, code_outputs), duration_ms
+
+def execute_sqlite(path):
+    """
+    Run sql script on SQLite DB
+    """
+    raise NotImplementedError("TODO")
