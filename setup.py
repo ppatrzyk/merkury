@@ -21,6 +21,7 @@ setup(name="merkury",
         "Markdown>=3.4.1",
         "pdfkit>=1.0.0",
         "prettytable>=3.4.1",
+        "sqlparse>=0.4.3",
     ],
     entry_points={
         "console_scripts": [

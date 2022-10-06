@@ -1,12 +1,11 @@
 """
-Functions for running the script.
+Functions for running python scripts.
 """
 
 import ast
 from contextlib import redirect_stdout
 from io import StringIO
 from itertools import starmap
-import sqlite3
 
 ENV = {"__name__": "__main__"}
 
@@ -41,20 +40,3 @@ def execute_python(script_path):
     assert code_inputs, "Python file is empty"
     code_outputs = tuple(starmap(get_code_out, ((node, script_path.name, ) for node in module.body)))
     return zip(code_inputs, code_outputs)
-
-def execute_sqlite(db_path, script_path):
-    """
-    Run sql script on SQLite DB
-    """
-    con = sqlite3.connect(db_path)
-    with script_path.open("r") as file:
-        source = file.read()
-    # TODO by line OR split on statements (;)
-    lines = source.split("\n")
-    print(lines)
-    statements = source.split(";")
-    # TODO keep ; at the end of line
-    print(statements)
-    # TODO how formatting comments #HTML are read here (before/after)
-    # TODO cursor and execute statements, prettytable formatting
-    raise NotImplementedError("TODO")
