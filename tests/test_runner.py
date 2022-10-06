@@ -25,8 +25,8 @@ def test_generate_satements():
 
 def test_execute_sqlite():
     expected_code = [
-        (["""select "string1";"""], "string1"),
-        (["select", "", """  "string2";"""], "string2"),
+        (["""select "string1";"""], """+-----------+\n| "string1" |\n+-----------+\n|  string1  |\n+-----------+"""),
+        (["select", "", """  "string2";"""], """+-----------+\n| "string2" |\n+-----------+\n|  string2  |\n+-----------+"""),
         (["create table", " test(id int);"], ""),
         (["-- comment"], ""),
     ]
