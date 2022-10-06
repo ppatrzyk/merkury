@@ -18,6 +18,8 @@ from .renderer import produce_report
 from .runner_py import execute_python
 from .runner_sql import execute_sqlite
 from .utils import get_default_path
+from datetime import datetime
+from importlib.metadata import version
 from docopt import docopt
 from os import getlogin
 from pathlib import Path
@@ -25,21 +27,22 @@ from time import time
 
 FORMATS = ("html", "pdf", )
 THEMES = ("dark", "light", )
+VERSION = version("merkury")
 
 def main():
     """
     Program entrypoint
     """
-    args = docopt(__doc__, version="merkury v0.4")
+    args = docopt(__doc__, version=f"merkury v{VERSION}")
     format = (args.get("--format") or "html").lower()
     assert format in FORMATS, f"Unknown format: {format}. Options: html, pdf"
-    color_theme = (args.get("--theme") or "dark").lower()
+    color_theme = "light" if (format == "pdf") else ((args.get("--theme") or "dark").lower())
     assert color_theme in THEMES, f"Unknown color theme: {color_theme}. Options: dark, light"
-    author = (args.get("--author") or getlogin())
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
+    suffix = script_file_path.suffix.lower()
     start = time()
-    match script_file_path.suffix.lower():
+    match suffix:
         case ".py":
             code = execute_python(script_file_path)
         case ".sql":
@@ -47,15 +50,20 @@ def main():
             code = execute_sqlite(db_path, script_file_path)
         case _:
             raise ValueError(f"Unknown file {script_file_path}")
-    duration_ms = int(1000*(time()-start))
+    template_data = {
+        "duration": int(1000*(time()-start)),
+        "format": format,
+        "color_theme": color_theme,
+        "author": (args.get("--author") or getlogin()),
+        "script_type": suffix,
+        "file_name": script_file_path.name,
+        "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "version": VERSION,
+    }
     produce_report(
         code=code,
-        duration=duration_ms,
-        format=format,
-        color_theme=color_theme,
-        author=author,
-        script_name=script_file_path.name,
-        report_file_path=report_file_path
+        report_file_path=report_file_path,
+        template_data=template_data
     )
 
 if __name__ == "__main__":

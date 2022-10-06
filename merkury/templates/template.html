@@ -60,7 +60,11 @@
                 <details open>
             {% endif %}
                 <summary>Source code</summary>
+            {% if script_type==".py" %}
                 <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
+            {% else %}
+                <pre><code class="language-sql">{{ chunk.in|e }}</code></pre>
+            {% endif %}
             </details>
             <details open>
                 <summary>Output</summary>
@@ -69,7 +73,11 @@
                 {% elif chunk.markdown %}
                     {{ markdown(chunk.out) }}
                 {% else %}
-                    <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
+                    {% if script_type==".py" %}
+                        <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
+                    {% else %}
+                        <pre><code class="language-sql">{{ chunk.out|e }}</code></pre>
+                    {% endif %}
                 {% endif %}
             </details>
         </div>

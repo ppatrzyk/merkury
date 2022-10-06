@@ -2,8 +2,6 @@
 Reformats code output into report.
 """
 
-from datetime import datetime
-from importlib.metadata import version
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
 import pdfkit
@@ -13,6 +11,14 @@ jinja = Environment(
     loader=PackageLoader("merkury", "templates")
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
+
+PDFKIT_OPTS = {
+    "page-size": "A4",
+    "margin-top": "25mm",
+    "margin-right": "25mm",
+    "margin-bottom": "25mm",
+    "margin-left": "25mm",
+}
 
 def join_chunks(code):
     """
@@ -33,7 +39,7 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
-def produce_report(code, duration, format, color_theme, author, script_name, report_file_path):
+def produce_report(code, report_file_path, template_data):
     """
     Main function for transforming raw code
     """
@@ -42,29 +48,13 @@ def produce_report(code, duration, format, color_theme, author, script_name, rep
     if (chunks[-1]["out"] is None) and (len(chunks) > 1):
         chunks[-2]["in"] += chunks[-1]["in"]
         del chunks[-1]
-    data = {
-        "chunks": chunks,
-        "color_theme": "light" if (format == "pdf") else color_theme,
-        "file_name": script_name,
-        "format": format,
-        "author": author,
-        "duration": duration,
-        "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
-        "version": version("merkury"),
-    }
+    data = {**template_data, "chunks": chunks,}
     template = jinja.get_template("template.html")
     report = template.render(data)
-    match format:
+    match data.get("format"):
         case "html":
             with report_file_path.open("w") as out:
                 out.write(report)
         case "pdf":
-            options = {
-                "page-size": "A4",
-                "margin-top": "25mm",
-                "margin-right": "25mm",
-                "margin-bottom": "25mm",
-                "margin-left": "25mm",
-            }
-            pdfkit.from_string(report, report_file_path, options=options)
+            pdfkit.from_string(report, report_file_path, options=PDFKIT_OPTS)
     return True
