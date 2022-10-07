@@ -28,12 +28,3 @@ def test_generate_satements():
         ["-- comment"]
     ]
     assert generate_satements(SQL_SCRIPT) == expected
-
-def test_execute_sqlite():
-    expected_code = [
-        (["""select "string1";"""], """+-----------+\n| "string1" |\n+-----------+\n|  string1  |\n+-----------+"""),
-        (["select", "", """  "string2";"""], """+-----------+\n| "string2" |\n+-----------+\n|  string2  |\n+-----------+"""),
-        (["create table", " test(id int);"], ""),
-        (["-- comment"], ""),
-    ]
-    assert list(execute_sqlite(":memory:", SQL_SCRIPT)) == expected_code

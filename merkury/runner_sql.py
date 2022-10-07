@@ -3,6 +3,8 @@ Functions for runnig SQL scripts
 """
 from itertools import starmap
 import prettytable
+import psycopg
+import re
 import sqlite3
 import sqlparse
 
@@ -24,13 +26,19 @@ def trigger_query(cursor, query):
     table = "" if table is None else table.get_string()
     return table
 
-def execute_sqlite(db_path, script_path):
+def execute_sql(db_path, script_path):
     """
-    Run sql script on SQLite DB
+    Run sql script on SQL DB
+    Supported: SQLite, PostgreSQL
     """
     code_inputs = generate_satements(script_path)
-    con = sqlite3.connect(db_path)
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
+    if re.search(r"(^postgres://|^postgresql://)", db_path):
+        db_conn = psycopg.connect(db_path)
+    else:
+        # ":memory:" or file path
+        db_conn = sqlite3.connect(db_path)
+        db_conn.row_factory = sqlite3.Row
+    cur = db_conn.cursor()
     code_outputs = tuple(starmap(trigger_query, ((cur, "\n".join(query), ) for query in code_inputs)))
+    db_conn.close()
     return zip(code_inputs, code_outputs)

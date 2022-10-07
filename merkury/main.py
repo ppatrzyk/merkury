@@ -6,7 +6,7 @@ Usage:
 
 Options:
     -h --help                       Show this screen.
-    -d <db>, --database <db>        Specify database file path (if missing, in memory). Valid for SQL scripts.
+    -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
     -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
     -f <format>, --format <format>  Specify report format: html (default), pdf.
     -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
@@ -16,7 +16,7 @@ Options:
 
 from .renderer import produce_report
 from .runner_py import execute_python
-from .runner_sql import execute_sqlite
+from .runner_sql import execute_sql
 from .utils import get_default_path
 from datetime import datetime
 from importlib.metadata import version
@@ -40,14 +40,14 @@ def main():
     assert color_theme in THEMES, f"Unknown color theme: {color_theme}. Options: dark, light"
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
-    suffix = script_file_path.suffix.lower()
+    script_type = script_file_path.suffix.lower()
     start = time()
-    match suffix:
+    match script_type:
         case ".py":
             code = execute_python(script_file_path)
         case ".sql":
             db_path = args.get("--database") or ":memory:"
-            code = execute_sqlite(db_path, script_file_path)
+            code = execute_sql(db_path, script_file_path)
         case _:
             raise ValueError(f"Unknown file {script_file_path}")
     template_data = {
@@ -55,7 +55,7 @@ def main():
         "format": format,
         "color_theme": color_theme,
         "author": (args.get("--author") or getlogin()),
-        "script_type": suffix,
+        "script_type": script_type,
         "file_name": script_file_path.name,
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": VERSION,
