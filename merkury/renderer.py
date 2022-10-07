@@ -20,15 +20,19 @@ PDFKIT_OPTS = {
     "margin-left": "25mm",
 }
 
-def join_chunks(code):
+def chunk_generator(code, script_type):
     """
-    Join code nodes without anything printed
+    Join code nodes
     """
     in_chunk = out_chunk = ""
     html = markdown = False
     for input, output in code:
-        html = html or any((bool(re.match("^#HTML", line)) for line in input))
-        markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
+        if script_type == ".py":
+            html = html or any((bool(re.match("^#HTML", line)) for line in input))
+            markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
+        elif script_type == ".sql":
+            html = True
+            markdown = False
         in_chunk += "".join((line+"\n" for line in input))
         if output != "":
             out_chunk += output
@@ -39,15 +43,22 @@ def join_chunks(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False}
 
+def join_chunks(code, script_type):
+    """
+    Turn raw code into chunks used for report
+    """
+    chunks = list(chunk_generator(code, script_type))
+    # if last chunk does not print anything, it"s appended to previous one
+    if (len(chunks) > 1) and (chunks[-1]["out"] is None):
+        chunks[-2]["in"] += chunks[-1]["in"]
+        del chunks[-1]
+    return chunks
+
 def produce_report(code, report_file_path, template_data):
     """
     Main function for transforming raw code
     """
-    chunks = list(join_chunks(code))
-    # if last chunk does not print anything, it"s appended to previous one
-    if (chunks[-1]["out"] is None) and (len(chunks) > 1):
-        chunks[-2]["in"] += chunks[-1]["in"]
-        del chunks[-1]
+    chunks = join_chunks(code, template_data.get("script_type"))
     data = {**template_data, "chunks": chunks,}
     template = jinja.get_template("template.html")
     report = template.render(data)

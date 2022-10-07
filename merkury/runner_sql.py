@@ -23,7 +23,7 @@ def trigger_query(cursor, query):
     """
     result = cursor.execute(query)
     table = prettytable.from_db_cursor(result)
-    table = "" if table is None else table.get_string()
+    table = "" if table is None else table.get_html_string()
     return table
 
 def execute_sql(db_path, script_path):
