@@ -11,3 +11,7 @@
 .search {
     max-width: 200px;
 }
+.pagination li {
+    display: inline-block;
+    padding: 5px;
+}
