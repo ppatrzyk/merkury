@@ -37,15 +37,21 @@ Options:
     -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
     -f <format>, --format <format>  Specify report format: html (default), pdf.
     -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
-    -n, --no-interactive            Do not make tables interactive (search, sort, paging). Valid for HTML output.
+    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name)
     -v, --version                   Show version and exit.
 ```
 
+### Database connection
+
 For running SQL scripts, _merkury_ supports PostgreSQL and SQLite. Regarding `--database` option:
 
 - For SQLite, you need to specify path to db file (or empty if you want to run script in memory without an existing db)
-- For PostgreSQL, you need to specify [connection string](https://www.postgresql.org/docs/current/libpq-connect.html#id-1.7.3.8.3.6) (`postgresql://[userspec@][hostspec][/dbname][?paramspec]`)
+- For PostgreSQL, you need to specify [connection string](https://www.postgresql.org/docs/current/libpq-connect.html#id-1.7.3.8.3.6), i.e.: `postgresql://[userspec@][hostspec][/dbname][?paramspec]`
+
+### Automatic interactive tables
+
+When setting `--interactive ` option, _merkury_ will try to make all HTML `<table>` elements in the report interactive (i.e. add search, sort, and pagination). It's always safe to use with SQL scripts, for Python you need to ensure that printed table uses proper elements (i.e. `<th>` indicating headers rather that data cells). If this is not the case, interactive elements will not function properly.
 
 ## Formatting and plots
 
