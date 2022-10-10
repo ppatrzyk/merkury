@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", interactive_tables);
                 <li>
                     <hgroup>
                         <h1>intro-sql.sql</h1>
-                        <h3>2022-10-10 17:16:26 CEST</h3>
+                        <h3>2022-10-10 17:53:53 CEST</h3>
                     </hgroup>
                 </li>
             </ul>
@@ -148,157 +148,7 @@ document.addEventListener("DOMContentLoaded", interactive_tables);
                 <pre><code class="language-sql">-- Script ran against Chinook database
 -- https://github.com/lerocha/chinook-database
 
-select BillingCountry, count(*) as Invoices, sum(Total) as Total_spent from Invoice
-group by BillingCountry
-order by Invoices desc;
-</code></pre>
-            
-            </details>
-            <details open>
-                <summary>Output</summary>
-                
-                    <object><table>
-    <thead>
-        <tr>
-            <th>BillingCountry</th>
-            <th>Invoices</th>
-            <th>Total_spent</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>USA</td>
-            <td>91</td>
-            <td>523.0600000000003</td>
-        </tr>
-        <tr>
-            <td>Canada</td>
-            <td>56</td>
-            <td>303.9599999999999</td>
-        </tr>
-        <tr>
-            <td>France</td>
-            <td>35</td>
-            <td>195.09999999999994</td>
-        </tr>
-        <tr>
-            <td>Brazil</td>
-            <td>35</td>
-            <td>190.09999999999997</td>
-        </tr>
-        <tr>
-            <td>Germany</td>
-            <td>28</td>
-            <td>156.48</td>
-        </tr>
-        <tr>
-            <td>United Kingdom</td>
-            <td>21</td>
-            <td>112.85999999999999</td>
-        </tr>
-        <tr>
-            <td>Portugal</td>
-            <td>14</td>
-            <td>77.23999999999998</td>
-        </tr>
-        <tr>
-            <td>Czech Republic</td>
-            <td>14</td>
-            <td>90.24000000000001</td>
-        </tr>
-        <tr>
-            <td>India</td>
-            <td>13</td>
-            <td>75.25999999999999</td>
-        </tr>
-        <tr>
-            <td>Sweden</td>
-            <td>7</td>
-            <td>38.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Spain</td>
-            <td>7</td>
-            <td>37.62</td>
-        </tr>
-        <tr>
-            <td>Poland</td>
-            <td>7</td>
-            <td>37.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Norway</td>
-            <td>7</td>
-            <td>39.62</td>
-        </tr>
-        <tr>
-            <td>Netherlands</td>
-            <td>7</td>
-            <td>40.62</td>
-        </tr>
-        <tr>
-            <td>Italy</td>
-            <td>7</td>
-            <td>37.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Ireland</td>
-            <td>7</td>
-            <td>45.62</td>
-        </tr>
-        <tr>
-            <td>Hungary</td>
-            <td>7</td>
-            <td>45.62</td>
-        </tr>
-        <tr>
-            <td>Finland</td>
-            <td>7</td>
-            <td>41.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Denmark</td>
-            <td>7</td>
-            <td>37.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Chile</td>
-            <td>7</td>
-            <td>46.62</td>
-        </tr>
-        <tr>
-            <td>Belgium</td>
-            <td>7</td>
-            <td>37.62</td>
-        </tr>
-        <tr>
-            <td>Austria</td>
-            <td>7</td>
-            <td>42.62</td>
-        </tr>
-        <tr>
-            <td>Australia</td>
-            <td>7</td>
-            <td>37.620000000000005</td>
-        </tr>
-        <tr>
-            <td>Argentina</td>
-            <td>7</td>
-            <td>37.620000000000005</td>
-        </tr>
-    </tbody>
-</table></object>
-                
-            </details>
-        </div>
-    
-        <div class="code-block">
-            
-                <details>
-            
-                <summary>Source code</summary>
-            
-                <pre><code class="language-sql">select Name, count(*) as Albums from Album
+select Name, count(*) as Albums from Album
 left join Artist using (ArtistId)
 group by ArtistId
 having Albums &gt; 1
@@ -547,9 +397,159 @@ order by Albums desc;
             </details>
         </div>
     
+        <div class="code-block">
+            
+                <details>
+            
+                <summary>Source code</summary>
+            
+                <pre><code class="language-sql">select BillingCountry as Country, count(distinct(CustomerId)) as Customers, count(*) as Invoices from Invoice
+group by BillingCountry
+order by Invoices desc;
+</code></pre>
+            
+            </details>
+            <details open>
+                <summary>Output</summary>
+                
+                    <object><table>
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Customers</th>
+            <th>Invoices</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>USA</td>
+            <td>13</td>
+            <td>91</td>
+        </tr>
+        <tr>
+            <td>Canada</td>
+            <td>8</td>
+            <td>56</td>
+        </tr>
+        <tr>
+            <td>France</td>
+            <td>5</td>
+            <td>35</td>
+        </tr>
+        <tr>
+            <td>Brazil</td>
+            <td>5</td>
+            <td>35</td>
+        </tr>
+        <tr>
+            <td>Germany</td>
+            <td>4</td>
+            <td>28</td>
+        </tr>
+        <tr>
+            <td>United Kingdom</td>
+            <td>3</td>
+            <td>21</td>
+        </tr>
+        <tr>
+            <td>Portugal</td>
+            <td>2</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>Czech Republic</td>
+            <td>2</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>India</td>
+            <td>2</td>
+            <td>13</td>
+        </tr>
+        <tr>
+            <td>Sweden</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Spain</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Poland</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Norway</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Netherlands</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Italy</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Ireland</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Hungary</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Finland</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Denmark</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Chile</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Belgium</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Austria</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Australia</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>Argentina</td>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+    </tbody>
+</table></object>
+                
+            </details>
+        </div>
+    
         <footer class="container foot">
             <small>
-                <p>Script triggered by piotr on 2022-10-10 17:16:26 CEST, ran in 2ms</p>
+                <p>Script triggered by piotr on 2022-10-10 17:53:53 CEST, ran in 2ms</p>
                 <p>Page generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v0.4.</p>
             </small>
         </footer>
