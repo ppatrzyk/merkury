@@ -7,24 +7,26 @@ nav_order: 2
 # Formatting
 {: .no_toc }
 
-By default merkury treats any output as simple print and puts it into `<code>` blocks. There is also a possibility to treat it as either raw HTML or markdown. This is achieved by placing a _magic comment_ after print statement in your script.
+### Python
 
-## HTML
+When it comes to report formatting, there are 3 types of outputs in a Python script: Standard `<code>` block (default), HTML, or Markdown.
 
-You need to put a comment `#HTML` after a line that outputs raw HTML.
+By default _merkury_ treats any code printing some output (e.g., `print()`) as one containing code and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
 
-Example:
+#### HTML
+
+You need to put a comment `#HTML` after a line that outputs raw HTML. For example:
 
 ```
-print("""<img src="https://www.python.org/static/img/python-logo-large.c36dccadd999.png" alt="python">""")
+print(pandas_df.to_html(border=0))
 #HTML
 ```
 
-In addition to writing HTML by hand or using libraries that allow formatting output as HTML, `merkury` provides [utility functions](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py) to format **plots** from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
+In addition to writing HTML by hand or using libraries that allow formatting output as HTML, _merkury_ provides [utility functions](merkury/utils.py) to format **plots** from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
 
-## Markdown
+#### Markdown
 
-It's also possible to print text formatted in markdown. You need to put magic comment `#MARKDOWN` after print statement.
+It's also possible to render text formatted in markdown. You need to put magic comment `#MARKDOWN` after print statement.
 
 For example:
 
@@ -40,3 +42,7 @@ List:
 """)
 #MARKDOWN
 ```
+
+### SQL
+
+Unlike Python, there are no special formatting instructions you can specify in comments. Outputs from all queries will be formatted as a HTML table.
