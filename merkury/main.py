@@ -10,6 +10,7 @@ Options:
     -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
     -f <format>, --format <format>  Specify report format: html (default), pdf.
     -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
+    -n, --no-interactive            Do not make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name)
     -v, --version                   Show version and exit.
 """
@@ -54,6 +55,7 @@ def main():
         "duration": int(1000*(time()-start)),
         "format": format,
         "color_theme": color_theme,
+        "interactive": not bool(args.get("--no-interactive")),
         "author": (args.get("--author") or getlogin()),
         "script_type": script_type,
         "file_name": script_file_path.name,

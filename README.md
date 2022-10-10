@@ -37,6 +37,7 @@ Options:
     -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
     -f <format>, --format <format>  Specify report format: html (default), pdf.
     -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
+    -n, --no-interactive            Do not make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name)
     -v, --version                   Show version and exit.
 ```

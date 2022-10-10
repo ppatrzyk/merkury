@@ -32,11 +32,16 @@
         {% include "assets/merkury.css" %}
     </style>
     <script>
-        {% include "assets/list.min.js" %}
+        {% include "assets/merkury-themes.js" %}
     </script>
-    <script>
-        {% include "assets/merkury.js" %}
-    </script>
+    {% if format=="html" and interactive %}
+        <script>
+            {% include "assets/list.min.js" %}
+        </script>
+        <script>
+            {% include "assets/merkury-tables.js" %}
+        </script>
+    {% endif %}
 </head>
 <body>
     <main class="container">
@@ -88,7 +93,7 @@
         <footer class="container foot">
             <small>
                 <p>Script triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
-                <p>Page generated with <a target="_blank" rel="noopener noreferrer" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
+                <p>Page generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
             </small>
         </footer>
     </main>
