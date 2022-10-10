@@ -8,3 +8,6 @@
 .head {
     padding-bottom: 4em;
 }
+.search {
+    max-width: 200px;
+}
