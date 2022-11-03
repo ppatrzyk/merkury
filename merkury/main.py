@@ -7,10 +7,10 @@ Usage:
 Options:
     -h --help                       Show this screen.
     -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
-    -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
-    -f <format>, --format <format>  Specify report format: html (default), pdf.
+    -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
+    -f <format>, --format <format>  Specify report format: html (default), TODO.
     -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
-    -a <author>, --author <author>  Specify author (if missing, user name)
+    -a <author>, --author <author>  Specify author (if missing, user name).
     -v, --version                   Show version and exit.
 """
 
@@ -25,7 +25,7 @@ from os import getlogin
 from pathlib import Path
 from time import time
 
-FORMATS = ("html", "pdf", )
+FORMATS = ("html", )
 THEMES = ("dark", "light", )
 VERSION = version("merkury")
 
@@ -35,7 +35,7 @@ def main():
     """
     args = docopt(__doc__, version=f"merkury v{VERSION}")
     format = (args.get("--format") or "html").lower()
-    assert format in FORMATS, f"Unknown format: {format}. Options: html, pdf"
+    assert format in FORMATS, f"Unknown format: {format}. Options: html, TODO"
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
     script_type = script_file_path.suffix.lower()

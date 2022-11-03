@@ -4,21 +4,12 @@ Reformats code output into report.
 
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
-import pdfkit
 import re
 
 jinja = Environment(
     loader=PackageLoader("merkury", "templates")
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
-
-PDFKIT_OPTS = {
-    "page-size": "A4",
-    "margin-top": "25mm",
-    "margin-right": "25mm",
-    "margin-bottom": "25mm",
-    "margin-left": "25mm",
-}
 
 def chunk_generator(code, script_type):
     """
@@ -66,6 +57,4 @@ def produce_report(code, report_file_path, template_data):
         case "html":
             with report_file_path.open("w") as out:
                 out.write(report)
-        case "pdf":
-            pdfkit.from_string(report, report_file_path, options=PDFKIT_OPTS)
     return True
