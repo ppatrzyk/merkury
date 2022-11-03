@@ -18,10 +18,10 @@ def chunk_generator(code, script_type):
     in_chunk = out_chunk = ""
     html = markdown = False
     for input, output in code:
-        if script_type == ".py":
+        if script_type == "python":
             html = html or any((bool(re.match("^#HTML", line)) for line in input))
             markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
-        elif script_type == ".sql":
+        elif script_type == "SQL":
             html = True
             markdown = False
         in_chunk += "".join((line+"\n" for line in input))
@@ -51,10 +51,8 @@ def produce_report(code, report_file_path, template_data):
     """
     chunks = join_chunks(code, template_data.get("script_type"))
     data = {**template_data, "chunks": chunks,}
-    template = jinja.get_template("template.html")
+    template = jinja.get_template(f"template.{data.get('format')}")
     report = template.render(data)
-    match data.get("format"):
-        case "html":
-            with report_file_path.open("w") as out:
-                out.write(report)
+    with report_file_path.open("w") as out:
+        out.write(report)
     return True

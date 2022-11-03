@@ -1,7 +1,6 @@
 {% macro markdown(content) %}
     <div>{{ content|markdown }}</div>
 {% endmacro %}
-
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -12,21 +11,19 @@
     <style>
         {% include "assets/pico.min.css" %}
     </style>
-    {% if format=="html" %}
-        <style id="prism-dark">
-            {% include "assets/prism-night.css" %}
-        </style>
-        <style id="prism-light" media="max-width: 1px">
-            {% include "assets/prism-default.css" %}
-        </style>
-    {% endif %}
+    <style id="prism-dark">
+        {% include "assets/prism-night.css" %}
+    </style>
+    <style id="prism-light" media="max-width: 1px">
+        {% include "assets/prism-default.css" %}
+    </style>
     <style>
         {% include "assets/merkury.css" %}
     </style>
     <script>
         {% include "assets/merkury-themes.js" %}
     </script>
-    {% if format=="html" and interactive %}
+    {% if interactive %}
         <script>
             {% include "assets/list.min.js" %}
         </script>
@@ -46,21 +43,15 @@
                     </hgroup>
                 </li>
             </ul>
-            {% if format=="html" %}
-                <ul>
-                    <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
-                </ul>
-            {% endif %}
+            <ul>
+                <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
+            </ul>
         </nav>
     {% for chunk in chunks %}
         <div class="code-block">
-            {% if format=="html" %}
-                <details>
-            {% else %}
-                <details open>
-            {% endif %}
-                <summary>Source code</summary>
-            {% if script_type==".py" %}
+            <details>
+            <summary>Source code</summary>
+            {% if script_type=="python" %}
                 <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
             {% else %}
                 <pre><code class="language-sql">{{ chunk.in|e }}</code></pre>
@@ -73,7 +64,7 @@
                 {% elif chunk.markdown %}
                     {{ markdown(chunk.out) }}
                 {% else %}
-                    {% if script_type==".py" %}
+                    {% if script_type=="python" %}
                         <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
                     {% else %}
                         <pre><code class="language-sql">{{ chunk.out|e }}</code></pre>
@@ -85,14 +76,12 @@
         <footer class="container foot">
             <small>
                 <p>Script triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
-                <p>Page generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
+                <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
             </small>
         </footer>
     </main>
-    {% if format=="html" %}
-        <script>
-            {% include "assets/prism.js" %}
-        </script>
-    {% endif %}
+    <script>
+        {% include "assets/prism.js" %}
+    </script>
 </body>
 </html>

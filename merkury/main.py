@@ -8,7 +8,7 @@ Options:
     -h --help                       Show this screen.
     -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
     -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
-    -f <format>, --format <format>  Specify report format: html (default), TODO.
+    -f <format>, --format <format>  Specify report format: html (default), md.
     -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -v, --version                   Show version and exit.
@@ -25,8 +25,7 @@ from os import getlogin
 from pathlib import Path
 from time import time
 
-FORMATS = ("html", )
-THEMES = ("dark", "light", )
+FORMATS = ("html", "md", )
 VERSION = version("merkury")
 
 def main():
@@ -35,15 +34,16 @@ def main():
     """
     args = docopt(__doc__, version=f"merkury v{VERSION}")
     format = (args.get("--format") or "html").lower()
-    assert format in FORMATS, f"Unknown format: {format}. Options: html, TODO"
+    assert format in FORMATS, f"Unknown format: {format}. Options: html, md"
     script_file_path = Path(args.get("<script>"))
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
-    script_type = script_file_path.suffix.lower()
     start = time()
-    match script_type:
+    match script_file_path.suffix.lower():
         case ".py":
+            script_type = "python"
             code = execute_python(script_file_path)
         case ".sql":
+            script_type = "SQL"
             db_path = args.get("--database") or ":memory:"
             code = execute_sql(db_path, script_file_path)
         case _:
