@@ -3,7 +3,7 @@
 {% endmacro %}
 
 <!DOCTYPE html>
-<html lang="en" data-theme="{{ color_theme }}">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,18 +13,10 @@
         {% include "assets/pico.min.css" %}
     </style>
     {% if format=="html" %}
-        {% if color_theme=="dark" %}
-            <style id="prism-dark">
-        {% else %}
-            <style id="prism-dark" media="max-width: 1px">
-        {% endif %}
+        <style id="prism-dark">
             {% include "assets/prism-night.css" %}
         </style>
-        {% if color_theme=="dark" %}
-            <style id="prism-light" media="max-width: 1px">
-        {% else %}
-            <style id="prism-light">
-        {% endif %}
+        <style id="prism-light" media="max-width: 1px">
             {% include "assets/prism-default.css" %}
         </style>
     {% endif %}
