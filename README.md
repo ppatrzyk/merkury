@@ -1,6 +1,6 @@
 # Merkury
 
-_Merkury_ is a command line utility to run Python and SQL scripts and render _static_ HTML or PDF reports with code and produced output. It uses standard `.py` or `.sql` files as input - any valid script that can be run from command line, can also be turned into a report.
+_Merkury_ is a command line utility to run Python and SQL scripts and render _static_ HTML or Markdown reports with code and produced output. It uses standard `.py` or `.sql` files as input - any valid script that can be run from command line, can also be turned into a report.
 
 - [Example Python report](https://ppatrzyk.github.io/merkury/examples/intro-py.html)
 - [Example SQL report](https://ppatrzyk.github.io/merkury/examples/intro-sql.html)
@@ -34,11 +34,10 @@ Usage:
 Options:
     -h --help                       Show this screen.
     -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
-    -o <file>, --output <file>      Specify report file (if missing, "<script_name>_<date>").
-    -f <format>, --format <format>  Specify report format: html (default), pdf.
-    -t <theme>, --theme <theme>     Specify report color theme: dark (default), light. Valid for HTML output.
+    -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
+    -f <format>, --format <format>  Specify report format: html (default), md.
     -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
-    -a <author>, --author <author>  Specify author (if missing, user name)
+    -a <author>, --author <author>  Specify author (if missing, user name).
     -v, --version                   Show version and exit.
 ```
 
@@ -52,6 +51,16 @@ For running SQL scripts, _merkury_ supports PostgreSQL and SQLite. Regarding `--
 ### Automatic interactive tables
 
 When setting `--interactive ` option, _merkury_ will try to make all HTML `<table>` elements in the report interactive (i.e. add search, sort, and pagination). It's always safe to use with SQL scripts, for Python you need to ensure that printed table uses proper elements (i.e. `<th>` indicating headers rather that data cells). If this is not the case, interactive elements will not function properly.
+
+### PDF reports
+
+It is also possible to obtain PDF reports with usage of additional conversion tools (e.g., [pandoc](https://github.com/jgm/pandoc)). For example:
+
+```
+merkury -o /dev/stdout -f md <your_script> | pandoc --highlight-style=tango -t pdf -o report.pdf
+```
+
+Note, in case your report file contains raw html chunks (such as plots or images), you will need use _wkhtmltopdf_ [pdf engine](https://pandoc.org/MANUAL.html#option--pdf-engine).
 
 ## Formatting and plots
 
