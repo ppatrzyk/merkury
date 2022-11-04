@@ -3,14 +3,12 @@
 ### {{ timestamp }}
 
 {% for chunk in chunks %}
-#### Input
+\[_In_\]
 ```{{ script_type }}
 {{ chunk.in }}
 ```
-#### Output
-{% if chunk.html %}
-HTML output not supported.
-{% elif chunk.markdown %}
+\[_Out_\]
+{% if chunk.html or chunk.markdown %}
 {{ chunk.out }}
 {% else %}
 ```{{ script_type }}
