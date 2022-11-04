@@ -9,21 +9,21 @@ nav_order: 3
 
 In this section you can find description of tested libraries that are supported with merkury [utility functions](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py). These are helper functions to format plot objects as HTML output.
 
-In case you need to use something else: _any_ library that can produce plot in HTML format will work fine with _merkury_. For using PDF output it might be necessary that library is also able to produce images. Refer to [utility functions implementation](https://github.com/ppatrzyk/merkury/blob/master/merkury/utils.py) for examples how to achieve that.
+In case you need to use something else: _any_ library that can produce plot in HTML format will work fine with _merkury_.
 
 1. TOC
 {:toc}
 
 ## Output compatibility
 
-Which plotting libraries you can use depening on desired output.
+Which plotting libraries you can use depening on desired report format.
 
-|                 | HTML     | PDF        | Notes                    |
-| --------------- | -------- | ---------- | ------------------------ |
-| **Altair**      | yes      | no         | requires _altair_saver_  |
-| **Bokeh**       | yes      | no         |                          |
-| **Matplotlib**  | yes      | yes        |                          |
-| **Plotly**      | yes      | yes        | requires _kaleido_       |
+|                 | HTML     | Markdown   |
+| --------------- | -------- | ---------- |
+| **Altair**      | yes      | no         |
+| **Bokeh**       | yes      | no         |
+| **Matplotlib**  | yes      | yes        |
+| **Plotly**      | yes      | yes        |
 
 ## Altair
 
@@ -43,6 +43,10 @@ print(output_altair(chart))
 #HTML
 ```
 
+Notes:
+- requires _altair\_saver_
+- does not work in markdown report format (plots require javascript)
+
 ## Bokeh
 
 [Bokeh example](examples/bokeh.html)
@@ -57,6 +61,9 @@ plot.circle([1, 2, 3, ], [3, 5, 4, ])
 print(output_bokeh(plot))
 #HTML
 ```
+
+Notes:
+- does not work in markdown report format (plots require javascript)
 
 ## Matplotlib
 
@@ -91,3 +98,6 @@ fig = go.Figure(data=data)
 print(output_plotly(fig))
 #HTML
 ```
+
+Notes:
+- requires _kaleido_
