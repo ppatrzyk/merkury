@@ -8,28 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ file_name }}</title>
-    <style>
-        {% include "assets/pico.min.css" %}
-    </style>
-    <style id="prism-dark">
-        {% include "assets/prism-night.css" %}
-    </style>
-    <style id="prism-light" media="max-width: 1px">
-        {% include "assets/prism-default.css" %}
-    </style>
-    <style>
-        {% include "assets/merkury.css" %}
-    </style>
-    <script>
-        {% include "assets/merkury-themes.js" %}
-    </script>
+    <style>{% include "assets/pico.min.css" %}</style>
+    <style id="prism-dark">{% include "assets/prism-night.css" %}</style>
+    <style id="prism-light" media="max-width: 1px">{% include "assets/prism-default.css" %}</style>
+    <style>{% include "assets/merkury.css" %}</style>
+    <script>{% include "assets/merkury-themes.js" %}</script>
     {% if interactive %}
-        <script>
-            {% include "assets/list.min.js" %}
-        </script>
-        <script>
-            {% include "assets/merkury-tables.js" %}
-        </script>
+        <script>{% include "assets/list.min.js" %}</script>
+        <script>{% include "assets/merkury-tables.js" %}</script>
     {% endif %}
 </head>
 <body>
@@ -50,25 +36,17 @@
     {% for chunk in chunks %}
         <div class="code-block">
             <details>
-            <summary>Source code</summary>
-            {% if script_type=="python" %}
-                <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
-            {% else %}
-                <pre><code class="language-sql">{{ chunk.in|e }}</code></pre>
-            {% endif %}
+            <summary>In</summary>
+            <pre><code class="language-{{ script_type|lower }}">{{ chunk.in|e }}</code></pre>
             </details>
             <details open>
-                <summary>Output</summary>
+                <summary>Out</summary>
                 {% if chunk.html %}
                     <object>{{ chunk.out }}</object>
                 {% elif chunk.markdown %}
                     {{ markdown(chunk.out) }}
                 {% else %}
-                    {% if script_type=="python" %}
-                        <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
-                    {% else %}
-                        <pre><code class="language-sql">{{ chunk.out|e }}</code></pre>
-                    {% endif %}
+                    <pre><code class="language-{{ script_type|lower }}">{{ chunk.out|e }}</code></pre>
                 {% endif %}
             </details>
         </div>
@@ -80,8 +58,6 @@
             </small>
         </footer>
     </main>
-    <script>
-        {% include "assets/prism.js" %}
-    </script>
+    <script>{% include "assets/prism.js" %}</script>
 </body>
 </html>

@@ -1,13 +1,19 @@
 function random_str() {return (Math.random() + 1).toString(36).substring(2);} // https://stackoverflow.com/a/8084248
 
 function make_table(table) {
+    if (table.id.length == 0) {
+        table.id = random_str();
+    }
     var body = table.getElementsByTagName("tbody")[0];
     body.classList.add("list");
     var headers = Array.from(table.getElementsByTagName("th"));
     header_classes = headers.map(header => `${header.textContent.replace(/\s/g, "")}_${random_str()}`);
     headers.forEach((header, i, _headers) => {
         header.innerText += " ";
-        var sort_button = document.createElement("a");
+        var sort_button = document.createElement("button");
+        sort_button.classList.add("outline");
+        sort_button.classList.add("secondary");
+        sort_button.classList.add("table-button");
         sort_button.classList.add("sort");
         sort_button.setAttribute("data-sort", header_classes[i]);
         sort_button.innerHTML = "&#8645;";
@@ -32,7 +38,11 @@ function make_table(table) {
     div_parent.appendChild(table);
     div_parent.appendChild(pagination_head);
     div_parent.appendChild(pagination);
-    var list_js_opts = {valueNames: header_classes, page: 10, pagination: true};
+    var list_js_opts = {
+        valueNames: header_classes,
+        page: 10,
+        pagination: {item: `<li><a class="page" href="#${table.id}"></a></li>`},
+    };
     var table_listjs = new List(div_parent.id, list_js_opts);
 }
 
