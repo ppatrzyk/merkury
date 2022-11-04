@@ -36,7 +36,6 @@ def main():
     format = (args.get("--format") or "html").lower()
     assert format in FORMATS, f"Unknown format: {format}. Options: html, md"
     script_file_path = Path(args.get("<script>"))
-    report_file_path = Path(args.get("--output") or get_default_path(script_file_path, format))
     start = time()
     match script_file_path.suffix.lower():
         case ".py":
@@ -49,20 +48,18 @@ def main():
         case _:
             raise ValueError(f"Unknown file {script_file_path}")
     template_data = {
+        "code": code,
         "duration": int(1000*(time()-start)),
         "format": format,
         "interactive": bool(args.get("--interactive")),
         "author": (args.get("--author") or getlogin()),
         "script_type": script_type,
         "file_name": script_file_path.name,
+        "report_file_path": Path(args.get("--output") or get_default_path(script_file_path, format)),
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": VERSION,
     }
-    produce_report(
-        code=code,
-        report_file_path=report_file_path,
-        template_data=template_data
-    )
+    produce_report(template_data)
 
 if __name__ == "__main__":
     main()

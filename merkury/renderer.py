@@ -45,14 +45,13 @@ def join_chunks(code, script_type):
         del chunks[-1]
     return chunks
 
-def produce_report(code, report_file_path, template_data):
+def produce_report(template_data):
     """
     Main function for transforming raw code
     """
-    chunks = join_chunks(code, template_data.get("script_type"))
-    data = {**template_data, "chunks": chunks,}
-    template = jinja.get_template(f"template.{data.get('format')}")
-    report = template.render(data)
-    with report_file_path.open("w") as out:
+    template = jinja.get_template(f"template.{template_data.get('format')}")
+    chunks = join_chunks(template_data.get("code"), template_data.get("script_type"))
+    report = template.render({**template_data, "chunks": chunks, })
+    with template_data.get("report_file_path").open("w") as out:
         out.write(report)
     return True
