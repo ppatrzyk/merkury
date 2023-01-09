@@ -14,9 +14,9 @@ def test_execute_python():
     expected_code = [
         (["a = 1 + 2"], ""),
         (["""s = \"some string\""""], ""),
-        (["""print(f"Test {s}")"""], "Test some string\n"),
+        (["""print(f"Test {s}")""", "#TITLE First section"], "Test some string\n"),
         (["b = a + 5"], ""),
-        (["for _ in range(2):", """    print("loop test")"""], "loop test\nloop test\n")
+        (["for _ in range(2):", """    print("loop test")""", "#TITLE Second section"], "loop test\nloop test\n")
     ]
     assert list(execute_python(PY_SCRIPT)) == expected_code
 

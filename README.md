@@ -36,8 +36,10 @@ Options:
     -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
     -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
     -f <format>, --format <format>  Specify report format: html (default), md.
-    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name).
+    -t <title>, --title <title>     Specify report title (if missing, script file name)
+    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
+    -c, --toc                       Generate Table of Contents
     -v, --version                   Show version and exit.
 ```
 
@@ -64,11 +66,13 @@ Note, in case your report file contains raw html chunks (such as plots or images
 
 ## Formatting and plots
 
+In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can give titles to each section by placing _magic comment_ - `#TITLE <your_section_title>` for python, `--TITLE <your_section_title>` for SQL - after line that produces output.
+
 ### Python
 
 When it comes to report formatting, there are 3 types of outputs in a Python script: Standard `<code>` block (default), HTML, or Markdown.
 
-By default _merkury_ treats any code printing some output (e.g., `print()`) as one containing code and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
+By default _merkury_ treats any output as standard code print and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
 
 #### HTML
 
@@ -102,7 +106,7 @@ List:
 
 ### SQL
 
-Unlike Python, there are no special formatting instructions you can specify in comments. Outputs from all queries will be formatted as a HTML table.
+Outputs from all queries will be formatted as a HTML tables.
 
 ## Acknowledgements
 

@@ -52,7 +52,7 @@
     {% for chunk in chunks %}
         <div class="code-block" id="merkury-chunk-{{ chunk.number }}">
         {% if chunk.title is not none %}
-            <h3>{{ chunk.title }}</h3>
+            <h2>{{ chunk.title }}</h2>
         {% endif %}
             <details>
             <summary>In [{{ chunk.number }}]</summary>
