@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ file_name }}</title>
+    <title>{{ title }}</title>
     <style>{% include "assets/pico.min.css" %}</style>
     <style id="prism-dark">{% include "assets/prism-night.css" %}</style>
     <style id="prism-light" media="max-width: 1px">{% include "assets/prism-default.css" %}</style>
@@ -24,7 +24,7 @@
             <ul>
                 <li>
                     <hgroup>
-                        <h1>{{ file_name }}</h1>
+                        <h1>{{ title }}</h1>
                         <h3>{{ timestamp }}</h3>
                     </hgroup>
                 </li>
@@ -33,14 +33,21 @@
                 <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
             </ul>
         </nav>
+        <div>
+            <ol>
+            {% for chunk in chunks %}
+                <li><a href="#merkury-chunk-{{ chunk.number }}">Chunk {{ chunk.number }}</a></li>
+            {% endfor %}
+            </ol>
+        </div>
     {% for chunk in chunks %}
-        <div class="code-block">
+        <div class="code-block" id="merkury-chunk-{{ chunk.number }}">
             <details>
-            <summary>In</summary>
+            <summary>In [{{ chunk.number }}]</summary>
             <pre><code class="language-{{ script_type|lower }}">{{ chunk.in|e }}</code></pre>
             </details>
             <details open>
-                <summary>Out</summary>
+                <summary>Out [{{ chunk.number }}]</summary>
                 {% if chunk.html %}
                     <object>{{ chunk.out }}</object>
                 {% elif chunk.markdown %}
@@ -53,7 +60,7 @@
     {% endfor %}
         <footer class="container foot">
             <small>
-                <p>Script triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
+                <p>Script {{ file_name }} triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
                 <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
             </small>
         </footer>

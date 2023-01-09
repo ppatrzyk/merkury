@@ -38,7 +38,7 @@ def join_chunks(code, script_type):
     """
     Turn raw code into chunks used for report
     """
-    chunks = list(chunk_generator(code, script_type))
+    chunks = [{"number": el[0], **el[1]} for el in enumerate(chunk_generator(code, script_type), start=1)]
     # if last chunk does not print anything, it"s appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):
         chunks[-2]["in"] += chunks[-1]["in"]
