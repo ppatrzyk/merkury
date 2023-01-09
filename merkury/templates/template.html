@@ -13,10 +13,10 @@
     <style id="prism-light" media="max-width: 1px">{% include "assets/prism-default.css" %}</style>
     <style>{% include "assets/merkury.css" %}</style>
     <script>{% include "assets/merkury-themes.js" %}</script>
-    {% if interactive %}
-        <script>{% include "assets/list.min.js" %}</script>
-        <script>{% include "assets/merkury-tables.js" %}</script>
-    {% endif %}
+{% if interactive %}
+    <script>{% include "assets/list.min.js" %}</script>
+    <script>{% include "assets/merkury-tables.js" %}</script>
+{% endif %}
 </head>
 <body>
     <main class="container">
@@ -33,15 +33,27 @@
                 <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
             </ul>
         </nav>
+    {% if toc %}
+        <h2>Contents</h2>
         <div>
             <ol>
             {% for chunk in chunks %}
-                <li><a href="#merkury-chunk-{{ chunk.number }}">Chunk {{ chunk.number }}</a></li>
+                <li><a href="#merkury-chunk-{{ chunk.number }}">
+                {% if chunk.title is not none %}
+                    {{ chunk.title }}
+                {% else %}
+                    Chunk {{ chunk.number }}
+                {% endif %}
+                </a></li>
             {% endfor %}
             </ol>
         </div>
+    {% endif %}
     {% for chunk in chunks %}
         <div class="code-block" id="merkury-chunk-{{ chunk.number }}">
+        {% if chunk.title is not none %}
+            <h3>{{ chunk.title }}</h3>
+        {% endif %}
             <details>
             <summary>In [{{ chunk.number }}]</summary>
             <pre><code class="language-{{ script_type|lower }}">{{ chunk.in|e }}</code></pre>
