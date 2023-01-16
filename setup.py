@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(name="merkury",
-    version="0.6",
+    version="0.7",
     license="MIT",
     description="Turn Python scripts into HTML reports",
     long_description=long_description,
@@ -19,10 +19,7 @@ setup(name="merkury",
         "docopt>=0.6.2",
         "Jinja2>=3.1.2",
         "Markdown>=3.4.1",
-        "psycopg>=3.1.3",
-        "psycopg-binary>=3.1.3",
         "prettytable>=3.4.1",
-        "sqlparse>=0.4.3",
     ],
     entry_points={
         "console_scripts": [
