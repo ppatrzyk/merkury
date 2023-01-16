@@ -7,11 +7,13 @@ nav_order: 2
 # Formatting
 {: .no_toc }
 
+In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can give titles to each section by placing _magic comment_ - `#TITLE <your_section_title>` for python, `--TITLE <your_section_title>` for SQL - after line that produces output.
+
 ### Python
 
 When it comes to report formatting, there are 3 types of outputs in a Python script: Standard `<code>` block (default), HTML, or Markdown.
 
-By default _merkury_ treats any code printing some output (e.g., `print()`) as one containing code and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
+By default _merkury_ treats any output as standard code print and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
 
 #### HTML
 
@@ -45,4 +47,4 @@ List:
 
 ### SQL
 
-Unlike Python, there are no special formatting instructions you can specify in comments. Outputs from all queries will be formatted as a HTML table.
+Outputs from all queries will be formatted as a HTML tables.

@@ -44,8 +44,10 @@ Options:
     -d <db>, --database <db>        Specify database location (if missing, in memory SQLite). Valid for SQL scripts.
     -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
     -f <format>, --format <format>  Specify report format: html (default), md.
-    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -a <author>, --author <author>  Specify author (if missing, user name).
+    -t <title>, --title <title>     Specify report title (if missing, script file name)
+    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
+    -c, --toc                       Generate Table of Contents
     -v, --version                   Show version and exit.
 ```
 
