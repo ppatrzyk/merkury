@@ -59,7 +59,7 @@ code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shad
         prism_light.setAttribute("media", "max-width: 1px")
     }
 }</script>
-    
+
 </head>
 <body>
     <main class="container">
@@ -68,7 +68,7 @@ code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shad
                 <li>
                     <hgroup>
                         <h1>altair.py</h1>
-                        <h3>2022-11-04 16:24:13 CET</h3>
+                        <h3>2023-01-16 16:36:21 CET</h3>
                     </hgroup>
                 </li>
             </ul>
@@ -77,9 +77,11 @@ code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shad
             </ul>
         </nav>
     
-        <div class="code-block">
+    
+        <div class="code-block" id="merkury-chunk-1">
+        
             <details>
-            <summary>In</summary>
+            <summary>In [1]</summary>
             <pre><code class="language-python">import altair as alt
 from merkury.utils import output_altair
 intro = &#34;&#34;&#34;
@@ -92,7 +94,7 @@ print(intro)
 </code></pre>
             </details>
             <details open>
-                <summary>Out</summary>
+                <summary>Out [1]</summary>
                 
                     
     <div><h1>Altair usage</h1>
@@ -102,9 +104,10 @@ print(intro)
             </details>
         </div>
     
-        <div class="code-block">
+        <div class="code-block" id="merkury-chunk-2">
+        
             <details>
-            <summary>In</summary>
+            <summary>In [2]</summary>
             <pre><code class="language-python">data = alt.Data(values=[{&#34;x&#34;: 5, &#34;y&#34;: 6}, {&#34;x&#34;: 6, &#34;y&#34;: 7}, {&#34;x&#34;: 7, &#34;y&#34;: 4}])
 chart = alt.Chart(data).mark_point().encode(
     x=&#34;x:Q&#34;,
@@ -115,7 +118,7 @@ print(output_altair(chart))
 </code></pre>
             </details>
             <details open>
-                <summary>Out</summary>
+                <summary>Out [2]</summary>
                 
                     <object><!DOCTYPE html>
 <html>
@@ -159,8 +162,8 @@ print(output_altair(chart))
     
         <footer class="container foot">
             <small>
-                <p>Script triggered by piotr on 2022-11-04 16:24:13 CET, ran in 364ms</p>
-                <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v0.5.</p>
+                <p>Script altair.py triggered by Piotr on 2023-01-16 16:36:21 CET, ran in 566ms</p>
+                <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v0.6.</p>
             </small>
         </footer>
     </main>

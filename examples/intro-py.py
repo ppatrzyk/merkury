@@ -22,12 +22,15 @@ If you don't specify [formatting options](https://github.com/ppatrzyk/merkury#fo
 
 print(intro)
 #MARKDOWN
+#TITLE Markdown section
 
 for i in range(10):
     msg = f'Loop iteration: {i}'
     print(msg)
+#TITLE print() in loop
 
 print(iris.head())
+#TITLE table from pandas
 
 html = """
 <h3>Custom html header</h3>
@@ -41,10 +44,12 @@ See printing pandas dataframes and plotting with bokeh below.
 
 print(html)
 #HTML
+#TITLE Raw HTML section
 
 iris_html = iris.head(10).to_html(border=0)
 print(f"<h3>Iris dataset</h3>{iris_html}")
 #HTML
+#TITLE HTML table from pandas
 
 colors = pd.DataFrame({"species": ["setosa", "virginica", "versicolor", ], "color": ["blue", "green", "red"]})
 iris = iris.merge(colors, how="left")
@@ -63,3 +68,4 @@ plot.circle(
 
 print(output_bokeh(plot))
 #HTML
+#TITLE Interactive bokeh plot
