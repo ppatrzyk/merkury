@@ -1,9 +1,7 @@
 from merkury.runner_py import *
-from merkury.runner_sql import *
 import pathlib
 
 PY_SCRIPT = pathlib.Path("tests/script.py")
-SQL_SCRIPT = pathlib.Path("tests/script.sql")
 
 def test_prune_lines():
     assert prune_lines(["content", "", "content"]) == ["content", "", "content"]
@@ -19,12 +17,3 @@ def test_execute_python():
         (["for _ in range(2):", """    print("loop test")""", "#TITLE Second section"], "loop test\nloop test\n")
     ]
     assert list(execute_python(PY_SCRIPT)) == expected_code
-
-def test_generate_satements():
-    expected = [
-        ["""select "string1";"""],
-        ["select", "", """  "string2";"""],
-        ["create table", " test(id int);"],
-        ["-- comment"]
-    ]
-    assert generate_satements(SQL_SCRIPT) == expected

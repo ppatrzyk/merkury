@@ -11,9 +11,7 @@ jinja = Environment(
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
 
-COMMENT = {"python": "#", "SQL": "--"}
-
-def chunk_generator(code, script_type):
+def chunk_generator(code):
     """
     Join code nodes
     """
@@ -21,13 +19,9 @@ def chunk_generator(code, script_type):
     html = markdown = False
     titles = [None, ]
     for input, output in code:
-        if script_type == "python":
-            html = html or any((bool(re.match("^#HTML", line)) for line in input))
-            markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
-        elif script_type == "SQL":
-            html = True
-            markdown = False
-        titles.extend(re.sub(f"^{COMMENT[script_type]}TITLE\s+", "", line) for line in input if re.search(f"^{COMMENT[script_type]}TITLE", line))
+        html = html or any((bool(re.match("^#\s+HTML", line)) for line in input))
+        markdown = markdown or any((bool(re.match("^#s+MARKDOWN", line)) for line in input))
+        titles.extend(re.sub(f"^#\s+TITLE\s+", "", line) for line in input if re.search(f"^#\s+TITLE", line))
         in_chunk += "".join((line+"\n" for line in input))
         if output != "":
             out_chunk += output
@@ -39,11 +33,11 @@ def chunk_generator(code, script_type):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False, "title": titles[-1]}
 
-def join_chunks(code, script_type):
+def join_chunks(code):
     """
     Turn raw code into chunks used for report
     """
-    chunks = [{"number": el[0], **el[1]} for el in enumerate(chunk_generator(code, script_type), start=1)]
+    chunks = [{"number": el[0], **el[1]} for el in enumerate(chunk_generator(code), start=1)]
     # if last chunk does not print anything, it"s appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):
         chunks[-2]["in"] += chunks[-1]["in"]
@@ -55,7 +49,7 @@ def produce_report(template_data):
     Main function for transforming raw code
     """
     template = jinja.get_template(f"template.{template_data.get('format')}")
-    chunks = join_chunks(template_data.get("code"), template_data.get("script_type"))
+    chunks = join_chunks(template_data.get("code"))
     report = template.render({**template_data, "chunks": chunks, })
     with template_data.get("report_file_path").open("w") as out:
         out.write(report)

@@ -71,6 +71,6 @@ def get_default_path(script_file_path, format):
     Default file path for report
     """
     date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
-    file_name = re.sub(r"\.(py|sql)$", "", script_file_path.name)
+    file_name = re.sub(r"\.py$", "", script_file_path.name)
     out_file_name = f"{file_name}_{date_now}.{format}"
     return Path(script_file_path.parent, out_file_name)

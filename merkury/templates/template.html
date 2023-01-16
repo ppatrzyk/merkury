@@ -56,7 +56,7 @@
         {% endif %}
             <details>
             <summary>In [{{ chunk.number }}]</summary>
-            <pre><code class="language-{{ script_type|lower }}">{{ chunk.in|e }}</code></pre>
+            <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
             </details>
             <details open>
                 <summary>Out [{{ chunk.number }}]</summary>
@@ -65,7 +65,7 @@
                 {% elif chunk.markdown %}
                     {{ markdown(chunk.out) }}
                 {% else %}
-                    <pre><code class="language-{{ script_type|lower }}">{{ chunk.out|e }}</code></pre>
+                    <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
                 {% endif %}
             </details>
         </div>

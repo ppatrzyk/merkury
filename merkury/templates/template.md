@@ -20,14 +20,14 @@
 {% endif %}
 
 _In_ \[{{ chunk.number }}\]
-```{{ script_type }}
+```python
 {{ chunk.in }}
 ```
 _Out_ \[{{ chunk.number }}\]
 {% if chunk.html or chunk.markdown %}
 {{ chunk.out }}
 {% else %}
-```{{ script_type }}
+```python
 {{ chunk.out }}
 ```
 {% endif %}
