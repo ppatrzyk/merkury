@@ -10,7 +10,6 @@ Options:
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name)
-    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -c, --toc                       Generate Table of Contents
     -v, --version                   Show version and exit.
 """
@@ -44,7 +43,6 @@ def main():
         "code": code,
         "duration": int(1000*(time()-start)),
         "format": format,
-        "interactive": bool(args.get("--interactive")),
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title") or file_name,

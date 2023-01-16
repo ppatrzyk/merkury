@@ -36,14 +36,9 @@ Options:
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name)
-    -i, --interactive               Make tables interactive (search, sort, paging). Valid for HTML output.
     -c, --toc                       Generate Table of Contents
     -v, --version                   Show version and exit.
 ```
-
-### Automatic interactive tables
-
-When setting `--interactive ` option, _merkury_ will try to make all HTML `<table>` elements in the report interactive (i.e. add search, sort, and pagination). You need to ensure that printed table uses proper elements (i.e. `<th>` indicating headers rather that data cells). If this is not the case, interactive elements will not function properly.
 
 ### PDF reports
 
