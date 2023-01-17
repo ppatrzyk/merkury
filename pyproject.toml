@@ -1,0 +1,33 @@
+[project]
+name = "merkury"
+version = "0.7"
+description = "Turn Python scripts into HTML reports"
+authors = [ {name = "Piotr Patrzyk"}, ]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dynamic = ["dependencies", ]
+keywords = ["analytics", "reporting", "data", "data science", ]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Database",
+]
+
+[project.urls]
+Source = "https://github.com/ppatrzyk/merkury"
+
+[project.scripts]
+merkury = "merkury.main:main"
+
+[project.optional-dependencies]
+test = ["pytest", ]
+
+[build-system]
+requires = ["setuptools", ]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}

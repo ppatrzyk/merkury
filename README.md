@@ -69,7 +69,7 @@ print(pandas_df.to_html(border=0))
 #HTML
 ```
 
-In addition to writing HTML by hand or using libraries that allow formatting output as HTML, _merkury_ provides [utility functions](merkury/utils.py) to format **plots** from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
+In addition to writing HTML by hand or using libraries that allow formatting output as HTML, _merkury_ provides [utility functions](merkury/utils.py) to format plots from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
 
 #### Markdown
 
@@ -92,6 +92,6 @@ List:
 
 ## Acknowledgements
 
-- Reports styling is made possible by great frontend libs [pico](https://github.com/picocss/pico), [prism](https://github.com/PrismJS/prism), and [list.js](https://github.com/javve/list.js)
+- Reports styling is made possible by great frontend libs [pico](https://github.com/picocss/pico) and [prism](https://github.com/PrismJS/prism)
 - [SO discussion that inspired this project](https://stackoverflow.com/questions/60297105/python-write-both-commands-and-their-output-to-a-file)
 - [pyreport](https://github.com/joblib/pyreport) - similar but long abandoned project
