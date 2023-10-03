@@ -8,24 +8,3 @@
 .head {
     padding-bottom: 4em;
 }
-.search {
-    max-width: 200px;
-}
-.pagination li {
-    display: inline-block;
-    padding: 5px;
-}
-.pagination li a {
-    display: inline-block;
-    width: 50px !important;
-    color: var(--secondary) !important;
-    cursor: pointer;
-    text-align: center;
-    border: 3px solid var(--secondary);
-    border-radius: var(--border-radius);
-}
-.table-button {
-    padding: 0 !important;
-    display: inline !important;
-    width: 50px !important;
-}
