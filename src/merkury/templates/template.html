@@ -15,64 +15,70 @@
     <script>{% include "assets/merkury-themes.js" %}</script>
 </head>
 <body>
+    <nav class="container head">
+        <ul>
+            <li>
+                <hgroup>
+                    <h1>{{ title }}</h1>
+                    <h3>{{ timestamp }}</h3>
+                </hgroup>
+            </li>
+        </ul>
+        <ul>
+            <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
+        </ul>
+    </nav>
     <main class="container">
-        <nav class="head">
-            <ul>
-                <li>
-                    <hgroup>
-                        <h1>{{ title }}</h1>
-                        <h3>{{ timestamp }}</h3>
-                    </hgroup>
-                </li>
-            </ul>
-            <ul>
-                <li><button class="secondary" onclick="change_theme()">Dark/Light</button></li>
-            </ul>
-        </nav>
-    {% if toc %}
-        <h2>Contents</h2>
-        <div>
-            <ol>
-            {% for chunk in chunks %}
-                <li><a href="#merkury-chunk-{{ chunk.number }}">
-                {% if chunk.title is not none %}
-                    {{ chunk.title }}
-                {% else %}
-                    Chunk {{ chunk.number }}
-                {% endif %}
-                </a></li>
-            {% endfor %}
-            </ol>
-        </div>
-    {% endif %}
-    {% for chunk in chunks %}
-        <div class="code-block" id="merkury-chunk-{{ chunk.number }}">
-        {% if chunk.title is not none %}
-            <h2>{{ chunk.title }}</h2>
+        {% if toc %}
+            <aside>
+                <nav>
+                    <h2>Contents</h2>
+                    <div>
+                        <ol>
+                        {% for chunk in chunks %}
+                            <li><a href="#merkury-chunk-{{ chunk.number }}">
+                            {% if chunk.title is not none %}
+                                {{ chunk.title }}
+                            {% else %}
+                                Chunk {{ chunk.number }}
+                            {% endif %}
+                            </a></li>
+                        {% endfor %}
+                        </ol>
+                    </div>
+                </nav>
+            </aside>
         {% endif %}
-            <details>
-            <summary>In [{{ chunk.number }}]</summary>
-            <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
-            </details>
-            <details open>
-                <summary>Out [{{ chunk.number }}]</summary>
-                {% if chunk.html %}
-                    <object>{{ chunk.out }}</object>
-                {% elif chunk.markdown %}
-                    {{ markdown(chunk.out) }}
-                {% else %}
-                    <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
-                {% endif %}
-            </details>
+        <div role="document">
+        {% for chunk in chunks %}
+            <div class="code-block" id="merkury-chunk-{{ chunk.number }}">
+            {% if chunk.title is not none %}
+                <h2>{{ chunk.title }}</h2>
+            {% endif %}
+                <details>
+                <summary>In [{{ chunk.number }}]</summary>
+                <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
+                </details>
+                <details open>
+                    <summary>Out [{{ chunk.number }}]</summary>
+                    {% if chunk.html %}
+                        <object>{{ chunk.out }}</object>
+                    {% elif chunk.markdown %}
+                        {{ markdown(chunk.out) }}
+                    {% else %}
+                        <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
+                    {% endif %}
+                </details>
+            </div>
+        {% endfor %}
         </div>
-    {% endfor %}
-        <footer class="container foot">
-            <small>
-                <p>Script {{ file_name }} triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
-                <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">Merkury</a> v{{ version }}.</p>
-            </small>
-        </footer>
     </main>
+    <footer class="container foot">
+        <small>
+            <p>Script <em>{{ file_name }}</em> triggered by {{ author }} on {{ timestamp }}, ran in {{ duration }}ms</p>
+            <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v{{ version }}.</p>
+        </small>
+    </footer>
     <script>{% include "assets/prism.js" %}</script>
 </body>
 </html>

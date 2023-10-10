@@ -3,8 +3,40 @@
 }
 .foot {
     text-align: center;
-    margin-top: 4em;
+    padding-top: 0 !important;
 }
 .head {
-    padding-bottom: 4em;
+    padding-top: 4em;
 }
+{% if toc %}
+/* https://picocss.com/docs/ */
+@media (min-width:992px) {
+    main > aside nav {
+      position:fixed;
+      width:200px;
+      max-height:calc(100vh - 5.5rem);
+      overflow-x:hidden;
+      overflow-y:auto
+    }
+}
+main > aside nav {
+    width:100%;
+    padding-bottom:var(--block-spacing-vertical);
+}
+@media (min-width:992px) {
+    body > main {
+      --block-spacing-horizontal:calc(var(--spacing) * 1.75);
+      grid-column-gap:calc(var(--block-spacing-horizontal) * 3);
+      display:grid;
+      grid-template-columns:200px auto
+    }
+  }
+  @media (min-width:1200px) {
+    body>main {
+      --block-spacing-horizontal:calc(var(--spacing) * 2)
+    }
+}
+body > main div[role="document"], body > main > aside {
+    min-width: 0;
+}
+{% endif %}
