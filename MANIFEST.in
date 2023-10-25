@@ -1,0 +1,2 @@
+include src/merkury/templates/*
+include src/merkury/templates/assets/*

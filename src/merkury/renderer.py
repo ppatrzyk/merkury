@@ -7,7 +7,7 @@ from markdown import markdown
 import re
 
 jinja = Environment(
-    loader=PackageLoader("merkury", "templates")
+    loader=PackageLoader(__package__, "templates")
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
 
