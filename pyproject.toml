@@ -1,6 +1,6 @@
 [project]
 name = "merkury"
-version = "0.8"
+version = "0.9"
 description = "Turn Python scripts into HTML reports"
 authors = [ {name = "Piotr Patrzyk"}, ]
 license = {text = "MIT"}
