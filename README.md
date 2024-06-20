@@ -13,8 +13,6 @@ Non-goals of the project:
 - generating data apps that require backend server (see e.g. [dash](https://github.com/plotly/dash)),
 - converting _any_ input into static HTML (see e.g. [nikola](https://github.com/getnikola/nikola)).
 
-_NOTE: this is an early experimental project, stuff might break and change_
-
 ## Installation
 
 ```
