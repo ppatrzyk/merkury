@@ -1,42 +1,52 @@
 .code-block {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 .foot {
-    text-align: center;
-    padding-top: 0 !important;
+  text-align: center;
+  padding-top: 0 !important;
 }
 .head {
-    padding-top: 4em;
+  padding-top: 4em;
 }
 {% if toc %}
 /* https://picocss.com/docs/ */
 @media (min-width:992px) {
-    main > aside nav {
-      position:fixed;
-      width:200px;
-      max-height:calc(100vh - 5.5rem);
-      overflow-x:hidden;
-      overflow-y:auto
-    }
-}
-main > aside nav {
-    width:100%;
-    padding-bottom:var(--block-spacing-vertical);
-}
-@media (min-width:992px) {
-    body > main {
-      --block-spacing-horizontal:calc(var(--spacing) * 1.75);
-      grid-column-gap:calc(var(--block-spacing-horizontal) * 3);
-      display:grid;
-      grid-template-columns:200px auto
-    }
+  .container {
+    width: 80%;
   }
-  @media (min-width:1200px) {
-    body>main {
-      --block-spacing-horizontal:calc(var(--spacing) * 2)
-    }
+  main > aside nav {
+    position:fixed;
+    width:200px;
+    max-height:calc(100vh - 5.5rem);
+    overflow-x:hidden;
+    overflow-y:auto
+  }
+  body > main {
+    --block-spacing-horizontal:calc(var(--spacing) * 1.75);
+    grid-column-gap:calc(var(--block-spacing-horizontal) * 3);
+    display:grid;
+    grid-template-columns:200px auto
+  }
+}
+/* @media (min-width:992px) {
+
+  } */
+@media (min-width:1200px) {
+  body>main {
+    --block-spacing-horizontal:calc(var(--spacing) * 2)
+  }
 }
 body > main div[role="document"], body > main > aside {
-    min-width: 0;
+  min-width: 0;
+}
+main > aside nav {
+  width:100%;
+  padding-bottom:var(--block-spacing-vertical);
+}
+{% else %}
+@media (min-width:992px) {
+  .container {
+    width: 67%;
+  }
 }
 {% endif %}
