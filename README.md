@@ -90,6 +90,6 @@ List:
 
 ## Acknowledgements
 
-- Reports styling is made possible by great frontend libs [pico](https://github.com/picocss/pico) and [prism](https://github.com/PrismJS/prism)
+- frontend: [pico](https://github.com/picocss/pico), [prism](https://github.com/PrismJS/prism), [tabler-icons](https://github.com/tabler/tabler-icons)
 - [SO discussion that inspired this project](https://stackoverflow.com/questions/60297105/python-write-both-commands-and-their-output-to-a-file)
 - [pyreport](https://github.com/joblib/pyreport) - similar but long abandoned project

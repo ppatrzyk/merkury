@@ -1,22 +1,26 @@
 :root {
   font-family: system-ui, sans-serif;
+  --pico-line-height: 1.5;
 }
-.code-block {
+.merkury-code-block {
   margin-bottom: 2em;
 }
-.foot {
+.merkury-foot {
   text-align: center;
   padding-top: 0 !important;
 }
-.head {
+.merkury-head {
   padding-top: 4em;
+}
+#dark-light-mode {
+  margin: 0;
 }
 {% if toc %}
 @media (min-width:992px) {
-  .container {
+  .merkury-container {
     width: 80%;
   }
-  aside {
+  .merkury-toc {
     position: sticky;
     align-self: start;
     top: 0;
@@ -33,7 +37,7 @@
 }
 {% else %}
 @media (min-width:992px) {
-  .container {
+  .merkury-container {
     width: 67%;
   }
 }
