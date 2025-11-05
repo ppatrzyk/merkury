@@ -2,6 +2,9 @@
   font-family: system-ui, sans-serif;
   --pico-line-height: 1.5;
 }
+.merkury-chunks {
+  min-width: 0;
+}
 .merkury-code-block {
   margin-bottom: 2em;
 }
