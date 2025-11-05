@@ -19,9 +19,9 @@ def chunk_generator(code):
     html = markdown = False
     titles = [None, ]
     for input, output in code:
-        html = html or any((bool(re.match("^#HTML", line)) for line in input))
-        markdown = markdown or any((bool(re.match("^#MARKDOWN", line)) for line in input))
-        titles.extend(re.sub(f"^#TITLE\s+", "", line) for line in input if re.search(f"^#TITLE", line))
+        html = html or any((bool(re.match(r"^#HTML", line)) for line in input))
+        markdown = markdown or any((bool(re.match(r"^#MARKDOWN", line)) for line in input))
+        titles.extend(re.sub(r"^#TITLE\s+", "", line) for line in input if re.search(r"^#TITLE", line))
         in_chunk += "".join((line+"\n" for line in input))
         if output != "":
             out_chunk += output

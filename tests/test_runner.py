@@ -11,6 +11,7 @@ def test_prune_lines():
 def test_execute_python():
     expected_code = [
         (["a = 1 + 2"], ""),
+        (["""_long = \"h9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfEh9eIr8o0rZQ8cpfJ2LG31HfE\""""], ""),
         (["""s = \"some string\""""], ""),
         (["""print(f"Test {s}")""", "#TITLE First section"], "Test some string\n"),
         (["b = a + 5"], ""),
