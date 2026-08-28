@@ -6,6 +6,7 @@ from jinja2 import Environment, PackageLoader
 from markdown import markdown
 import logging
 import re
+from .runner_py import Code
 
 jinja = Environment(
     loader=PackageLoader(__package__, "templates"),
@@ -14,7 +15,7 @@ jinja = Environment(
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
 
-def chunk_generator(code):
+def _generate_chunks_internal(code: Code):
     """
     Join code nodes
     """
@@ -38,11 +39,11 @@ def chunk_generator(code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False, "title": title}
 
-def join_chunks(code):
+def generate_chunks(code: Code):
     """
     Turn raw code into chunks used for report
     """
-    chunks = [{"number": el[0], **el[1]} for el in enumerate(chunk_generator(code), start=1)]
+    chunks = [{"number": i, **chunk} for i, chunk in enumerate(_generate_chunks_internal(code), start=1)]
     # if last chunk does not print anything, it"s appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):
         chunks[-2]["in"] += chunks[-1]["in"]
@@ -56,7 +57,7 @@ def produce_report(template_data):
     report_file_path = template_data.get("report_file_path")
     output_format = template_data.get("output_format")
     template = jinja.get_template(f"template.{output_format}.jinja")
-    chunks = join_chunks(template_data.get("code"))
+    chunks = generate_chunks(template_data.get("code"))
     report = template.render({**template_data, "chunks": chunks, })
     with report_file_path.open("w") as out:
         out.write(report)

@@ -21,7 +21,7 @@ Source:
 
 import logging
 from .renderer import produce_report
-from .runner_py import execute_python
+from .runner_py import execute_python, Code
 from .utils import get_default_path
 from datetime import datetime
 from importlib.metadata import version
@@ -42,11 +42,11 @@ def main():
         logging.basicConfig(level=logging.DEBUG)
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, f"Unknown format: {format}. Options: html, md"
-    script_file_path = Path(args.get("<script>"))
+    script_file_path: Path = Path(args.get("<script>"))
     file_name = script_file_path.name
     assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
     start = time()
-    code = execute_python(script_file_path)
+    code: Code = execute_python(script_file_path)
     duration_ms = int(1000*(time()-start))
     template_data = {
         "code": code,
