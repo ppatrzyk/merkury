@@ -4,11 +4,14 @@ Utility functions for code output formatting
 
 import base64
 from datetime import datetime
+from importlib.metadata import version
 import io
 import os
 from pathlib import Path
 import re
 import tempfile
+
+VERSION = version("merkury")
 
 ### Helpers for Plotting ###
 

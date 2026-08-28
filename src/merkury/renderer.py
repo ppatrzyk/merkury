@@ -2,11 +2,14 @@
 Reformats code out_code into report.
 """
 
+from datetime import datetime
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
+from pathlib import Path
 import logging
 import re
 from .runner_py import Code
+from .utils import VERSION
 
 jinja = Environment(
     loader=PackageLoader(__package__, "templates"),
@@ -50,15 +53,19 @@ def generate_chunks(code: Code):
         del chunks[-1]
     return chunks
 
-def generate_report(template_data: dict) -> bool:
+def generate_report(code: Code, report_file_path: Path, template_data: dict) -> bool:
     """
     Main function for transforming raw code
     """
-    report_file_path = template_data.get("report_file_path")
+    chunks = generate_chunks(code)
     output_format = template_data.get("output_format")
     template = jinja.get_template(f"template.{output_format}.jinja")
-    chunks = generate_chunks(template_data.get("code"))
-    report = template.render({**template_data, "chunks": chunks, })
+    report = template.render({
+        **template_data,
+        "chunks": chunks,
+        "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "version": VERSION,
+    })
     with report_file_path.open("w") as out:
         out.write(report)
     logging.debug(f"Report written to {report_file_path}")

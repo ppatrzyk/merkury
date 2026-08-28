@@ -1,13 +1,13 @@
-from merkury.runner_py import *
+from merkury.runner_py import execute_python, _prune_lines
 import pathlib
 
 PY_SCRIPT = pathlib.Path("tests/script.py")
 PY_BAD_SCRIPT = pathlib.Path("tests/badscript.py")
 
 def test_prune_lines():
-    assert prune_lines(["content", "", "content"]) == ["content", "", "content"]
-    assert prune_lines(["content", "", ""]) == ["content"]
-    assert prune_lines([]) == []
+    assert _prune_lines(["content", "", "content"]) == ["content", "", "content"]
+    assert _prune_lines(["content", "", ""]) == ["content"]
+    assert _prune_lines([]) == []
 
 def test_execute_python():
     expected_code = [
@@ -18,7 +18,8 @@ def test_execute_python():
         (["b = a + 5"], ""),
         (["for _ in range(2):", """    print("loop test")""", "#TITLE Second section"], "loop test\nloop test\n")
     ]
-    assert list(execute_python(PY_SCRIPT)) == expected_code
+    _duration, code = execute_python(PY_SCRIPT)
+    assert list(code) == expected_code
 
 def test_execute_bad_python():
     expected_code = [
@@ -26,4 +27,5 @@ def test_execute_bad_python():
         (["a = 1/-1"], ""),
         (["b = 1/0"], "ZeroDivisionError: division by zero\n"),
     ]
-    assert list(execute_python(PY_BAD_SCRIPT)) == expected_code
+    _duration, code = execute_python(PY_BAD_SCRIPT)
+    assert list(code) == expected_code

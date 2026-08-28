@@ -21,17 +21,24 @@ Source:
 
 import logging
 from .renderer import generate_report
-from .runner_py import execute_python, Code
-from .utils import get_default_path
-from datetime import datetime
-from importlib.metadata import version
+from .runner_py import execute_python
+from .utils import get_default_path, VERSION
+
 from docopt import docopt
 from os import getlogin
 from pathlib import Path
-from time import time
 
 FORMATS = ("html", "md", )
-VERSION = version("merkury")
+
+def get_report(script_file_path: Path, report_file_path: Path, template_data: dict) -> bool:
+    duration_ms, code = execute_python(script_file_path)
+    template_data = {
+        **template_data,
+        "duration_ms": duration_ms,
+        "file_name": script_file_path.name,
+    }
+    generate_report(code, report_file_path, template_data)
+    return True
 
 def main():
     """
@@ -45,23 +52,15 @@ def main():
     script_file_path: Path = Path(args.get("<script>"))
     file_name = script_file_path.name
     assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
-    start = time()
-    code: Code = execute_python(script_file_path)
-    duration_ms = int(1000*(time()-start))
+    report_file_path = Path(args.get("--output") or get_default_path(script_file_path, output_format))
     template_data = {
-        "code": code,
-        "duration_ms": duration_ms,
         "output_format": output_format,
         "show_input_blocks": not bool(args.get("--no-input")),
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
-        "title": args.get("--title") or file_name,
-        "file_name": file_name,
-        "report_file_path": Path(args.get("--output") or get_default_path(script_file_path, output_format)),
-        "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
-        "version": VERSION,
+        "title": args.get("--title") or script_file_path.name,
     }
-    generate_report(template_data)
+    get_report(script_file_path, report_file_path, template_data)
 
 if __name__ == "__main__":
     main()
