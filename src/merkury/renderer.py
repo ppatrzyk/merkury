@@ -1,5 +1,5 @@
 """
-Reformats code output into report.
+Reformats code out_code into report.
 """
 
 from jinja2 import Environment, PackageLoader
@@ -20,21 +20,23 @@ def chunk_generator(code):
     """
     in_chunk = out_chunk = ""
     html = markdown = False
-    titles = [None, ]
-    for input, output in code:
-        html = html or any((bool(re.match(r"^#HTML", line)) for line in input))
-        markdown = markdown or any((bool(re.match(r"^#MARKDOWN", line)) for line in input))
-        titles.extend(re.sub(r"^#TITLE\s+", "", line) for line in input if re.search(r"^#TITLE", line))
-        in_chunk += "".join((line+"\n" for line in input))
-        if output != "":
-            out_chunk += output
+    title = None
+    for in_code, out_code in code:
+        html = html or any((bool(re.match(r"^#HTML", line)) for line in in_code))
+        markdown = markdown or any((bool(re.match(r"^#MARKDOWN", line)) for line in in_code))
+        for line in in_code:
+            if re.search(r"^#TITLE", line):
+                title = re.sub(r"^#TITLE\s+", "", line)
+        in_chunk += "".join((line+"\n" for line in in_code))
+        if out_code != "":
+            out_chunk += out_code
             assert (sum([html, markdown]) <= 1), "Both html and markdown specified for a chunk"
-            yield {"in": in_chunk, "out": out_chunk, "html": html, "markdown": markdown, "title": titles[-1]}
+            yield {"in": in_chunk, "out": out_chunk, "html": html, "markdown": markdown, "title": title}
             in_chunk = out_chunk = ""
             html = markdown = False
-            titles = [None, ]
+            title = None
     if in_chunk != "":
-        yield {"in": in_chunk, "out": None, "html": False, "markdown": False, "title": titles[-1]}
+        yield {"in": in_chunk, "out": None, "html": False, "markdown": False, "title": title}
 
 def join_chunks(code):
     """

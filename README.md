@@ -33,32 +33,31 @@ Options:
     -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
-    -t <title>, --title <title>     Specify report title (if missing, script file name)
-    -c, --toc                       Generate Table of Contents
+    -t <title>, --title <title>     Specify report title (if missing, script file name).
+    -i, --input                     Show input blocks in generated report.
+    -c, --toc                       Generate Table of Contents.
+    -d, --debug                     Print debug messages.
     -v, --version                   Show version and exit.
+
+Source:
+    https://github.com/ppatrzyk/merkury
 ```
 
-### PDF reports
+## Section formatting
 
-It is also possible to obtain PDF reports with usage of additional conversion tools (e.g., [pandoc](https://github.com/jgm/pandoc)). For example:
+Formatting of output inside report is controlled by inserting _magic comments_ inside input script. There are following optional directives:
 
-```
-merkury -o /dev/stdout -f md <your_script> | pandoc --highlight-style=tango -t pdf -o report.pdf
-```
+- [`#TITLE`](#title)
+- [`#HTML`](#html)
+- [`#MARKDOWN`](markdown)
 
-Note, in case your report file contains raw html chunks (such as plots or images), you will need use _wkhtmltopdf_ [pdf engine](https://pandoc.org/MANUAL.html#option--pdf-engine).
+By default _merkury_ treats any output as standard code print and puts it into `<code>` blocks. Only If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ inside a code chunk.
 
-## Formatting and plots
+### Title
 
-In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can give titles to each section by placing _magic comment_ `#TITLE <your_section_title>` after line that produces output.
+In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can give titles to each section by placing _magic comment_ `#TITLE <your_section_title>` inside code chunk.
 
-### Python
-
-When it comes to report formatting, there are 3 types of outputs in a Python script: Standard `<code>` block (default), HTML, or Markdown.
-
-By default _merkury_ treats any output as standard code print and puts it into `<code>` blocks. If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ after print statement in your script.
-
-#### HTML
+### HTML
 
 You need to put a comment `#HTML` after a line that outputs raw HTML. For example:
 
@@ -69,7 +68,7 @@ print(pandas_df.to_html(border=0))
 
 In addition to writing HTML by hand or using libraries that allow formatting output as HTML, _merkury_ provides [utility functions](merkury/utils.py) to format plots from common libraries. See [plotting docs](https://ppatrzyk.github.io/merkury/plotting.html) for details.
 
-#### Markdown
+### Markdown
 
 It's also possible to render text formatted in markdown. You need to put magic comment `#MARKDOWN` after print statement.
 
@@ -87,6 +86,16 @@ List:
 """)
 #MARKDOWN
 ```
+
+## PDF reports
+
+It is also possible to obtain PDF reports with usage of additional conversion tools (e.g., [pandoc](https://github.com/jgm/pandoc)). For example:
+
+```
+merkury -o /dev/stdout -f md <your_script> | pandoc --highlight-style=tango -t pdf -o report.pdf
+```
+
+Note, in case your report file contains raw html chunks (such as plots or images), you will need use _wkhtmltopdf_ [pdf engine](https://pandoc.org/MANUAL.html#option--pdf-engine).
 
 ## Acknowledgements
 
