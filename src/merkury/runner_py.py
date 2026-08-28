@@ -3,6 +3,7 @@ Functions for running python scripts.
 """
 
 import ast
+import traceback
 from contextlib import redirect_stdout
 from io import StringIO
 from itertools import starmap
@@ -22,9 +23,15 @@ def get_code_out(node, file_name):
     """
     f = StringIO()
     code = compile(ast.Module([node, ], type_ignores=[]), file_name, "exec")
+    success = False
     with redirect_stdout(f):
-        exec(code, ENV)
-    return f.getvalue()
+        try:
+            exec(code, ENV)
+            success = True
+        except Exception as e:
+            msg = f"{type(e).__name__}: {e}"
+            print(msg)
+    return success, f.getvalue()
 
 def prune_lines(lines):
     """
@@ -47,5 +54,10 @@ def execute_python(script_path):
     end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(prune_lines(lines[start:end]) for start, end in zip(start_lines, end_lines))
     assert code_inputs, "Python file is empty"
-    code_outputs = tuple(starmap(get_code_out, ((node, script_path.name, ) for node in module.body)))
+    code_outputs = list()
+    for node in module.body:
+        success, output = get_code_out(node, script_path.name)
+        code_outputs.append(output)
+        if not success:
+            break
     return zip(code_inputs, code_outputs)

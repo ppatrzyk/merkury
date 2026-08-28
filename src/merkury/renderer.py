@@ -7,7 +7,9 @@ from markdown import markdown
 import re
 
 jinja = Environment(
-    loader=PackageLoader(__package__, "templates")
+    loader=PackageLoader(__package__, "templates"),
+    trim_blocks=True,
+    lstrip_blocks=True,
 )
 jinja.filters["markdown"] = lambda content: markdown(content, extensions=["tables", ])
 
@@ -48,7 +50,7 @@ def produce_report(template_data):
     """
     Main function for transforming raw code
     """
-    template = jinja.get_template(f"template.{template_data.get('format')}")
+    template = jinja.get_template(f"template.{template_data.get("output_format")}")
     chunks = join_chunks(template_data.get("code"))
     report = template.render({**template_data, "chunks": chunks, })
     with template_data.get("report_file_path").open("w") as out:

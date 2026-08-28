@@ -12,6 +12,9 @@ Options:
     -t <title>, --title <title>     Specify report title (if missing, script file name)
     -c, --toc                       Generate Table of Contents
     -v, --version                   Show version and exit.
+
+Source:
+    https://github.com/ppatrzyk/merkury
 """
 
 from .renderer import produce_report
@@ -32,22 +35,23 @@ def main():
     Program entrypoint
     """
     args = docopt(__doc__, version=f"merkury v{VERSION}")
-    format = (args.get("--format") or "html").lower()
-    assert format in FORMATS, f"Unknown format: {format}. Options: html, md"
+    output_format = (args.get("--format") or "html").lower()
+    assert output_format in FORMATS, f"Unknown format: {format}. Options: html, md"
     script_file_path = Path(args.get("<script>"))
     file_name = script_file_path.name
     assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
     start = time()
     code = execute_python(script_file_path)
+    duration_ms = int(1000*(time()-start))
     template_data = {
         "code": code,
-        "duration": int(1000*(time()-start)),
-        "format": format,
+        "duration_ms": duration_ms,
+        "output_format": output_format,
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title") or file_name,
         "file_name": file_name,
-        "report_file_path": Path(args.get("--output") or get_default_path(script_file_path, format)),
+        "report_file_path": Path(args.get("--output") or get_default_path(script_file_path, output_format)),
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": VERSION,
     }
