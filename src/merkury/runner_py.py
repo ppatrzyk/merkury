@@ -3,6 +3,7 @@ Functions for running python scripts.
 """
 
 import ast
+import logging
 import traceback
 from contextlib import redirect_stdout
 from io import StringIO
@@ -53,11 +54,14 @@ def execute_python(script_path):
     start_lines = tuple(map(get_node_line, module.body))
     end_lines = start_lines[1:] + (len(lines), )
     code_inputs = tuple(prune_lines(lines[start:end]) for start, end in zip(start_lines, end_lines))
-    assert code_inputs, "Python file is empty"
+    code_inputs_len = len(code_inputs)
+    assert code_inputs_len > 0, "Python file is empty"
     code_outputs = list()
-    for node in module.body:
+    for i, node in enumerate(module.body, start=1):
+        logging.debug(f"Running [{i}/{code_inputs_len}]")
         success, output = get_code_out(node, script_path.name)
         code_outputs.append(output)
         if not success:
+            logging.warning("Code raised exception execution stopped")
             break
     return zip(code_inputs, code_outputs)

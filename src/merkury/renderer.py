@@ -4,6 +4,7 @@ Reformats code output into report.
 
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
+import logging
 import re
 
 jinja = Environment(
@@ -50,9 +51,11 @@ def produce_report(template_data):
     """
     Main function for transforming raw code
     """
+    report_file_path = template_data.get("report_file_path")
     template = jinja.get_template(f"template.{template_data.get("output_format")}")
     chunks = join_chunks(template_data.get("code"))
     report = template.render({**template_data, "chunks": chunks, })
-    with template_data.get("report_file_path").open("w") as out:
+    with report_file_path.open("w") as out:
         out.write(report)
+    logging.debug(f"Report written to {report_file_path}")
     return True

@@ -9,14 +9,16 @@ Options:
     -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
-    -t <title>, --title <title>     Specify report title (if missing, script file name)
-    -c, --toc                       Generate Table of Contents
+    -t <title>, --title <title>     Specify report title (if missing, script file name).
+    -c, --toc                       Generate Table of Contents.
+    -d, --debug                     Print debug messages.
     -v, --version                   Show version and exit.
 
 Source:
     https://github.com/ppatrzyk/merkury
 """
 
+import logging
 from .renderer import produce_report
 from .runner_py import execute_python
 from .utils import get_default_path
@@ -35,6 +37,8 @@ def main():
     Program entrypoint
     """
     args = docopt(__doc__, version=f"merkury v{VERSION}")
+    if bool(args.get("--debug")):
+        logging.basicConfig(level=logging.DEBUG)
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, f"Unknown format: {format}. Options: html, md"
     script_file_path = Path(args.get("<script>"))
