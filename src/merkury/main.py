@@ -10,6 +10,7 @@ Options:
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name).
+    -i, --input                     Show input blocks in generated report.
     -c, --toc                       Generate Table of Contents.
     -d, --debug                     Print debug messages.
     -v, --version                   Show version and exit.
@@ -51,6 +52,7 @@ def main():
         "code": code,
         "duration_ms": duration_ms,
         "output_format": output_format,
+        "show_input_blocks": bool(args.get("--input")),
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title") or file_name,

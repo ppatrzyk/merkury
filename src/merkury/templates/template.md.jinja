@@ -18,11 +18,13 @@
 ## {{ chunk.title }}
 
 {% endif %}
+{% if show_input_blocks %}
 _In_ \[{{ chunk.number }}\]
 ```python
 {{ chunk.in }}
 ```
 _Out_ \[{{ chunk.number }}\]
+{% endif %}
 {% if chunk.html or chunk.markdown %}
 {{ chunk.out }}
 {% else %}

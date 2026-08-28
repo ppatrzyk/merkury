@@ -52,7 +52,8 @@ def produce_report(template_data):
     Main function for transforming raw code
     """
     report_file_path = template_data.get("report_file_path")
-    template = jinja.get_template(f"template.{template_data.get("output_format")}")
+    output_format = template_data.get("output_format")
+    template = jinja.get_template(f"template.{output_format}.jinja")
     chunks = join_chunks(template_data.get("code"))
     report = template.render({**template_data, "chunks": chunks, })
     with report_file_path.open("w") as out:
