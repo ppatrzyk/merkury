@@ -24,7 +24,7 @@ $ merkury -h
 merkury
 
 Usage:
-    merkury [options] <script>
+    merkury [options] <path>
 
 Options:
     -h --help                       Show this screen.

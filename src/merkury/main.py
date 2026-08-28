@@ -2,7 +2,7 @@
 """merkury
 
 Usage:
-    merkury [options] <script>
+    merkury [options] <path>
 
 Options:
     -h --help                       Show this screen.
@@ -40,18 +40,23 @@ def get_report(script_file_path: Path, report_file_path: Path, template_data: di
     generate_report(code, report_file_path, template_data)
     return True
 
-def main():
+def main(argv=None):
     """
     Program entrypoint
     """
-    args = docopt(__doc__, version=f"merkury v{VERSION}")
+    args = docopt(__doc__, argv=argv, version=f"merkury v{VERSION}")
+    logging.error(args)
     if bool(args.get("--debug")):
         logging.basicConfig(level=logging.DEBUG)
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, f"Unknown format: {output_format}. Options: html, md"
-    script_file_path: Path = Path(args.get("<script>"))
-    file_name = script_file_path.name
-    assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
+    script_file_path: Path = Path(args.get("<path>"))
+    if script_file_path.is_dir():
+        raise ValueError(f"directory passed {script_file_path}")
+    elif script_file_path.is_file():
+        assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
+    else:
+        raise ValueError(f"bad path object: {script_file_path}")
     report_file_path = Path(args.get("--output") or get_default_path(script_file_path, output_format))
     template_data = {
         "output_format": output_format,
@@ -61,6 +66,7 @@ def main():
         "title": args.get("--title") or script_file_path.name,
     }
     get_report(script_file_path, report_file_path, template_data)
+    return 0
 
 if __name__ == "__main__":
     main()
