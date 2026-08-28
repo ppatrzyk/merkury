@@ -50,7 +50,7 @@ def generate_chunks(code: Code):
         del chunks[-1]
     return chunks
 
-def produce_report(template_data):
+def generate_report(template_data: dict) -> bool:
     """
     Main function for transforming raw code
     """

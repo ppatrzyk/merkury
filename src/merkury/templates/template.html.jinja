@@ -59,20 +59,22 @@
             {% if chunk.title is not none %}
                 <h2>{{ chunk.title }}</h2>
             {% endif %}
+            {% if show_input_blocks %}
                 <details>
-                <summary>In [{{ chunk.number }}]</summary>
-                <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
+                    <summary>In [{{ chunk.number }}]</summary>
+                    <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
                 </details>
                 <details open>
                     <summary>Out [{{ chunk.number }}]</summary>
-                    {% if chunk.html %}
-                        <object>{{ chunk.out }}</object>
-                    {% elif chunk.markdown %}
-                        {{ markdown(chunk.out) }}
-                    {% else %}
-                        <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
-                    {% endif %}
-                </details>
+            {% endif %}
+                {% if chunk.html %}
+                    <object>{{ chunk.out }}</object>
+                {% elif chunk.markdown %}
+                    {{ markdown(chunk.out) }}
+                {% else %}
+                    <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
+                {% endif %}
+            {% if show_input_blocks %}</details>{% endif %}
             </div>
         {% endfor %}
         </div>

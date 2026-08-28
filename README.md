@@ -1,11 +1,9 @@
 # Merkury
 
-_Merkury_ is a command line utility to run Python scripts and render _static_ HTML or Markdown reports with code and produced output. It uses standard `.py` files as input - any valid script that can be run from command line, can also be turned into a report.
+_Merkury_ is a command line utility to run Python scripts and render _static_ HTML or Markdown reports. It uses standard `.py` files as input - any valid script that can be run from command line, can also be turned into a report.
 
 - [Example Python report](https://ppatrzyk.github.io/merkury/examples/intro-py.html)
 - [Documentation](https://ppatrzyk.github.io/merkury/)
-
-It's a lightweight alternative to tools such as [jupyter](https://github.com/jupyter/jupyter) and [papermill](https://github.com/nteract/papermill). While these have their advantages (and [problems](https://www.youtube.com/watch?v=7jiPeIFXb6U)), when everything you need is to generate a report from a data analysis script, they might be an overkill. This project is meant to address that scenario.
 
 Non-goals of the project:
 
@@ -34,7 +32,7 @@ Options:
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name).
-    -i, --input                     Show input blocks in generated report.
+    -i, --no-input                  Hide input blocks in generated report.
     -c, --toc                       Generate Table of Contents.
     -d, --debug                     Print debug messages.
     -v, --version                   Show version and exit.

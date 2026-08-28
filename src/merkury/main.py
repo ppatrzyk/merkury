@@ -10,7 +10,7 @@ Options:
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name).
-    -i, --input                     Show input blocks in generated report.
+    -i, --no-input                  Hide input blocks in generated report.
     -c, --toc                       Generate Table of Contents.
     -d, --debug                     Print debug messages.
     -v, --version                   Show version and exit.
@@ -20,7 +20,7 @@ Source:
 """
 
 import logging
-from .renderer import produce_report
+from .renderer import generate_report
 from .runner_py import execute_python, Code
 from .utils import get_default_path
 from datetime import datetime
@@ -41,7 +41,7 @@ def main():
     if bool(args.get("--debug")):
         logging.basicConfig(level=logging.DEBUG)
     output_format = (args.get("--format") or "html").lower()
-    assert output_format in FORMATS, f"Unknown format: {format}. Options: html, md"
+    assert output_format in FORMATS, f"Unknown format: {output_format}. Options: html, md"
     script_file_path: Path = Path(args.get("<script>"))
     file_name = script_file_path.name
     assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
@@ -52,7 +52,7 @@ def main():
         "code": code,
         "duration_ms": duration_ms,
         "output_format": output_format,
-        "show_input_blocks": bool(args.get("--input")),
+        "show_input_blocks": not bool(args.get("--no-input")),
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title") or file_name,
@@ -61,7 +61,7 @@ def main():
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": VERSION,
     }
-    produce_report(template_data)
+    generate_report(template_data)
 
 if __name__ == "__main__":
     main()
