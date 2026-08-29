@@ -2,17 +2,20 @@
 """merkury
 
 Usage:
-    merkury [options] <path>
+    merkury [options] <script_path>
+    merkury [options] batch <dir_path>
 
 Options:
     -h --help                       Show this screen.
-    -o <file>, --output <file>      Specify report file (if missing, <script_name>_<date>).
+    -p <count>, --parallel <count>  Parallel processes (if missing, cpu cores).
+    -o <file>, --output <file>      Specify report file (if missing, <script_name>.<format>).
     -f <format>, --format <format>  Specify report format: html (default), md.
     -a <author>, --author <author>  Specify author (if missing, user name).
     -t <title>, --title <title>     Specify report title (if missing, script file name).
+    -d, --timestamp                 Add timestamp to default report file name.
     -i, --no-input                  Hide input blocks in generated report.
     -c, --toc                       Generate Table of Contents.
-    -d, --debug                     Print debug messages.
+    -l, --debug                     Print debug messages.
     -v, --version                   Show version and exit.
 
 Source:
@@ -20,6 +23,7 @@ Source:
 """
 
 import logging
+import multiprocessing
 from .renderer import generate_report
 from .runner_py import execute_python
 from .utils import get_default_path, VERSION
@@ -30,14 +34,19 @@ from pathlib import Path
 
 FORMATS = ("html", "md", )
 
-def get_report(script_file_path: Path, report_file_path: Path, template_data: dict) -> bool:
-    duration_ms, code = execute_python(script_file_path)
+def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
+    if template_data.get("title") is None:
+        template_data = {**template_data, "title": path.name}
+    duration_ms, code = execute_python(path)
     template_data = {
         **template_data,
         "duration_ms": duration_ms,
-        "file_name": script_file_path.name,
+        "file_name": path.name,
     }
-    generate_report(code, report_file_path, template_data)
+    report = generate_report(code, template_data)
+    with report_file_path.open("w") as out:
+        out.write(report)
+    logging.debug(f"Report written to {report_file_path}")
     return True
 
 def main(argv=None):
@@ -45,27 +54,35 @@ def main(argv=None):
     Program entrypoint
     """
     args = docopt(__doc__, argv=argv, version=f"merkury v{VERSION}")
-    logging.error(args)
     if bool(args.get("--debug")):
         logging.basicConfig(level=logging.DEBUG)
+    batch = bool(args.get("batch"))
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, f"Unknown format: {output_format}. Options: html, md"
-    script_file_path: Path = Path(args.get("<path>"))
-    if script_file_path.is_dir():
-        raise ValueError(f"directory passed {script_file_path}")
-    elif script_file_path.is_file():
-        assert script_file_path.suffix.lower() == ".py", f"Unknown file {script_file_path}"
-    else:
-        raise ValueError(f"bad path object: {script_file_path}")
-    report_file_path = Path(args.get("--output") or get_default_path(script_file_path, output_format))
+    add_timestamp = bool(args.get("--timestamp"))
     template_data = {
         "output_format": output_format,
         "show_input_blocks": not bool(args.get("--no-input")),
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
-        "title": args.get("--title") or script_file_path.name,
+        "title": args.get("--title"),
     }
-    get_report(script_file_path, report_file_path, template_data)
+    if batch:
+        path: Path = Path(args.get("<dir_path>"))
+        assert path.is_dir(), f"directory must be passed in batch mode, got {path}"
+        if args.get("--output") is not None:
+            logging.warning("--output is ignored in batch mode")
+        sub_paths = tuple(found_path for found_path in path.rglob("*") if (found_path.is_file() and found_path.suffix.lower() == ".py"))
+        parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
+        with multiprocessing.Pool(processes=parallel) as pool:
+            get_report_args = ((sub_path, get_default_path(sub_path, output_format, add_timestamp), {**template_data, "title": sub_path.name}) for sub_path in sub_paths)
+            pool.starmap(get_report, get_report_args)
+    else:
+        path: Path = Path(args.get("<script_path>"))
+        assert path.is_file() and (path.suffix.lower() == ".py"), f"path {path} is not a python file"
+        report_file_path = Path(args.get("--output") or get_default_path(path, output_format, add_timestamp))
+        assert not report_file_path.is_dir(), "--output set to directory"
+        get_report(path, report_file_path, template_data)
     return 0
 
 if __name__ == "__main__":

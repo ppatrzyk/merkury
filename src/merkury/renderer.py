@@ -42,7 +42,7 @@ def _generate_chunks_internal(code: Code):
     if in_chunk != "":
         yield {"in": in_chunk, "out": None, "html": False, "markdown": False, "title": title}
 
-def generate_chunks(code: Code):
+def generate_chunks(code: Code) -> list[dict]:
     """
     Turn raw code into chunks used for report
     """
@@ -53,7 +53,7 @@ def generate_chunks(code: Code):
         del chunks[-1]
     return chunks
 
-def generate_report(code: Code, report_file_path: Path, template_data: dict) -> bool:
+def generate_report(code: Code, template_data: dict) -> str:
     """
     Main function for transforming raw code
     """
@@ -66,7 +66,4 @@ def generate_report(code: Code, report_file_path: Path, template_data: dict) -> 
         "timestamp": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"),
         "version": VERSION,
     })
-    with report_file_path.open("w") as out:
-        out.write(report)
-    logging.debug(f"Report written to {report_file_path}")
-    return True
+    return report

@@ -69,11 +69,14 @@ def _bytes_to_html(bytes):
 
 ### Other utils ###
 
-def get_default_path(script_file_path: Path, output_format: str) -> Path:
+def get_default_path(script_file_path: Path, output_format: str, include_date: bool) -> Path:
     """
     Default file path for report
     """
-    date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
     file_name = re.sub(r"\.py$", "", script_file_path.name)
-    out_file_name = f"{file_name}_{date_now}.{output_format}"
+    if include_date:
+        date_now = datetime.now().astimezone().strftime("%Y%m%d%H%M%S%Z")
+        out_file_name = f"{file_name}_{date_now}.{output_format}"
+    else:
+        out_file_name = f"{file_name}.{output_format}"
     return Path(script_file_path.parent, out_file_name)
