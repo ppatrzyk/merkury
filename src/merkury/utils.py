@@ -69,9 +69,9 @@ def _bytes_to_html(bytes):
 
 ### Other utils ###
 
-def get_default_path(script_file_path: Path, output_format: str, include_date: bool) -> Path:
+def get_default_file_name(script_file_path: Path, output_format: str, include_date: bool) -> str:
     """
-    Default file path for report
+    Default file name
     """
     file_name = re.sub(r"\.py$", "", script_file_path.name)
     if include_date:
@@ -79,4 +79,11 @@ def get_default_path(script_file_path: Path, output_format: str, include_date: b
         out_file_name = f"{file_name}_{date_now}.{output_format}"
     else:
         out_file_name = f"{file_name}.{output_format}"
+    return out_file_name
+
+def get_default_path(script_file_path: Path, output_format: str, include_date: bool) -> Path:
+    """
+    Default file path for report
+    """
+    out_file_name = get_default_file_name(script_file_path, output_format, include_date)
     return Path(script_file_path.parent, out_file_name)

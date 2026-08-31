@@ -26,7 +26,7 @@ import logging
 import multiprocessing
 from .renderer import generate_report
 from .runner_py import execute_python
-from .utils import get_default_path, VERSION
+from .utils import get_default_path, get_default_file_name, VERSION
 
 from docopt import docopt
 from os import getlogin
@@ -67,21 +67,55 @@ def main(argv=None):
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title"),
     }
+    specified_output = args.get("--output")
+    specified_output_is_dir = False
+    if specified_output is not None:
+        specified_output = Path(specified_output).resolve()
+        if specified_output.exists():
+            if specified_output.is_dir():
+                specified_output_is_dir = True
+        else:
+            if specified_output.suffix.lower().strip(".") in FORMATS:
+                specified_output.parent.mkdir(parents=True, exist_ok=True)
+                specified_output.touch()
+            else:
+                specified_output_is_dir = True
+                specified_output.mkdir(parents=True, exist_ok=True)
     if batch:
-        path: Path = Path(args.get("<dir_path>"))
+        path: Path = Path(args.get("<dir_path>")).resolve()
         assert path.is_dir(), f"directory must be passed in batch mode, got {path}"
-        if args.get("--output") is not None:
-            logging.warning("--output is ignored in batch mode")
+        assert (specified_output is None) or (not specified_output.is_file()), "Cannot write to single file in batch mode, pass directory instead"
         sub_paths = tuple(found_path for found_path in path.rglob("*") if (found_path.is_file() and found_path.suffix.lower() == ".py"))
-        parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
-        with multiprocessing.Pool(processes=parallel) as pool:
-            get_report_args = ((sub_path, get_default_path(sub_path, output_format, add_timestamp), {**template_data, "title": sub_path.name}) for sub_path in sub_paths)
-            pool.starmap(get_report, get_report_args)
+        if sub_paths:
+            parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
+            with multiprocessing.Pool(processes=parallel) as pool:
+                get_report_args = list()
+                for sub_path in sub_paths:
+                    if specified_output is None:
+                        report_file_path = get_default_path(sub_path, output_format, add_timestamp)
+                    else:
+                        if specified_output_is_dir:
+                            file_name = get_default_file_name(sub_path, output_format, add_timestamp)
+                            report_file_path = Path(specified_output, file_name)
+                        else:
+                            report_file_path = specified_output # /dev/null etc cases
+                    get_report_args.append(
+                        (sub_path, report_file_path, template_data)
+                    )
+                pool.starmap(get_report, get_report_args)
+        else:
+            logging.warning(f"no python files found inside {path}")
     else:
-        path: Path = Path(args.get("<script_path>"))
+        path: Path = Path(args.get("<script_path>")).resolve()
         assert path.is_file() and (path.suffix.lower() == ".py"), f"path {path} is not a python file"
-        report_file_path = Path(args.get("--output") or get_default_path(path, output_format, add_timestamp))
-        assert not report_file_path.is_dir(), "--output set to directory"
+        if specified_output is None:
+            report_file_path = get_default_path(path, output_format, add_timestamp)
+        else:
+            if specified_output_is_dir:
+                file_name = get_default_file_name(path, output_format, add_timestamp)
+                report_file_path = Path(specified_output, file_name)
+            else:
+                report_file_path = specified_output # /dev/null etc cases
         get_report(path, report_file_path, template_data)
     return 0
 
