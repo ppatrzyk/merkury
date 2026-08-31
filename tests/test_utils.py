@@ -4,6 +4,7 @@ from pathlib import Path
 from merkury.utils import (
     _get_default_file_name,
     _get_default_path,
+    get_python_files,
     get_report_path,
     process_output_path,
 )
@@ -94,3 +95,10 @@ def test_get_report_path(tmp_path):
     assert get_report_path(script_path, passed_dir_file, "html", False) == Path(
         tmp_path, "customdir1/customdir2/script.html"
     )
+
+
+def test_get_python_files():
+    path = Path("tests/dir")
+    assert get_python_files(path) == (Path("tests/dir/s1.py"), Path("tests/dir/s2.py"))
+    bad_path = Path("tests/doesnotexist")
+    assert get_python_files(bad_path) == ()

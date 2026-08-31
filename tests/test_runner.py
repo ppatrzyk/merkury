@@ -1,6 +1,6 @@
 import pathlib
 
-from merkury.runner_py import _prune_lines, execute_python
+from merkury.runner_py import _execute_python, _prune_lines
 
 PY_SCRIPT = pathlib.Path("tests/scripts/script.py")
 PY_BAD_SCRIPT = pathlib.Path("tests/scripts/badscript.py")
@@ -33,7 +33,7 @@ def test_execute_python():
             "loop test\nloop test\n",
         ),
     ]
-    _duration, code = execute_python(PY_SCRIPT)
+    _duration, code = _execute_python(PY_SCRIPT)
     assert list(code) == expected_code
 
 
@@ -43,5 +43,5 @@ def test_execute_bad_python():
         (["a = 1/-1"], ""),
         (["b = 1/0"], "ZeroDivisionError: division by zero\n"),
     ]
-    _duration, code = execute_python(PY_BAD_SCRIPT)
+    _duration, code = _execute_python(PY_BAD_SCRIPT)
     assert list(code) == expected_code

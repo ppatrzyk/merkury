@@ -3,6 +3,7 @@
 Usage:
     merkury [options] <script_path>
     merkury [options] batch <dir_path>
+    merkury [options] server <dir_path>
 
 Options:
     -h --help                       Show this screen.
@@ -28,27 +29,17 @@ from pathlib import Path
 
 from docopt import docopt
 
-from .renderer import generate_report
-from .runner_py import execute_python
-from .utils import FORMATS, VERSION, get_report_path, process_output_path
+from .runner_py import get_report
+from .server import run_server
+from .utils import (
+    FORMATS,
+    VERSION,
+    get_python_files,
+    get_report_path,
+    process_output_path,
+)
 
 logger = logging.getLogger(__name__)
-
-
-def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
-    if template_data.get("title") is None:
-        template_data = {**template_data, "title": path.name}
-    duration_ms, code = execute_python(path)
-    template_data = {
-        **template_data,
-        "duration_ms": duration_ms,
-        "file_name": path.name,
-    }
-    report = generate_report(code, template_data)
-    with report_file_path.open("w") as out:
-        out.write(report)
-    logger.debug(f"Report written to {report_file_path}")
-    return True
 
 
 def main(argv=None):
@@ -58,7 +49,6 @@ def main(argv=None):
     args = docopt(__doc__, argv=argv, version=f"merkury v{VERSION}")
     if bool(args.get("--debug")):
         logging.basicConfig(level=logging.DEBUG)
-    batch = bool(args.get("batch"))
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, (
         f"Unknown format: {output_format}. Options: html, md"
@@ -72,17 +62,24 @@ def main(argv=None):
         "title": args.get("--title"),
     }
     specified_output = process_output_path(args.get("--output"))
-    if batch:
+    batch = bool(args.get("batch"))
+    server = bool(args.get("server"))
+    if batch or server:
         path: Path = Path(args.get("<dir_path>")).resolve()
-        assert path.is_dir(), f"directory must be passed in batch mode, got {path}"
+        assert path.is_dir(), (
+            f"directory must be passed in batch/server mode, got {path}"
+        )
         assert (specified_output is None) or (not specified_output.is_file()), (
-            "Cannot write to single file in batch mode, pass directory instead"
+            "Cannot write to single file in batch/server mode, pass directory instead"
         )
-        sub_paths = tuple(
-            found_path
-            for found_path in path.rglob("*")
-            if (found_path.is_file() and found_path.suffix.lower() == ".py")
+    else:
+        path: Path = Path(args.get("<script_path>")).resolve()
+        assert path.is_file() and (path.suffix.lower() == ".py"), (
+            f"path {path} is not a python file"
         )
+    # execution
+    if batch:
+        sub_paths = get_python_files(path)
         if sub_paths:
             parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
             with multiprocessing.Pool(processes=parallel) as pool:
@@ -95,11 +92,16 @@ def main(argv=None):
                 pool.starmap(get_report, get_report_args)
         else:
             logger.warning(f"no python files found inside {path}")
+    elif server:
+        sub_paths = get_python_files(path)
+        if sub_paths:
+            assert len(sub_paths) == len({sub_path.name for sub_path in sub_paths}), (
+                "duplicate file names not allowed in server mode"
+            )
+            run_server(sub_paths, specified_output, template_data)
+        else:
+            logger.warning(f"no python files found inside {path}")
     else:
-        path: Path = Path(args.get("<script_path>")).resolve()
-        assert path.is_file() and (path.suffix.lower() == ".py"), (
-            f"path {path} is not a python file"
-        )
         report_file_path = get_report_path(
             path, specified_output, output_format, add_timestamp
         )

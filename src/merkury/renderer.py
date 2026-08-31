@@ -3,13 +3,15 @@ Reformats code out_code into report.
 """
 
 import re
+from collections.abc import Iterator
 from datetime import datetime
 
 from jinja2 import Environment, PackageLoader
 from markdown import markdown
 
-from .runner_py import Code
 from .utils import VERSION
+
+Code = Iterator[tuple[list[str], str]]
 
 jinja = Environment(
     loader=PackageLoader(__package__, "templates"),

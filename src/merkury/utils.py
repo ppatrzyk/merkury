@@ -147,3 +147,16 @@ def get_report_path(
         else:
             report_file_path = specified_output  # /dev/null etc cases
     return report_file_path
+
+
+def get_python_files(path: Path) -> tuple[Path]:
+    """
+    List python files inside directory
+    """
+    return tuple(
+        sorted(
+            found_path
+            for found_path in path.rglob("*")
+            if (found_path.is_file() and found_path.suffix.lower() == ".py")
+        )
+    )

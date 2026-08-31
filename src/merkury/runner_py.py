@@ -4,13 +4,12 @@ Functions for running python scripts.
 
 import ast
 import logging
-from collections.abc import Iterator
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
 from time import time
 
-Code = Iterator[tuple[list[str], str]]
+from .renderer import Code, generate_report
 
 ENV = {"__name__": "__main__"}
 
@@ -61,7 +60,7 @@ def _prune_lines(lines: list[str]) -> list[str]:
         return _prune_lines(lines[:-1])
 
 
-def execute_python(script_path: Path) -> tuple[float, Code]:
+def _execute_python(script_path: Path) -> tuple[float, Code]:
     """
     Run python script
     """
@@ -87,3 +86,19 @@ def execute_python(script_path: Path) -> tuple[float, Code]:
             break
     duration_ms = int(1000 * (time() - start))
     return duration_ms, zip(code_inputs, code_outputs)
+
+
+def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
+    if template_data.get("title") is None:
+        template_data = {**template_data, "title": path.name}
+    duration_ms, code = _execute_python(path)
+    template_data = {
+        **template_data,
+        "duration_ms": duration_ms,
+        "file_name": path.name,
+    }
+    report = generate_report(code, template_data)
+    with report_file_path.open("w") as out:
+        out.write(report)
+    logger.debug(f"Report written to {report_file_path}")
+    return True
