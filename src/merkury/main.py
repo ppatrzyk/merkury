@@ -1,4 +1,3 @@
-
 """merkury
 
 Usage:
@@ -24,18 +23,15 @@ Source:
 
 import logging
 import multiprocessing
-from .renderer import generate_report
-from .runner_py import execute_python
-from .utils import (
-    process_output_path,
-    get_report_path,
-    FORMATS,
-    VERSION
-)
-
-from docopt import docopt
 from os import getlogin
 from pathlib import Path
+
+from docopt import docopt
+
+from .renderer import generate_report
+from .runner_py import execute_python
+from .utils import FORMATS, VERSION, get_report_path, process_output_path
+
 
 def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
     if template_data.get("title") is None:
@@ -52,6 +48,7 @@ def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
     logging.debug(f"Report written to {report_file_path}")
     return True
 
+
 def main(argv=None):
     """
     Program entrypoint
@@ -61,7 +58,9 @@ def main(argv=None):
         logging.basicConfig(level=logging.DEBUG)
     batch = bool(args.get("batch"))
     output_format = (args.get("--format") or "html").lower()
-    assert output_format in FORMATS, f"Unknown format: {output_format}. Options: html, md"
+    assert output_format in FORMATS, (
+        f"Unknown format: {output_format}. Options: html, md"
+    )
     add_timestamp = bool(args.get("--timestamp"))
     template_data = {
         "output_format": output_format,
@@ -74,26 +73,37 @@ def main(argv=None):
     if batch:
         path: Path = Path(args.get("<dir_path>")).resolve()
         assert path.is_dir(), f"directory must be passed in batch mode, got {path}"
-        assert (specified_output is None) or (not specified_output.is_file()), "Cannot write to single file in batch mode, pass directory instead"
-        sub_paths = tuple(found_path for found_path in path.rglob("*") if (found_path.is_file() and found_path.suffix.lower() == ".py"))
+        assert (specified_output is None) or (not specified_output.is_file()), (
+            "Cannot write to single file in batch mode, pass directory instead"
+        )
+        sub_paths = tuple(
+            found_path
+            for found_path in path.rglob("*")
+            if (found_path.is_file() and found_path.suffix.lower() == ".py")
+        )
         if sub_paths:
             parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
             with multiprocessing.Pool(processes=parallel) as pool:
                 get_report_args = list()
                 for sub_path in sub_paths:
-                    report_file_path = get_report_path(sub_path, specified_output, output_format, add_timestamp)
-                    get_report_args.append(
-                        (sub_path, report_file_path, template_data)
+                    report_file_path = get_report_path(
+                        sub_path, specified_output, output_format, add_timestamp
                     )
+                    get_report_args.append((sub_path, report_file_path, template_data))
                 pool.starmap(get_report, get_report_args)
         else:
             logging.warning(f"no python files found inside {path}")
     else:
         path: Path = Path(args.get("<script_path>")).resolve()
-        assert path.is_file() and (path.suffix.lower() == ".py"), f"path {path} is not a python file"
-        report_file_path = get_report_path(path, specified_output, output_format, add_timestamp)
+        assert path.is_file() and (path.suffix.lower() == ".py"), (
+            f"path {path} is not a python file"
+        )
+        report_file_path = get_report_path(
+            path, specified_output, output_format, add_timestamp
+        )
         get_report(path, report_file_path, template_data)
     return 0
+
 
 if __name__ == "__main__":
     main()
