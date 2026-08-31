@@ -29,6 +29,16 @@ def test_main_errors(tmp_path):
         main(["-o", "/dev/null", "-f", "md", "batch", "tests/dirnotexisting"])
     with pytest.raises(Exception):  # noqa
         main(["-o", "/dev/null", "-f", "md", "-p", "NA", "batch", "tests/dir"])
+    server_out_baddir = Path(tmp_path, "server_bad")
+    server_out_baddir.touch()
+    with pytest.raises(Exception):  # noqa
+        main(["-o", str(server_out_baddir), "-f", "html", "server", "tests/dir"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "html", "server", "tests/dir"])
+    server_out = Path(tmp_path, "server_ok")
+    server_out.mkdir()
+    with pytest.raises(Exception):  # noqa
+        main(["-o", str(server_out), "-f", "md", "server", "tests/dir"])
 
 
 def test_main(tmp_path):
@@ -64,3 +74,4 @@ def test_main(tmp_path):
     batch_empty_dir_in = Path(tmp_path, "batch_empty_dir_in")
     batch_empty_dir_in.mkdir()
     assert main(["-f", "html", "batch", str(batch_empty_dir_in)]) == 0
+    # server runs indefinitely, correct config tested in test_server.py

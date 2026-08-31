@@ -6,17 +6,18 @@ Usage:
     merkury [options] server <dir_path>
 
 Options:
-    -h --help                       Show this screen.
-    -p <count>, --parallel <count>  Parallel processes (if missing, cpu cores).
-    -o <file>, --output <file>      Specify report file (if missing, <script_name>.<format>).
-    -f <format>, --format <format>  Specify report format: html (default), md.
-    -a <author>, --author <author>  Specify author (if missing, user name).
-    -t <title>, --title <title>     Specify report title (if missing, script file name).
-    -d, --timestamp                 Add timestamp to default report file name.
-    -i, --no-input                  Hide input blocks in generated report.
-    -c, --toc                       Generate Table of Contents.
-    -l, --debug                     Print debug messages.
-    -v, --version                   Show version and exit.
+    -h --help                         Show this screen.
+    -o <file>, --output <file>        Specify report file (if missing, <script_name>.<format>).
+    -f <format>, --format <format>    Specify report format: html (default), md.
+    -a <author>, --author <author>    Specify author (if missing, user name).
+    -t <title>, --title <title>       Specify report title (if missing, script file name).
+    -p <count>, --parallel <count>    Parallel processes (if missing, cpu cores).
+    -s <address>, --server <address>  Server address (if missing, localhost:8000).
+    -d, --timestamp                   Add timestamp to default report file name.
+    -i, --no-input                    Hide input blocks in generated report.
+    -c, --toc                         Generate Table of Contents.
+    -l, --debug                       Print debug messages.
+    -v, --version                     Show version and exit.
 
 Source:
     https://github.com/ppatrzyk/merkury
@@ -93,12 +94,21 @@ def main(argv=None):
         else:
             logger.warning(f"no python files found inside {path}")
     elif server:
+        assert output_format == "html", "Server can output html only"
+        server_raw = args.get("--server") or "localhost:8000"
+        server_host, server_port = server_raw.strip().split(":")
         sub_paths = get_python_files(path)
         if sub_paths:
             assert len(sub_paths) == len({sub_path.name for sub_path in sub_paths}), (
                 "duplicate file names not allowed in server mode"
             )
-            run_server(sub_paths, specified_output, template_data)
+            run_server(
+                server_host,
+                int(server_port),
+                sub_paths,
+                specified_output,
+                template_data,
+            )
         else:
             logger.warning(f"no python files found inside {path}")
     else:
