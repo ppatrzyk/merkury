@@ -32,6 +32,8 @@ from .renderer import generate_report
 from .runner_py import execute_python
 from .utils import FORMATS, VERSION, get_report_path, process_output_path
 
+logger = logging.getLogger(__name__)
+
 
 def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
     if template_data.get("title") is None:
@@ -45,7 +47,7 @@ def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
     report = generate_report(code, template_data)
     with report_file_path.open("w") as out:
         out.write(report)
-    logging.debug(f"Report written to {report_file_path}")
+    logger.debug(f"Report written to {report_file_path}")
     return True
 
 
@@ -84,7 +86,7 @@ def main(argv=None):
         if sub_paths:
             parallel = int(args.get("--parallel") or multiprocessing.cpu_count())
             with multiprocessing.Pool(processes=parallel) as pool:
-                get_report_args = list()
+                get_report_args = []
                 for sub_path in sub_paths:
                     report_file_path = get_report_path(
                         sub_path, specified_output, output_format, add_timestamp
@@ -92,7 +94,7 @@ def main(argv=None):
                     get_report_args.append((sub_path, report_file_path, template_data))
                 pool.starmap(get_report, get_report_args)
         else:
-            logging.warning(f"no python files found inside {path}")
+            logger.warning(f"no python files found inside {path}")
     else:
         path: Path = Path(args.get("<script_path>")).resolve()
         assert path.is_file() and (path.suffix.lower() == ".py"), (

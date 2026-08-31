@@ -14,6 +14,8 @@ Code = Iterator[tuple[list[str], str]]
 
 ENV = {"__name__": "__main__"}
 
+logger = logging.getLogger(__name__)
+
 
 def _get_node_line(node: ast.stmt):
     """
@@ -41,9 +43,9 @@ def _get_code_output(node: ast.stmt, file_name: str) -> tuple[bool, str]:
     success = False
     with redirect_stdout(f):
         try:
-            exec(code, ENV)
+            exec(code, ENV)  # noqa
             success = True
-        except Exception as e:
+        except Exception as e:  # noqa
             msg = f"{type(e).__name__}: {e}"
             print(msg)
     return success, f.getvalue()
@@ -77,11 +79,11 @@ def execute_python(script_path: Path) -> tuple[float, Code]:
     assert code_inputs_len > 0, "Python file is empty"
     code_outputs = []
     for i, node in enumerate(module.body, start=1):
-        logging.debug(f"Running [{i}/{code_inputs_len}]")
+        logger.debug(f"Running [{i}/{code_inputs_len}]")
         success, output = _get_code_output(node, script_path.name)
         code_outputs.append(output)
         if not success:
-            logging.warning("Code raised exception, execution stopped")
+            logger.warning("Code raised exception, execution stopped")
             break
     duration_ms = int(1000 * (time() - start))
     return duration_ms, zip(code_inputs, code_outputs)

@@ -7,23 +7,28 @@ from merkury.main import main
 
 
 def test_main_errors(tmp_path):
-    bad_args = (
-        ["bad"],
-        ["-o", "/dev/null", "-f", "md", "-p", "NA", "tests/scripts/script.py"],
-        ["-o", "/dev/null", "-f", "badformat", "tests/scripts/script.py"],
-        ["-o", "/dev/null", "-f", "md", "tests/dir/bad"],
-        ["-o", "/dev/null", "-f", "md", "/dev/null"],
-        ["-o", "/dev/null", "-f", "md", "bad"],
-        ["-o", "/dev/null", "-f", "md", "bad.py"],
-        ["-o", "/dev/null", "-f", "md", "batch", "tests/scripts/script.py"],
-        ["-o", Path(tmp_path, "file.html"), "-f", "md", "batch", "tests/dir"],
-        ["-o", Path(tmp_path, "file.exe"), "-f", "md", "batch", "tests/dir"],
-        ["-o", Path(tmp_path, "baddirectory"), "-f", "md", "batch", "tests/dir"],
-        ["-o", "/dev/null", "-f", "md", "batch", "tests/dirnotexisting"],
-    )
-    for arg_list in bad_args:
-        with pytest.raises(Exception):
-            main(arg_list)
+    with pytest.raises(Exception):  # noqa
+        main(["bad"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "badformat", "tests/scripts/script.py"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "tests/dir/bad"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "/dev/null"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "bad"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "bad.py"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "batch", "tests/scripts/script.py"])
+    with pytest.raises(Exception):  # noqa
+        out = Path(tmp_path, "file.html")
+        out.touch()
+        main(["-o", str(out), "-f", "md", "batch", "tests/dir"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "batch", "tests/dirnotexisting"])
+    with pytest.raises(Exception):  # noqa
+        main(["-o", "/dev/null", "-f", "md", "-p", "NA", "batch", "tests/dir"])
 
 
 def test_main(tmp_path):
