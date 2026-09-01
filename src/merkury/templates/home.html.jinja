@@ -1,0 +1,19 @@
+{% extends "base.html.jinja" %}
+{% block title %}Home{% endblock %}
+{% block header %}
+<h1>Merkury server</h1>
+<p>List of reports</p>
+{% endblock %}
+{% block content %}
+<main class="container merkury-container">
+{% for report in report_links %}
+    <article>
+        <h2>{{ report.name }}</h2>
+        <div class="grid">
+            <a role="button" target="_blank" href="{{ report.execute_link }}">execute</a>
+            <a role="button" target="_blank" href="{{ report.read_link }}">read</a>
+        </div>
+    </article>
+{% endfor %}
+</main>
+{% endblock %}

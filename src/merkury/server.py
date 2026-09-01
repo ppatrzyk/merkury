@@ -5,16 +5,43 @@ import uvicorn
 from starlette.applications import Starlette
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
-from starlette.responses import FileResponse, RedirectResponse
+from starlette.responses import FileResponse, HTMLResponse, RedirectResponse
 from starlette.routing import Route
 
+from .renderer import jinja
 from .runner_py import get_report
-from .utils import get_report_path
+from .utils import VERSION, get_report_path
 
 logger = logging.getLogger(__name__)
 
 
+async def home(request: Request):
+    """
+    Home page with report list
+    """
+    scripts = request.app.state.script_mapping.keys()
+    report_links = tuple(
+        {
+            "name": script,
+            "execute_link": request.app.url_path_for("execute", script=script),
+            "read_link": request.app.url_path_for("read", script=script),
+        }
+        for script in scripts
+    )
+    template = jinja.get_template("home.html.jinja")
+    rendered_html = template.render(
+        {
+            "report_links": report_links,
+            "version": VERSION,
+        }
+    )
+    return HTMLResponse(content=rendered_html)
+
+
 async def execute(request: Request):
+    """
+    Executes script and writes new html report
+    """
     script = request.path_params["script"]
     script_path = request.app.state.script_mapping.get(script, None)
     if (script_path is None) or (not script_path.is_file()):
@@ -30,6 +57,9 @@ async def execute(request: Request):
 
 
 async def read(request: Request):
+    """
+    Read existing html report
+    """
     script = request.path_params["script"]
     report_file_path = Path(request.app.state.specified_output, f"{script}.html")
     logger.debug(f"reading from {report_file_path}")
@@ -43,6 +73,7 @@ async def read(request: Request):
 
 
 routes = [
+    Route("/", home),
     Route("/execute/{script:str}", execute),
     Route("/read/{script:str}", read),
 ]

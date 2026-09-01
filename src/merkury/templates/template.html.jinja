@@ -1,90 +1,61 @@
-{% macro markdown(content) %}
-    <div>{{ content|markdown }}</div>
-{% endmacro %}
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <style>{% include "assets/pico.min.css" %}</style>
-    <style id="prism-dark">{% include "assets/prism-night.css" %}</style>
-    <style id="prism-light" media="max-width: 1px">{% include "assets/prism-default.css" %}</style>
-    <style>{% include "assets/merkury.css" %}</style>
-    <script>{% include "assets/merkury-themes.js" %}</script>
-</head>
-<body>
-    <nav class="container merkury-container merkury-head">
-        <ul>
-            <li>
-                <hgroup>
-                    <h1>{{ title }}</h1>
-                    <p>{{ timestamp }}</p>
-                </hgroup>
-            </li>
-        </ul>
-        <ul>
-            <li>
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
-                <input type="checkbox" id="dark-light-mode" name="dark-light-mode" role="switch" onchange="change_theme()">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
-            </li>
-        </ul>
-    </nav>
-    <main class="container merkury-container">
-        {% if toc %}
-            <aside class="merkury-toc">
-                <nav>
-                    <h2>Contents</h2>
-                    <div>
-                        <ul>
-                        {% for chunk in chunks %}
-                            <li><a href="#merkury-chunk-{{ chunk.number }}">
-                            {% if chunk.title is not none %}
-                                {{ chunk.title }}
-                            {% else %}
-                                Chunk {{ chunk.number }}
-                            {% endif %}
-                            </a></li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                </nav>
-            </aside>
+{% extends "base.html.jinja" %}
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block header %}
+<h1>{{ title }}</h1>
+<p>{{ timestamp }}</p>
+{% endblock %}
+{% block content %}
+<main class="container merkury-container">
+    {% if toc %}
+        <aside class="merkury-toc">
+            <nav>
+                <h2>Contents</h2>
+                <div>
+                    <ul>
+                    {% for chunk in chunks %}
+                        <li><a href="#merkury-chunk-{{ chunk.number }}">
+                        {% if chunk.title is not none %}
+                            {{ chunk.title }}
+                        {% else %}
+                            Chunk {{ chunk.number }}
+                        {% endif %}
+                        </a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+    {% endif %}
+    <div class="merkury-chunks" role="document">
+    {% for chunk in chunks %}
+        <div class="merkury-code-block" id="merkury-chunk-{{ chunk.number }}">
+        {% if chunk.title is not none %}
+            <h2>{{ chunk.title }}</h2>
         {% endif %}
-        <div class="merkury-chunks" role="document">
-        {% for chunk in chunks %}
-            <div class="merkury-code-block" id="merkury-chunk-{{ chunk.number }}">
-            {% if chunk.title is not none %}
-                <h2>{{ chunk.title }}</h2>
+        {% if show_input_blocks %}
+            <details>
+                <summary>In [{{ chunk.number }}]</summary>
+                <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
+            </details>
+            <details open>
+                <summary>Out [{{ chunk.number }}]</summary>
+        {% endif %}
+            {% if chunk.html %}
+                <object>{{ chunk.out }}</object>
+            {% elif chunk.markdown %}
+                {{ markdown(chunk.out) }}
+            {% else %}
+                <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
             {% endif %}
-            {% if show_input_blocks %}
-                <details>
-                    <summary>In [{{ chunk.number }}]</summary>
-                    <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
-                </details>
-                <details open>
-                    <summary>Out [{{ chunk.number }}]</summary>
-            {% endif %}
-                {% if chunk.html %}
-                    <object>{{ chunk.out }}</object>
-                {% elif chunk.markdown %}
-                    {{ markdown(chunk.out) }}
-                {% else %}
-                    <pre><code class="language-python">{{ chunk.out|e }}</code></pre>
-                {% endif %}
-            {% if show_input_blocks %}</details>{% endif %}
-            </div>
-        {% endfor %}
+        {% if show_input_blocks %}</details>{% endif %}
         </div>
-    </main>
-    <footer class="container merkury-container merkury-foot">
-        <small>
-            <p>Script <em>{{ file_name }}</em> triggered by {{ author }} on {{ timestamp }}, ran in {{ duration_ms }}ms</p>
-            <p>Report generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v{{ version }}.</p>
-        </small>
-    </footer>
-    <script>{% include "assets/prism.js" %}</script>
-</body>
-</html>
+    {% endfor %}
+    </div>
+</main>
+<script>{% include "assets/prism.js" %}</script>
+{% endblock %}
+{% block footer %}
+<p>Script <em>{{ file_name }}</em> triggered by {{ author }} on {{ timestamp }}, ran in {{ duration_ms }}ms</p>
+{% endblock %}

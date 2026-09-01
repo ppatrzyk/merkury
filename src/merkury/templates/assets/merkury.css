@@ -2,6 +2,11 @@
   font-family: system-ui, sans-serif;
   --pico-line-height: 1.5;
 }
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .merkury-chunks {
   min-width: 0;
 }
@@ -11,6 +16,7 @@
 .merkury-foot {
   text-align: center;
   padding-top: 0 !important;
+  margin-top: auto;
 }
 .merkury-head {
   padding-top: 4em;
