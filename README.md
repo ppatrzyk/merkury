@@ -41,19 +41,15 @@ Source:
     https://github.com/ppatrzyk/merkury
 ```
 
-## Section formatting
+## Formatting
 
 Formatting of output inside report is controlled by inserting _magic comments_ inside input script. There are following optional directives:
 
-- [`#TITLE`](#title)
 - [`#HTML`](#html)
 - [`#MARKDOWN`](markdown)
+- [`#TITLE`](#title)
 
 By default _merkury_ treats any output as standard code print and puts it into `<code>` blocks. Only If your output is actually HTML or Markdown, you need to indicate that by placing a _magic comment_ inside a code chunk.
-
-### Title
-
-In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can give titles to each section by placing _magic comment_ `#TITLE <your_section_title>` inside code chunk.
 
 ### HTML
 
@@ -85,6 +81,10 @@ List:
 #MARKDOWN
 ```
 
+### Title
+
+In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., `print()`). You can optionally give titles to each section by placing _magic comment_ `#TITLE <your_section_title>` inside code chunk.
+
 ## PDF reports
 
 It is also possible to obtain PDF reports with usage of additional conversion tools (e.g., [pandoc](https://github.com/jgm/pandoc)). For example:
@@ -97,6 +97,6 @@ Note, in case your report file contains raw html chunks (such as plots or images
 
 ## Acknowledgements
 
-- frontend: [pico](https://github.com/picocss/pico), [prism](https://github.com/PrismJS/prism), [tabler-icons](https://github.com/tabler/tabler-icons)
 - [SO discussion that inspired this project](https://stackoverflow.com/questions/60297105/python-write-both-commands-and-their-output-to-a-file)
 - [pyreport](https://github.com/joblib/pyreport) - similar but long abandoned project
+- frontend: [pico](https://github.com/picocss/pico), [prism](https://github.com/PrismJS/prism), [tabler-icons](https://github.com/tabler/tabler-icons)

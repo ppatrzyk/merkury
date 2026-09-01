@@ -13,6 +13,14 @@ body {
 .merkury-code-block {
   margin-bottom: 2em;
 }
+.merkury-plot-iframe {
+  overflow: hidden;
+  display: block;
+}
+.merkury-plot-container {
+  display: flex;
+  justify-content: center;
+}
 .merkury-foot {
   text-align: center;
   padding-top: 0 !important;
