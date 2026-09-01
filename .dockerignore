@@ -1,0 +1,10 @@
+**/__pycache__
+**/.pytest_cache
+**/merkury.egg-info
+venv
+build
+dist
+.vscode
+server_reports
+docs
+tests

@@ -21,6 +21,7 @@ jinja = Environment(
 jinja.filters["markdown"] = lambda content: markdown(
     content,
     extensions=[
+        "fenced_code",
         "tables",
     ],
 )

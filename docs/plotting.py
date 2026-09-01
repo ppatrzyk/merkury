@@ -8,14 +8,17 @@ from merkury.plotting import (
 
 intro = """
 Examples how to include plots with different plotting libraries.
+
+Libraries that produce interactive, Javascript-based plots work only with _html_ output format. 
+For _markdown_, produce static plot images (e.g., with _matplotlib_).
 """
 print(intro)
 #MARKDOWN
 
-import altair as alt
-
 print("## Altair")
 #MARKDOWN
+
+import altair as alt
 
 data = alt.Data(values=[{"x": 5, "y": 6}, {"x": 6, "y": 7}, {"x": 7, "y": 4}])
 chart = alt.Chart(data).mark_point().encode(
@@ -26,10 +29,10 @@ chart = alt.Chart(data).mark_point().encode(
 print(output_altair(chart))
 #HTML
 
-from bokeh.plotting import figure
-
 print("## Bokeh")
 #MARKDOWN
+
+from bokeh.plotting import figure
 
 plot = figure()
 plot.scatter([1, 2, 3, ], [3, 5, 4, ])
@@ -37,10 +40,10 @@ plot.scatter([1, 2, 3, ], [3, 5, 4, ])
 print(output_bokeh(plot))
 #HTML
 
-import matplotlib.pyplot as plt
-
 print("## Matplotlib")
 #MARKDOWN
+
+import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
@@ -48,10 +51,10 @@ ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
 print(output_matplotlib(fig))
 #HTML
 
-import plotly.graph_objs as go
-
 print("## Plotly")
 #MARKDOWN
+
+import plotly.graph_objs as go
 
 data = [go.Scatter(
     x = [4, 5, 6, ],
@@ -63,10 +66,10 @@ fig = go.Figure(data=data)
 print(output_plotly(fig))
 #HTML
 
-from pyecharts.charts import Bar
-
 print("## pyecharts")
 #MARKDOWN
+
+from pyecharts.charts import Bar
 
 fig = Bar()
     
