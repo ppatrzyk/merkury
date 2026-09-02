@@ -26,7 +26,7 @@ chart = alt.Chart(data).mark_point().encode(
     y="y:Q",
 )
 
-print(output_altair(chart))
+output_altair(chart)
 #HTML
 
 print("## Bokeh")
@@ -37,7 +37,7 @@ from bokeh.plotting import figure
 plot = figure()
 plot.scatter([1, 2, 3, ], [3, 5, 4, ])
 
-print(output_bokeh(plot))
+output_bokeh(plot)
 #HTML
 
 print("## Matplotlib")
@@ -48,7 +48,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
 
-print(output_matplotlib(fig))
+output_matplotlib(fig)
 #HTML
 
 print("## Plotly")
@@ -63,7 +63,7 @@ data = [go.Scatter(
 
 fig = go.Figure(data=data)
 
-print(output_plotly(fig))
+output_plotly(fig)
 #HTML
 
 print("## pyecharts")
@@ -76,5 +76,5 @@ fig = Bar()
 fig.add_xaxis(["A", "B", "C"])
 fig.add_yaxis("Metric", [1, 3, 2])
 
-print(output_pyecharts(fig))
+output_pyecharts(fig)
 #HTML

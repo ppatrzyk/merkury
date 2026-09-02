@@ -13,7 +13,7 @@ DEFAULT_HEIGHT = 800
 DEFAULT_WIDTH = 800
 
 
-def _plot_container(html: str):
+def _print_plot_container(html: str):
     """
     Wrapper for centering
     """
@@ -22,7 +22,7 @@ def _plot_container(html: str):
     {html}
     </div>
     """
-    return wrapped_html
+    print(wrapped_html)
 
 
 def _bytes_to_html(bytes):
@@ -33,7 +33,7 @@ def _bytes_to_html(bytes):
     img_html = f"""
     <img src="data:image/png;base64,{img_encoded}" />
     """
-    return _plot_container(img_html)
+    return _print_plot_container(img_html)
 
 
 def _create_iframe(
@@ -58,7 +58,7 @@ def _create_iframe(
     iframe_{id_suffix}.srcdoc = srcdoc_{id_suffix};
     </script>
     """
-    return _plot_container(html_part)
+    return _print_plot_container(html_part)
 
 
 def output_altair(figure):
