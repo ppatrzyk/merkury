@@ -31,7 +31,7 @@ podman run \
     --rm \
     -p 8000:8000 \
     -v path/to/script/dir:/etc/merkury/scripts \
-    ghcr.io/ppatrzyk/merkury:0.12
+    ghcr.io/ppatrzyk/merkury:0.13
 ```
 
 ## Usage
@@ -161,7 +161,7 @@ pip3 install -e .[dev,server]
 docker build:
 
 ```bash
-podman build -t ghcr.io/ppatrzyk/merkury:0.12 .
+podman build -t ghcr.io/ppatrzyk/merkury:0.13 .
 ```
 
 docs:

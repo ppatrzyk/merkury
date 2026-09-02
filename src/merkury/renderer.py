@@ -72,11 +72,13 @@ def generate_chunks(code: Code) -> list[dict]:
     """
     Turn raw code into chunks used for report
     """
-    chunks = [
-        {"number": i, **chunk}
-        for i, chunk in enumerate(_generate_chunks_internal(code), start=1)
-    ]
-    # if last chunk does not print anything, it"s appended to previous one
+    chunks = []
+    for i, chunk in enumerate(_generate_chunks_internal(code), start=1):
+        chunk["number"] = i
+        if chunk.get("title") is None:
+            chunk["title"] = f"Chunk {i}"
+        chunks.append(chunk)
+    # if last chunk does not print anything, it is appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):
         chunks[-2]["in"] += chunks[-1]["in"]
         del chunks[-1]

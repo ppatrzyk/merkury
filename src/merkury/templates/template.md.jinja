@@ -1,38 +1,38 @@
 # {{ title }}
 
-### {{ timestamp }}
+_{{ timestamp }}_
 
 {% if toc %}
-    ## Contents
-    {% for chunk in chunks %}
-        {% if chunk.title is not none %}
-        {{ chunk.number }}. {{ chunk.title }}
-        {% else %}
-        {{ chunk.number }}. Chunk {{ chunk.number }}
-        {% endif %}
-    {% endfor %}
+## Contents
+
+{% for chunk in chunks %}
+{% if chunk.title is not none %}
+{{ chunk.number }}. {{ chunk.title }}
+{% else %}
+{{ chunk.number }}. Chunk {{ chunk.number }}
+{% endif %}
+{% endfor %}
 
 {% endif %}
 {% for chunk in chunks %}
-{% if chunk.title is not none %}
 ## {{ chunk.title }}
 
-{% endif %}
+
 {% if show_input_blocks %}
 _In_ \[{{ chunk.number }}\]
 ```python
-{{ chunk.in }}
+{{ chunk.in.strip() }}
 ```
 _Out_ \[{{ chunk.number }}\]
 {% endif %}
 {% if chunk.html or chunk.markdown %}
-{{ chunk.out }}
+{{ chunk.out.strip() }}
 {% else %}
 ```python
-{{ chunk.out }}
+{{ chunk.out.strip() }}
 ```
 {% endif %}
----
+
 {% endfor %}
 
 _Script {{ file_name }} triggered by {{ author }} on {{ timestamp }}, ran in {{ duration_ms }}ms_

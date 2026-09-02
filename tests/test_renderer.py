@@ -22,7 +22,7 @@ def test_generate_chunks():
             "html": False,
             "markdown": False,
             "number": 1,
-            "title": None,
+            "title": "Chunk 1",
         },
         {
             "in": """a = 5\nb = 6\nprint("a")\n#TITLE previous title\n#TITLE last title\n\n""",

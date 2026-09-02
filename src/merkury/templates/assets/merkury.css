@@ -10,6 +10,14 @@ body {
 .merkury-chunks {
   min-width: 0;
 }
+.merkury-chunk-in-grid {
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+}
+.merkury-chunk-in-grid::after {
+  content: none;
+  display: none;
+}
 .merkury-code-block {
   margin-bottom: 2em;
 }
