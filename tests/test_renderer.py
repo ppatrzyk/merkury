@@ -14,6 +14,7 @@ def test_generate_chunks():
             "",
             "a\n",
         ),
+        (9.9, 20.1, 30.1),
     )
     joined = [
         {
@@ -23,6 +24,7 @@ def test_generate_chunks():
             "markdown": False,
             "number": 1,
             "title": "Chunk 1",
+            "chunk_duration_ms": 10,
         },
         {
             "in": """a = 5\nb = 6\nprint("a")\n#TITLE previous title\n#TITLE last title\n\n""",
@@ -31,6 +33,7 @@ def test_generate_chunks():
             "markdown": False,
             "number": 2,
             "title": "last title",
+            "chunk_duration_ms": 50,
         },
     ]
     assert generate_chunks(code) == joined

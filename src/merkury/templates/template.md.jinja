@@ -19,11 +19,11 @@ _{{ timestamp }}_
 
 
 {% if show_input_blocks %}
-_In_ \[{{ chunk.number }}\]
+_In_ \[{{ chunk.chunk_duration_ms }}ms\]
 ```python
 {{ chunk.in.strip() }}
 ```
-_Out_ \[{{ chunk.number }}\]
+_Out_
 {% endif %}
 {% if chunk.html or chunk.markdown %}
 {{ chunk.out.strip() }}
@@ -35,6 +35,6 @@ _Out_ \[{{ chunk.number }}\]
 
 {% endfor %}
 
-_Script {{ file_name }} triggered by {{ author }} on {{ timestamp }}, ran in {{ duration_ms }}ms_
+_Script {{ file_name }} triggered by {{ author }} on {{ timestamp }}, ran in {{ total_duration_ms }}ms_
 
 _Report generated with [Merkury](https://github.com/ppatrzyk/merkury) v{{ version }}._

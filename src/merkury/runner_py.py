@@ -77,24 +77,28 @@ def _execute_python(script_path: Path) -> tuple[float, Code]:
     code_inputs_len = len(code_inputs)
     assert code_inputs_len > 0, "Python file is empty"
     code_outputs = []
+    chunk_durations = []
     for i, node in enumerate(module.body, start=1):
         logger.debug(f"Running [{i}/{code_inputs_len}]")
+        chunk_start = time()
         success, output = _get_code_output(node, script_path.name)
+        chunk_duration_ms = int(1000 * (time() - chunk_start))
         code_outputs.append(output)
+        chunk_durations.append(chunk_duration_ms)
         if not success:
             logger.warning("Code raised exception, execution stopped")
             break
-    duration_ms = int(1000 * (time() - start))
-    return duration_ms, zip(code_inputs, code_outputs)
+    total_duration_ms = int(1000 * (time() - start))
+    return total_duration_ms, zip(code_inputs, code_outputs, chunk_durations)
 
 
 def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
     if template_data.get("title") is None:
         template_data = {**template_data, "title": path.name}
-    duration_ms, code = _execute_python(path)
+    total_duration_ms, code = _execute_python(path)
     template_data = {
         **template_data,
-        "duration_ms": duration_ms,
+        "total_duration_ms": total_duration_ms,
         "file_name": path.name,
     }
     report = generate_report(code, template_data)

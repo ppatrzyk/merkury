@@ -13,6 +13,7 @@ def test_prune_lines():
 
 
 def test_execute_python():
+    # durations stripped in expected_code (3rd tuple element)
     expected_code = [
         (["a = 1 + 2"], ""),
         (
@@ -34,14 +35,19 @@ def test_execute_python():
         ),
     ]
     _duration, code = _execute_python(PY_SCRIPT)
-    assert list(code) == expected_code
+    assert [
+        (code_in, code_out) for code_in, code_out, _duration in list(code)
+    ] == expected_code
 
 
 def test_execute_bad_python():
+    # durations stripped in expected_code (3rd tuple element)
     expected_code = [
         (["""print("first line")"""], "first line\n"),
         (["a = 1/-1"], ""),
         (["b = 1/0"], "ZeroDivisionError: division by zero\n"),
     ]
     _duration, code = _execute_python(PY_BAD_SCRIPT)
-    assert list(code) == expected_code
+    assert [
+        (code_in, code_out) for code_in, code_out, _duration in list(code)
+    ] == expected_code

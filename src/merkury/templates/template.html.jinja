@@ -41,7 +41,7 @@
                         <h2 style="margin: 0;">{{ chunk.title }}</h2>
                     </div>
                 </summary>
-                <pre><code class="language-python">{{ chunk.in|e }}</code></pre>
+                <pre class="merkury-code-label" data-label="{{ chunk.chunk_duration_ms }}ms"><code class="language-python">{{ chunk.in|e }}</code></pre>
             </details>
             {% else %}
             <h2>{{ chunk.title }}</h2>
@@ -62,5 +62,5 @@
 <script>{% include "assets/prism.js" %}</script>
 {% endblock %}
 {% block footer %}
-<p>Script <em>{{ file_name }}</em> triggered by {{ author }} on {{ timestamp }}, ran in {{ duration_ms }}ms</p>
+<p>Script <em>{{ file_name }}</em> triggered by {{ author }} on {{ timestamp }}, ran in {{ total_duration_ms }}ms</p>
 {% endblock %}

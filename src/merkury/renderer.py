@@ -11,7 +11,7 @@ from markdown import markdown
 
 from .utils import VERSION
 
-Code = Iterator[tuple[list[str], str]]
+Code = Iterator[tuple[list[str], str, float]]
 
 jinja = Environment(
     loader=PackageLoader(__package__, "templates"),
@@ -34,7 +34,8 @@ def _generate_chunks_internal(code: Code):
     in_chunk = out_chunk = ""
     html = markdown = False
     title = None
-    for in_code, out_code in code:
+    chunk_duration_ms = 0
+    for in_code, out_code, duration_ms in code:
         html = html or any(bool(re.match(r"^#HTML", line)) for line in in_code)
         markdown = markdown or any(
             bool(re.match(r"^#MARKDOWN", line)) for line in in_code
@@ -43,6 +44,7 @@ def _generate_chunks_internal(code: Code):
             if re.search(r"^#TITLE", line):
                 title = re.sub(r"^#TITLE\s+", "", line)
         in_chunk += "".join(line + "\n" for line in in_code)
+        chunk_duration_ms += duration_ms
         if out_code != "":
             out_chunk += out_code
             assert sum([html, markdown]) <= 1, (
@@ -54,10 +56,12 @@ def _generate_chunks_internal(code: Code):
                 "html": html,
                 "markdown": markdown,
                 "title": title,
+                "chunk_duration_ms": round(chunk_duration_ms),
             }
             in_chunk = out_chunk = ""
             html = markdown = False
             title = None
+            chunk_duration_ms = 0
     if in_chunk != "":
         yield {
             "in": in_chunk,
@@ -65,6 +69,7 @@ def _generate_chunks_internal(code: Code):
             "html": False,
             "markdown": False,
             "title": title,
+            "chunk_duration_ms": round(chunk_duration_ms),
         }
 
 
@@ -81,6 +86,7 @@ def generate_chunks(code: Code) -> list[dict]:
     # if last chunk does not print anything, it is appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):
         chunks[-2]["in"] += chunks[-1]["in"]
+        chunks[-2]["chunk_duration_ms"] += chunks[-1]["chunk_duration_ms"]
         del chunks[-1]
     return chunks
 
