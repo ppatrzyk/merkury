@@ -6,4 +6,5 @@ with README_PATH.open("r") as file:
     readme_md = file.read()
 
 print(readme_md)
+#TITLE Documentation
 #MARKDOWN

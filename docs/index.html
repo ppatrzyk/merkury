@@ -25,6 +25,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+.merkury-icon-prefix {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
 .merkury-chunks {
   min-width: 0;
 }
@@ -35,6 +40,9 @@ body {
 .merkury-chunk-in-grid::after {
   content: none;
   display: none;
+}
+.merkury-toggle {
+  padding: 0.5rem 0.75rem;
 }
 .merkury-code-block {
   margin-bottom: 2em;
@@ -99,7 +107,7 @@ body {
         <li>
             <hgroup>
 <h1>index.py</h1>
-<p>2026-09-02 21:35:51 CEST</p>
+<p>2026-09-03 12:06:58 CEST</p>
             </hgroup>
         </li>
     </ul>
@@ -114,9 +122,9 @@ body {
 <main class="container merkury-container">
     <div class="merkury-chunks" role="document">
         <div class="merkury-code-block" id="merkury-chunk-1">
-            <h2>Chunk 1</h2>
+            <h1>Documentation</h1>
             <div>
-                    <div><h1>Merkury</h1>
+                    <div><h1 id="merkury">Merkury</h1>
 <p><em>Merkury</em> is a command line utility to run Python scripts and render <em>static</em> HTML or Markdown reports. It uses standard <code>.py</code> files as input - any valid script that can be run from command line, can also be turned into a report.</p>
 <p>It's a lightweight alternative to tools such as <a href="https://github.com/jupyter/jupyter">jupyter</a>/<a href="https://github.com/nteract/papermill">papermill</a> and can be used as a <em>BI-as-code</em> solution with Python-based workflow.</p>
 <ul>
@@ -130,7 +138,7 @@ body {
 <li>generating data apps that require backend server (see e.g. <a href="https://github.com/plotly/dash">dash</a>),</li>
 <li>converting <em>any</em> input into static HTML (see e.g. <a href="https://github.com/getnikola/nikola">nikola</a>).</li>
 </ul>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <pre><code class="language-bash">pip3 install merkury
 
 # if you also need server mode
@@ -144,16 +152,16 @@ podman run \
     -v path/to/script/dir:/etc/merkury/scripts \
     ghcr.io/ppatrzyk/merkury:0.13
 </code></pre>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <p>Merkury can run in the following modes:</p>
-<h3>Single file</h3>
+<h3 id="single-file">Single file</h3>
 <pre><code class="language-bash">merkury -f html -o report.html myscript.py
 </code></pre>
-<h3>Batch</h3>
+<h3 id="batch">Batch</h3>
 <p>Runs concurrently all python scripts inside given directory and produces report for each one.</p>
 <pre><code class="language-bash">merkury -f html -o path/to/reports batch path/to/scripts
 </code></pre>
-<h3>Server</h3>
+<h3 id="server">Server</h3>
 <p>Starts server that exposes execution endpoints for each script in provided directory.</p>
 <pre><code class="language-bash">merkury -s localhost:8000 server path/to/scripts
 </code></pre>
@@ -166,7 +174,7 @@ podman run \
 </ul>
 </li>
 </ul>
-<h3>Options</h3>
+<h3 id="options">Options</h3>
 <pre><code class="language-bash">$ merkury -h
 merkury
 
@@ -192,7 +200,7 @@ Options:
 Source:
     https://github.com/ppatrzyk/merkury
 </code></pre>
-<h2>Formatting</h2>
+<h2 id="formatting">Formatting</h2>
 <p>Formatting of output inside report is controlled by inserting <em>magic comments</em> inside input script. There are following optional directives:</p>
 <ul>
 <li><a href="#html"><code>#HTML</code></a></li>
@@ -200,13 +208,13 @@ Source:
 <li><a href="#title"><code>#TITLE</code></a></li>
 </ul>
 <p>By default <em>merkury</em> treats any output as standard code print and puts it into <code>&lt;code&gt;</code> blocks. Only If your output is actually HTML or Markdown, you need to indicate that by placing a <em>magic comment</em> inside a code chunk.</p>
-<h3>HTML</h3>
+<h3 id="html">HTML</h3>
 <p>You need to put a comment <code>#HTML</code> after a line that outputs raw HTML. For example:</p>
 <pre><code class="language-python">print(pandas_df.to_html(border=0))
 # HTML
 </code></pre>
 <p>In addition to writing HTML by hand or using libraries that allow formatting output as HTML, <em>merkury</em> provides <a href="https://github.com/ppatrzyk/merkury/blob/master/src/merkury/plotting.py">utility functions</a> to format plots from common libraries. See <a href="https://ppatrzyk.github.io/merkury/plotting.html">plotting docs</a> for details.</p>
-<h3>Markdown</h3>
+<h3 id="markdown">Markdown</h3>
 <p>It's also possible to render text formatted in markdown. You need to put magic comment <code>#MARKDOWN</code> after print statement.</p>
 <p>For example:</p>
 <pre><code class="language-python">print(&quot;&quot;&quot;
@@ -220,14 +228,14 @@ List:
 &quot;&quot;&quot;)
 # MARKDOWN
 </code></pre>
-<h3>Title</h3>
+<h3 id="title">Title</h3>
 <p>In produced report, code will be broken into sections. Each section ends with a statement printing some output (e.g., <code>print()</code>). You can optionally give titles to each section by placing <em>magic comment</em> <code>#TITLE &lt;your_section_title&gt;</code> inside code chunk.</p>
-<h2>PDF reports</h2>
+<h2 id="pdf-reports">PDF reports</h2>
 <p>It is also possible to obtain PDF reports with usage of additional conversion tools (e.g., <a href="https://github.com/jgm/pandoc">pandoc</a>). For example:</p>
 <pre><code class="language-bash">merkury -o /dev/stdout -f md &lt;your_script&gt; | pandoc --highlight-style=tango -t pdf -o report.pdf
 </code></pre>
 <p>Note, in case your report file contains raw html chunks (such as plots or images), you will need use <em>wkhtmltopdf</em> <a href="https://pandoc.org/MANUAL.html#option--pdf-engine">pdf engine</a>.</p>
-<h2>DEV</h2>
+<h2 id="dev">DEV</h2>
 <p>dev installation:</p>
 <pre><code class="language-bash">pip3 install -e .[dev,server]
 </code></pre>
@@ -239,7 +247,7 @@ List:
 merkury --toc docs/intro-py.py
 merkury docs/plotting.py
 </code></pre>
-<h2>Acknowledgements</h2>
+<h2 id="acknowledgements">Acknowledgements</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/60297105/python-write-both-commands-and-their-output-to-a-file">SO discussion that inspired this project</a></li>
 <li><a href="https://github.com/joblib/pyreport">pyreport</a> - similar but long abandoned project</li>
@@ -256,8 +264,8 @@ var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScop
 Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0,greedy:!0},"string-interpolation":{pattern:/(?:f|fr|rf)(?:("""|''')[\s\S]*?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:\{\{)*)\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}])+\})+\})+\}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=\}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|br|rb)?("""|''')[\s\S]*?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|br|rb)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^[\t ]*)@\w+(?:\.\w+)*/m,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:_(?=\s*:)|and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:False|None|True)\b/,number:/\b0(?:b(?:_?[01])+|o(?:_?[0-7])+|x(?:_?[a-f0-9])+)\b|(?:\b\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\B\.\d+(?:_\d+)*)(?:e[+-]?\d+(?:_\d+)*)?j?(?!\w)/i,operator:/[-+%=]=?|!=|:=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;</script>
 <footer class="container merkury-container merkury-foot">
     <small>
-<p>Script <em>index.py</em> triggered by piotr on 2026-09-02 21:35:51 CEST, ran in 0ms</p>
-        <p>Generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v0.12.</p>
+<p>Script <em>index.py</em> triggered by piotr on 2026-09-03 12:06:58 CEST, ran in 1ms</p>
+        <p>Generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v0.13.</p>
     </small>
 </footer>
 </body>

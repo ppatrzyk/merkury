@@ -50,7 +50,12 @@ async def execute(request: Request):
         script_path, request.app.state.specified_output, "html", False
     )
     logger.debug(f"executes {script_path}, will write to {report_file_path}")
-    get_report(script_path, report_file_path, request.app.state.template_data)
+    template_data = {
+        **request.app.state.template_data,
+        "execute_link": request.app.url_path_for("execute", script=script),
+    }
+
+    get_report(script_path, report_file_path, template_data)
     return RedirectResponse(
         url=request.app.url_path_for("read", script=script), status_code=303
     )
@@ -73,9 +78,9 @@ async def read(request: Request):
 
 
 routes = [
-    Route("/", home),
-    Route("/execute/{script:str}", execute),
-    Route("/read/{script:str}", read),
+    Route(path="/", endpoint=home, name="home"),
+    Route(path="/execute/{script:str}", endpoint=execute, name="execute"),
+    Route(path="/read/{script:str}", endpoint=read, name="read"),
 ]
 
 

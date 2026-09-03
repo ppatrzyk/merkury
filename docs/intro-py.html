@@ -25,6 +25,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+.merkury-icon-prefix {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
 .merkury-chunks {
   min-width: 0;
 }
@@ -35,6 +40,9 @@ body {
 .merkury-chunk-in-grid::after {
   content: none;
   display: none;
+}
+.merkury-toggle {
+  padding: 0.5rem 0.75rem;
 }
 .merkury-code-block {
   margin-bottom: 2em;
@@ -113,7 +121,7 @@ body {
         <li>
             <hgroup>
 <h1>intro-py.py</h1>
-<p>2026-09-02 21:35:53 CEST</p>
+<p>2026-09-03 12:07:00 CEST</p>
             </hgroup>
         </li>
     </ul>
@@ -131,24 +139,12 @@ body {
                 <h2>Contents</h2>
                 <div>
                     <ul>
-                        <li><a href="#merkury-chunk-1">
-                            Markdown section
-                        </a></li>
-                        <li><a href="#merkury-chunk-2">
-                            print() in loop
-                        </a></li>
-                        <li><a href="#merkury-chunk-3">
-                            table from pandas
-                        </a></li>
-                        <li><a href="#merkury-chunk-4">
-                            Raw HTML section
-                        </a></li>
-                        <li><a href="#merkury-chunk-5">
-                            HTML table from pandas
-                        </a></li>
-                        <li><a href="#merkury-chunk-6">
-                            Interactive bokeh plot
-                        </a></li>
+                        <li><a href="#merkury-chunk-1">Markdown section</a></li>
+                        <li><a href="#merkury-chunk-2">print() in loop</a></li>
+                        <li><a href="#merkury-chunk-3">table from pandas</a></li>
+                        <li><a href="#merkury-chunk-4">Raw HTML section</a></li>
+                        <li><a href="#merkury-chunk-5">HTML table from pandas</a></li>
+                        <li><a href="#merkury-chunk-6">Interactive bokeh plot</a></li>
                     </ul>
                 </div>
             </nav>
@@ -157,14 +153,15 @@ body {
         <div class="merkury-code-block" id="merkury-chunk-1">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">Markdown section</h2>
+                        <h1 style="margin: 0;">Markdown section</h1>
                     </div>
                 </summary>
-                <pre class="merkury-code-label" data-label="1066ms"><code class="language-python">import pandas as pd
+                <pre class="merkury-code-label" data-label="1325ms"><code class="language-python">import pandas as pd
 from bokeh.plotting import figure
 from merkury.plotting import output_bokeh
 iris_source = &#34;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&#34;
@@ -192,7 +189,7 @@ print(intro)
 </code></pre>
             </details>
             <div>
-                    <div><h1>Merkury example</h1>
+                    <div><h1 id="merkury-example">Merkury example</h1>
 <p>This page is an example report generated with <a href="https://github.com/ppatrzyk/merkury">Merkury</a>. It is meant to showcase different formatting possiblities.</p>
 <p>You can view script that generated it <a href="https://github.com/ppatrzyk/merkury/blob/master/docs/intro-py.py">here</a>.</p>
 <p>This code block is written in markdown. You can use any valid markdown sytax. E.g. for tables:</p>
@@ -224,11 +221,12 @@ print(intro)
         <div class="merkury-code-block" id="merkury-chunk-2">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">print() in loop</h2>
+                        <h1 style="margin: 0;">print() in loop</h1>
                     </div>
                 </summary>
                 <pre class="merkury-code-label" data-label="0ms"><code class="language-python">for i in range(10):
@@ -254,11 +252,12 @@ Loop iteration: 9
         <div class="merkury-code-block" id="merkury-chunk-3">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">table from pandas</h2>
+                        <h1 style="margin: 0;">table from pandas</h1>
                     </div>
                 </summary>
                 <pre class="merkury-code-label" data-label="14ms"><code class="language-python">print(iris.head())
@@ -278,11 +277,12 @@ Loop iteration: 9
         <div class="merkury-code-block" id="merkury-chunk-4">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">Raw HTML section</h2>
+                        <h1 style="margin: 0;">Raw HTML section</h1>
                     </div>
                 </summary>
                 <pre class="merkury-code-label" data-label="0ms"><code class="language-python">html = f&#34;&#34;&#34;
@@ -317,14 +317,15 @@ See printing pandas dataframes and plotting with bokeh below.
         <div class="merkury-code-block" id="merkury-chunk-5">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">HTML table from pandas</h2>
+                        <h1 style="margin: 0;">HTML table from pandas</h1>
                     </div>
                 </summary>
-                <pre class="merkury-code-label" data-label="5ms"><code class="language-python">iris_html = iris.head(10).to_html(border=0)
+                <pre class="merkury-code-label" data-label="7ms"><code class="language-python">iris_html = iris.head(10).to_html(border=0)
 print(f&#34;&lt;h3&gt;Iris dataset&lt;/h3&gt;{iris_html}&#34;)
 #HTML
 #TITLE HTML table from pandas
@@ -431,14 +432,15 @@ print(f&#34;&lt;h3&gt;Iris dataset&lt;/h3&gt;{iris_html}&#34;)
         <div class="merkury-code-block" id="merkury-chunk-6">
             <details>
                 <summary class="grid merkury-chunk-in-grid">
-                    <div role="button" class="outline">
+                    <div role="button" class="outline merkury-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-python"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3" /><path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3" /><path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4" /><path d="M11 6l0 .01" /><path d="M13 18l0 .01" /></svg>
+                        <span>code</span>
                     </div>
                     <div>
-                        <h2 style="margin: 0;">Interactive bokeh plot</h2>
+                        <h1 style="margin: 0;">Interactive bokeh plot</h1>
                     </div>
                 </summary>
-                <pre class="merkury-code-label" data-label="87ms"><code class="language-python">colors = pd.DataFrame(
+                <pre class="merkury-code-label" data-label="121ms"><code class="language-python">colors = pd.DataFrame(
     {
         &#34;species&#34;: [
             &#34;setosa&#34;,
@@ -455,7 +457,7 @@ plot = figure(
 plot.scatter(
     iris[&#34;petal_width&#34;], iris[&#34;sepal_width&#34;], fill_color=iris[&#34;color&#34;], size=10
 )
-print(output_bokeh(plot))
+output_bokeh(plot)
 #HTML
 #TITLE Interactive bokeh plot
 </code></pre>
@@ -464,16 +466,15 @@ print(output_bokeh(plot))
                 <object>
     <div class="merkury-plot-container">
     
-    <iframe id="iframe-e853467e63a54727a96f163a0bb92a52" class="merkury-plot-iframe" style="height: 600px; width: 600px"></iframe>
+    <iframe id="iframe-d1e11eb5d3124c859111f13cc6070979" class="merkury-plot-iframe" style="height: 600px; width: 600px"></iframe>
     <script>
-    const iframe_e853467e63a54727a96f163a0bb92a52 = document.getElementById('iframe-e853467e63a54727a96f163a0bb92a52');
-    const srcdoc_e853467e63a54727a96f163a0bb92a52 = atob("PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KICAgIDx0aXRsZT5Cb2tlaCBwbG90PC90aXRsZT4KICAgIDxzdHlsZT4KICAgICAgaHRtbCwgYm9keSB7CiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDsKICAgICAgICBkaXNwbGF5OiBmbG93LXJvb3Q7CiAgICAgICAgaGVpZ2h0OiAxMDAlOwogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICB9CiAgICA8L3N0eWxlPgo8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uYm9rZWgub3JnL2Jva2VoL3JlbGVhc2UvYm9rZWgtMy4xMC4wLm1pbi5qcyI+PC9zY3JpcHQ+CjxzY3JpcHQ+CkJva2VoLnNldF9sb2dfbGV2ZWwoImluZm8iKTsKPC9zY3JpcHQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRpdiBpZD0iYzIyNTc2ZjQtMTJiNS00ZThjLWFiOGMtZTcwNzRhZGIyNjBhIiBkYXRhLXJvb3QtaWQ9InAxMDA2IiBzdHlsZT0iZGlzcGxheTogY29udGVudHM7Ij48L2Rpdj4KICAKICAgIDxzY3JpcHQgdHlwZT0iYXBwbGljYXRpb24vanNvbiIgaWQ9ImVmODg5MjI1LWZlOWItNGY0Mi04MjcyLTE4NGYwNmE3MzU5MiI+CiAgICAgIHsiMTU2OWRjMWItNjEzZC00OWViLTk5NmUtOTk1YjNmYjI3MzEwIjp7InZlcnNpb24iOiIzLjEwLjAiLCJ0aXRsZSI6IkJva2VoIEFwcGxpY2F0aW9uIiwiY29uZmlnIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiRG9jdW1lbnRDb25maWciLCJpZCI6InAxMDUwIiwiYXR0cmlidXRlcyI6eyJub3RpZmljYXRpb25zIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTm90aWZpY2F0aW9ucyIsImlkIjoicDEwNTEifX19LCJyb290cyI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJGaWd1cmUiLCJpZCI6InAxMDA2IiwiYXR0cmlidXRlcyI6eyJ4X3JhbmdlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiRGF0YVJhbmdlMWQiLCJpZCI6InAxMDA3In0sInlfcmFuZ2UiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJEYXRhUmFuZ2UxZCIsImlkIjoicDEwMDgifSwieF9zY2FsZSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkxpbmVhclNjYWxlIiwiaWQiOiJwMTAxNiJ9LCJ5X3NjYWxlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTGluZWFyU2NhbGUiLCJpZCI6InAxMDE3In0sInRpdGxlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiVGl0bGUiLCJpZCI6InAxMDA5IiwiYXR0cmlidXRlcyI6eyJ0ZXh0IjoiSXJpcyBzcGVjaWVzIn19LCJyZW5kZXJlcnMiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiR2x5cGhSZW5kZXJlciIsImlkIjoicDEwNDciLCJhdHRyaWJ1dGVzIjp7ImRhdGFfc291cmNlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQ29sdW1uRGF0YVNvdXJjZSIsImlkIjoicDEwNDEiLCJhdHRyaWJ1dGVzIjp7InNlbGVjdGVkIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2VsZWN0aW9uIiwiaWQiOiJwMTA0MiIsImF0dHJpYnV0ZXMiOnsiaW5kaWNlcyI6W10sImxpbmVfaW5kaWNlcyI6W119fSwic2VsZWN0aW9uX3BvbGljeSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlVuaW9uUmVuZGVyZXJzIiwiaWQiOiJwMTA0MyJ9LCJkYXRhIjp7InR5cGUiOiJtYXAiLCJlbnRyaWVzIjpbWyJ4Iix7InR5cGUiOiJuZGFycmF5IiwiYXJyYXkiOnsidHlwZSI6ImJ5dGVzIiwiZGF0YSI6Ikg0c0lBQUVBQUFBQS80MVNYUTZDTUF3ZXlJMDh3SFlhN3lRMzhRZ2srdVFUYnlaZVlBWkRaaVRHUVB0MVdjZlF2alR0MnUrbjBCN242R3o3Vis3dGZvbHJZZjcwbzYvZmU1NlB1TUJmNThGOFo4MFN0d0pmbk52MmhUbXRxM1NQZks2a2wvcjN6TisybnM0ZWxoalpYNUI4T2MveHpHckNlM0hmVzh5bE9GN2hlZUZabndkdjNDT2VCK05Qd2tQZklmQi9NV1Q4MEVIM2VHYzZnRXM0WG5CU1g0SHZDSjlCZUtBZm1YZ0c4WWNhK0hwTzc2YytjZS9Ha1k4UDh4cEhleFBycXJnMkRqN3hqa3o4amFOc01qejBhWC9INzNYR1F6cHF4Z25zRTdVUi9KUS82dFc2cURZTzk0WlA2S0YrcGZoRzRZWGVFcTcyQS96VUIrNWJ5MTNTTzhVN2ZBR1loNlc2c0FRQUFBPT0ifSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6ImZsb2F0NjQiLCJvcmRlciI6ImxpdHRsZSJ9XSxbInkiLHsidHlwZSI6Im5kYXJyYXkiLCJhcnJheSI6eyJ0eXBlIjoiYnl0ZXMiLCJkYXRhIjoiSDRzSUFBRUFBQUFBLzJXVTZ4R0NRQXlFUVE0NVhvcTEyTUJWWTA5YWsvYmtRUElsaytQK1pDQzUzYzBtMERUN1djb1JtbHcrNy8yTTVmZmRUOWE0bE9keDdocm5LZzVXTC9kWHk0TWI0Nlk4RDhPVi9GSmV4N2xaRk41WjYxZlRJM1hUaVlkNjhPSjk3NHYzZ3JNcEx0RjlBRWY4Y0o5cUhzRzVtSDkxUC9SUGYvaU1YL1FUMzd0ZThDVmUxUjhpUG5UcXg2QTYraUs4alViNmFxMU8rdkQ1b1ZOMDlJclQ2djFrL2FGRDZwUHBBUy8yZXpYK3lKZFVCN283MHcwL09Qak5YdUlIZVhSSVBoa2Z6M0UrK0pKUFB0VDl4TG1jNzBYK3JMejBOZGd6K3hQbjYzZzFMM1hnc3pmMEkvbjJOQS9tZ245Ui8yaHppcmcrbjdoZmZJZStiN1cvOVZ6QWpmOFAvaVBzSDN1Rm5rbDljdi9BaWQ5WkxuOWpsZ3hsc0FRQUFBPT0ifSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6ImZsb2F0NjQiLCJvcmRlciI6ImxpdHRsZSJ9XSxbImZpbGxfY29sb3IiLHsidHlwZSI6Im5kYXJyYXkiLCJhcnJheSI6WyJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iXSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6Im9iamVjdCIsIm9yZGVyIjoibGl0dGxlIn1dXX19fSwidmlldyI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkNEU1ZpZXciLCJpZCI6InAxMDQ4IiwiYXR0cmlidXRlcyI6eyJmaWx0ZXIiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJBbGxJbmRpY2VzIiwiaWQiOiJwMTA0OSJ9fX0sImdseXBoIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2NhdHRlciIsImlkIjoicDEwNDQiLCJhdHRyaWJ1dGVzIjp7IngiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJ4In0sInkiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJ5In0sInNpemUiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjEwfSwibGluZV9jb2xvciI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6IiMxZjc3YjQifSwiZmlsbF9jb2xvciI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6ImZpbGxfY29sb3IifX19LCJub25zZWxlY3Rpb25fZ2x5cGgiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJTY2F0dGVyIiwiaWQiOiJwMTA0NSIsImF0dHJpYnV0ZXMiOnsieCI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6IngifSwieSI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6InkifSwic2l6ZSI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6MTB9LCJsaW5lX2NvbG9yIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjoiIzFmNzdiNCJ9LCJsaW5lX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjF9LCJmaWxsX2NvbG9yIjp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoiZmlsbF9jb2xvciJ9LCJmaWxsX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjF9LCJoYXRjaF9hbHBoYSI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6MC4xfX19LCJtdXRlZF9nbHlwaCI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlNjYXR0ZXIiLCJpZCI6InAxMDQ2IiwiYXR0cmlidXRlcyI6eyJ4Ijp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoieCJ9LCJ5Ijp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoieSJ9LCJzaXplIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjoxMH0sImxpbmVfY29sb3IiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOiIjMWY3N2I0In0sImxpbmVfYWxwaGEiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjAuMn0sImZpbGxfY29sb3IiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJmaWxsX2NvbG9yIn0sImZpbGxfYWxwaGEiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjAuMn0sImhhdGNoX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjJ9fX19fV0sInRvb2xiYXIiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJUb29sYmFyIiwiaWQiOiJwMTAxNSIsImF0dHJpYnV0ZXMiOnsidG9vbHMiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiUGFuVG9vbCIsImlkIjoicDEwMjgifSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiV2hlZWxab29tVG9vbCIsImlkIjoicDEwMjkiLCJhdHRyaWJ1dGVzIjp7InJlbmRlcmVycyI6ImF1dG8ifX0seyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveFpvb21Ub29sIiwiaWQiOiJwMTAzMCIsImF0dHJpYnV0ZXMiOnsib3ZlcmxheSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveEFubm90YXRpb24iLCJpZCI6InAxMDMxIiwiYXR0cmlidXRlcyI6eyJzeW5jYWJsZSI6ZmFsc2UsImxpbmVfY29sb3IiOiJibGFjayIsImxpbmVfYWxwaGEiOjEuMCwibGluZV93aWR0aCI6MiwibGluZV9kYXNoIjpbNCw0XSwiZmlsbF9jb2xvciI6ImxpZ2h0Z3JleSIsImZpbGxfYWxwaGEiOjAuNSwibGV2ZWwiOiJvdmVybGF5IiwidmlzaWJsZSI6ZmFsc2UsImxlZnQiOnsidHlwZSI6Im51bWJlciIsInZhbHVlIjoibmFuIn0sInJpZ2h0Ijp7InR5cGUiOiJudW1iZXIiLCJ2YWx1ZSI6Im5hbiJ9LCJ0b3AiOnsidHlwZSI6Im51bWJlciIsInZhbHVlIjoibmFuIn0sImJvdHRvbSI6eyJ0eXBlIjoibnVtYmVyIiwidmFsdWUiOiJuYW4ifSwibGVmdF91bml0cyI6ImNhbnZhcyIsInJpZ2h0X3VuaXRzIjoiY2FudmFzIiwidG9wX3VuaXRzIjoiY2FudmFzIiwiYm90dG9tX3VuaXRzIjoiY2FudmFzIiwiaGFuZGxlcyI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveEludGVyYWN0aW9uSGFuZGxlcyIsImlkIjoicDEwMzciLCJhdHRyaWJ1dGVzIjp7ImFsbCI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkFyZWFWaXN1YWxzIiwiaWQiOiJwMTAzNiIsImF0dHJpYnV0ZXMiOnsiZmlsbF9jb2xvciI6IndoaXRlIiwiaG92ZXJfZmlsbF9jb2xvciI6ImxpZ2h0Z3JheSJ9fX19fX19fSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2F2ZVRvb2wiLCJpZCI6InAxMDM4In0seyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlJlc2V0VG9vbCIsImlkIjoicDEwMzkifSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiSGVscFRvb2wiLCJpZCI6InAxMDQwIn1dfX0sImxlZnQiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTGluZWFyQXhpcyIsImlkIjoicDEwMjMiLCJhdHRyaWJ1dGVzIjp7InRpY2tlciI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJhc2ljVGlja2VyIiwiaWQiOiJwMTAyNCIsImF0dHJpYnV0ZXMiOnsibWFudGlzc2FzIjpbMSwyLDVdfX0sImZvcm1hdHRlciI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJhc2ljVGlja0Zvcm1hdHRlciIsImlkIjoicDEwMjUifSwiYXhpc19sYWJlbCI6InNlcGFsX3dpZHRoIiwibWFqb3JfbGFiZWxfcG9saWN5Ijp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQWxsTGFiZWxzIiwiaWQiOiJwMTAyNiJ9fX1dLCJiZWxvdyI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJMaW5lYXJBeGlzIiwiaWQiOiJwMTAxOCIsImF0dHJpYnV0ZXMiOnsidGlja2VyIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQmFzaWNUaWNrZXIiLCJpZCI6InAxMDE5IiwiYXR0cmlidXRlcyI6eyJtYW50aXNzYXMiOlsxLDIsNV19fSwiZm9ybWF0dGVyIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQmFzaWNUaWNrRm9ybWF0dGVyIiwiaWQiOiJwMTAyMCJ9LCJheGlzX2xhYmVsIjoicGV0YWxfd2lkdGgiLCJtYWpvcl9sYWJlbF9wb2xpY3kiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJBbGxMYWJlbHMiLCJpZCI6InAxMDIxIn19fV0sImNlbnRlciI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJHcmlkIiwiaWQiOiJwMTAyMiIsImF0dHJpYnV0ZXMiOnsiYXhpcyI6eyJpZCI6InAxMDE4In19fSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiR3JpZCIsImlkIjoicDEwMjciLCJhdHRyaWJ1dGVzIjp7ImRpbWVuc2lvbiI6MSwiYXhpcyI6eyJpZCI6InAxMDIzIn19fV19fV19fQogICAgPC9zY3JpcHQ+CiAgICA8c2NyaXB0PgogICAgICAoZnVuY3Rpb24oKSB7CiAgICAgICAgY29uc3QgZm4gPSBmdW5jdGlvbigpIHsKICAgICAgICAgIEJva2VoLnNhZmVseShmdW5jdGlvbigpIHsKICAgICAgICAgICAgKGZ1bmN0aW9uKHJvb3QpIHsKICAgICAgICAgICAgICBmdW5jdGlvbiBlbWJlZF9kb2N1bWVudChyb290KSB7CiAgICAgICAgICAgICAgY29uc3QgZG9jc19qc29uID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2VmODg5MjI1LWZlOWItNGY0Mi04MjcyLTE4NGYwNmE3MzU5MicpLnRleHRDb250ZW50OwogICAgICAgICAgICAgIGNvbnN0IHJlbmRlcl9pdGVtcyA9IFt7ImRvY2lkIjoiMTU2OWRjMWItNjEzZC00OWViLTk5NmUtOTk1YjNmYjI3MzEwIiwicm9vdHMiOnsicDEwMDYiOiJjMjI1NzZmNC0xMmI1LTRlOGMtYWI4Yy1lNzA3NGFkYjI2MGEifSwicm9vdF9pZHMiOlsicDEwMDYiXX1dOwogICAgICAgICAgICAgIHJvb3QuQm9rZWguZW1iZWQuZW1iZWRfaXRlbXMoZG9jc19qc29uLCByZW5kZXJfaXRlbXMpOwogICAgICAgICAgICAgIH0KICAgICAgICAgICAgICBpZiAocm9vdC5Cb2tlaCAhPT0gdW5kZWZpbmVkKSB7CiAgICAgICAgICAgICAgICBlbWJlZF9kb2N1bWVudChyb290KTsKICAgICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgbGV0IGF0dGVtcHRzID0gMDsKICAgICAgICAgICAgICAgIGNvbnN0IHRpbWVyID0gc2V0SW50ZXJ2YWwoZnVuY3Rpb24ocm9vdCkgewogICAgICAgICAgICAgICAgICBpZiAocm9vdC5Cb2tlaCAhPT0gdW5kZWZpbmVkKSB7CiAgICAgICAgICAgICAgICAgICAgY2xlYXJJbnRlcnZhbCh0aW1lcik7CiAgICAgICAgICAgICAgICAgICAgZW1iZWRfZG9jdW1lbnQocm9vdCk7CiAgICAgICAgICAgICAgICAgIH0gZWxzZSB7CiAgICAgICAgICAgICAgICAgICAgYXR0ZW1wdHMrKzsKICAgICAgICAgICAgICAgICAgICBpZiAoYXR0ZW1wdHMgPiAxMDApIHsKICAgICAgICAgICAgICAgICAgICAgIGNsZWFySW50ZXJ2YWwodGltZXIpOwogICAgICAgICAgICAgICAgICAgICAgY29uc29sZS5sb2coIkJva2VoOiBFUlJPUjogVW5hYmxlIHRvIHJ1biBCb2tlaEpTIGNvZGUgYmVjYXVzZSBCb2tlaEpTIGxpYnJhcnkgaXMgbWlzc2luZyIpOwogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfSwgMTAsIHJvb3QpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9KSh3aW5kb3cpOwogICAgICAgICAgfSk7CiAgICAgICAgfTsKICAgICAgICBpZiAoZG9jdW1lbnQucmVhZHlTdGF0ZSAhPSAibG9hZGluZyIpIGZuKCk7CiAgICAgICAgZWxzZSBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJET01Db250ZW50TG9hZGVkIiwgZm4pOwogICAgICB9KSgpOwogICAgPC9zY3JpcHQ+CiAgPC9ib2R5Pgo8L2h0bWw+");
-    iframe_e853467e63a54727a96f163a0bb92a52.srcdoc = srcdoc_e853467e63a54727a96f163a0bb92a52;
+    const iframe_d1e11eb5d3124c859111f13cc6070979 = document.getElementById('iframe-d1e11eb5d3124c859111f13cc6070979');
+    const srcdoc_d1e11eb5d3124c859111f13cc6070979 = atob("PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KICAgIDx0aXRsZT5Cb2tlaCBwbG90PC90aXRsZT4KICAgIDxzdHlsZT4KICAgICAgaHRtbCwgYm9keSB7CiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDsKICAgICAgICBkaXNwbGF5OiBmbG93LXJvb3Q7CiAgICAgICAgaGVpZ2h0OiAxMDAlOwogICAgICAgIG1hcmdpbjogMDsKICAgICAgICBwYWRkaW5nOiAwOwogICAgICB9CiAgICA8L3N0eWxlPgo8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uYm9rZWgub3JnL2Jva2VoL3JlbGVhc2UvYm9rZWgtMy4xMC4wLm1pbi5qcyI+PC9zY3JpcHQ+CjxzY3JpcHQ+CkJva2VoLnNldF9sb2dfbGV2ZWwoImluZm8iKTsKPC9zY3JpcHQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRpdiBpZD0iZDdmNGE4ZDUtMWVmNy00ZWQwLTk4NzItNTY0M2ZjNTY2MTA2IiBkYXRhLXJvb3QtaWQ9InAxMDA2IiBzdHlsZT0iZGlzcGxheTogY29udGVudHM7Ij48L2Rpdj4KICAKICAgIDxzY3JpcHQgdHlwZT0iYXBwbGljYXRpb24vanNvbiIgaWQ9ImMxMTM0OWMyLTA0MWItNGE5ZC05OWEwLTY1ZjE3MTRkZTMzZSI+CiAgICAgIHsiMjBlZWNhNjAtY2RmYS00MzBmLWE0ZWItMmI0ZWI4ZTY1NDBhIjp7InZlcnNpb24iOiIzLjEwLjAiLCJ0aXRsZSI6IkJva2VoIEFwcGxpY2F0aW9uIiwiY29uZmlnIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiRG9jdW1lbnRDb25maWciLCJpZCI6InAxMDUwIiwiYXR0cmlidXRlcyI6eyJub3RpZmljYXRpb25zIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTm90aWZpY2F0aW9ucyIsImlkIjoicDEwNTEifX19LCJyb290cyI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJGaWd1cmUiLCJpZCI6InAxMDA2IiwiYXR0cmlidXRlcyI6eyJ4X3JhbmdlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiRGF0YVJhbmdlMWQiLCJpZCI6InAxMDA3In0sInlfcmFuZ2UiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJEYXRhUmFuZ2UxZCIsImlkIjoicDEwMDgifSwieF9zY2FsZSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkxpbmVhclNjYWxlIiwiaWQiOiJwMTAxNiJ9LCJ5X3NjYWxlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTGluZWFyU2NhbGUiLCJpZCI6InAxMDE3In0sInRpdGxlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiVGl0bGUiLCJpZCI6InAxMDA5IiwiYXR0cmlidXRlcyI6eyJ0ZXh0IjoiSXJpcyBzcGVjaWVzIn19LCJyZW5kZXJlcnMiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiR2x5cGhSZW5kZXJlciIsImlkIjoicDEwNDciLCJhdHRyaWJ1dGVzIjp7ImRhdGFfc291cmNlIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQ29sdW1uRGF0YVNvdXJjZSIsImlkIjoicDEwNDEiLCJhdHRyaWJ1dGVzIjp7InNlbGVjdGVkIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2VsZWN0aW9uIiwiaWQiOiJwMTA0MiIsImF0dHJpYnV0ZXMiOnsiaW5kaWNlcyI6W10sImxpbmVfaW5kaWNlcyI6W119fSwic2VsZWN0aW9uX3BvbGljeSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlVuaW9uUmVuZGVyZXJzIiwiaWQiOiJwMTA0MyJ9LCJkYXRhIjp7InR5cGUiOiJtYXAiLCJlbnRyaWVzIjpbWyJ4Iix7InR5cGUiOiJuZGFycmF5IiwiYXJyYXkiOnsidHlwZSI6ImJ5dGVzIiwiZGF0YSI6Ikg0c0lBQUVBQUFBQS80MVNYUTZDTUF3ZXlJMDh3SFlhN3lRMzhRZ2srdVFUYnlaZVlBWkRaaVRHUVB0MVdjZlF2alR0MnUrbjBCN242R3o3Vis3dGZvbHJZZjcwbzYvZmU1NlB1TUJmNThGOFo4MFN0d0pmbk52MmhUbXRxM1NQZks2a2wvcjN6TisybnM0ZWxoalpYNUI4T2MveHpHckNlM0hmVzh5bE9GN2hlZUZabndkdjNDT2VCK05Qd2tQZklmQi9NV1Q4MEVIM2VHYzZnRXM0WG5CU1g0SHZDSjlCZUtBZm1YZ0c4WWNhK0hwTzc2YytjZS9Ha1k4UDh4cEhleFBycXJnMkRqN3hqa3o4amFOc01qejBhWC9INzNYR1F6cHF4Z25zRTdVUi9KUS82dFc2cURZTzk0WlA2S0YrcGZoRzRZWGVFcTcyQS96VUIrNWJ5MTNTTzhVN2ZBR1loNlc2c0FRQUFBPT0ifSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6ImZsb2F0NjQiLCJvcmRlciI6ImxpdHRsZSJ9XSxbInkiLHsidHlwZSI6Im5kYXJyYXkiLCJhcnJheSI6eyJ0eXBlIjoiYnl0ZXMiLCJkYXRhIjoiSDRzSUFBRUFBQUFBLzJXVTZ4R0NRQXlFUVE0NVhvcTEyTUJWWTA5YWsvYmtRUElsaytQK1pDQzUzYzBtMERUN1djb1JtbHcrNy8yTTVmZmRUOWE0bE9keDdocm5LZzVXTC9kWHk0TWI0Nlk4RDhPVi9GSmV4N2xaRk41WjYxZlRJM1hUaVlkNjhPSjk3NHYzZ3JNcEx0RjlBRWY4Y0o5cUhzRzVtSDkxUC9SUGYvaU1YL1FUMzd0ZThDVmUxUjhpUG5UcXg2QTYraUs4alViNmFxMU8rdkQ1b1ZOMDlJclQ2djFrL2FGRDZwUHBBUy8yZXpYK3lKZFVCN283MHcwL09Qak5YdUlIZVhSSVBoa2Z6M0UrK0pKUFB0VDl4TG1jNzBYK3JMejBOZGd6K3hQbjYzZzFMM1hnc3pmMEkvbjJOQS9tZ245Ui8yaHppcmcrbjdoZmZJZStiN1cvOVZ6QWpmOFAvaVBzSDN1Rm5rbDljdi9BaWQ5WkxuOWpsZ3hsc0FRQUFBPT0ifSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6ImZsb2F0NjQiLCJvcmRlciI6ImxpdHRsZSJ9XSxbImZpbGxfY29sb3IiLHsidHlwZSI6Im5kYXJyYXkiLCJhcnJheSI6WyJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsImJsdWUiLCJibHVlIiwiYmx1ZSIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsInJlZCIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iLCJncmVlbiIsImdyZWVuIiwiZ3JlZW4iXSwic2hhcGUiOlsxNTBdLCJkdHlwZSI6Im9iamVjdCIsIm9yZGVyIjoibGl0dGxlIn1dXX19fSwidmlldyI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkNEU1ZpZXciLCJpZCI6InAxMDQ4IiwiYXR0cmlidXRlcyI6eyJmaWx0ZXIiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJBbGxJbmRpY2VzIiwiaWQiOiJwMTA0OSJ9fX0sImdseXBoIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2NhdHRlciIsImlkIjoicDEwNDQiLCJhdHRyaWJ1dGVzIjp7IngiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJ4In0sInkiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJ5In0sInNpemUiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjEwfSwibGluZV9jb2xvciI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6IiMxZjc3YjQifSwiZmlsbF9jb2xvciI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6ImZpbGxfY29sb3IifX19LCJub25zZWxlY3Rpb25fZ2x5cGgiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJTY2F0dGVyIiwiaWQiOiJwMTA0NSIsImF0dHJpYnV0ZXMiOnsieCI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6IngifSwieSI6eyJ0eXBlIjoiZmllbGQiLCJmaWVsZCI6InkifSwic2l6ZSI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6MTB9LCJsaW5lX2NvbG9yIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjoiIzFmNzdiNCJ9LCJsaW5lX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjF9LCJmaWxsX2NvbG9yIjp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoiZmlsbF9jb2xvciJ9LCJmaWxsX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjF9LCJoYXRjaF9hbHBoYSI6eyJ0eXBlIjoidmFsdWUiLCJ2YWx1ZSI6MC4xfX19LCJtdXRlZF9nbHlwaCI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlNjYXR0ZXIiLCJpZCI6InAxMDQ2IiwiYXR0cmlidXRlcyI6eyJ4Ijp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoieCJ9LCJ5Ijp7InR5cGUiOiJmaWVsZCIsImZpZWxkIjoieSJ9LCJzaXplIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjoxMH0sImxpbmVfY29sb3IiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOiIjMWY3N2I0In0sImxpbmVfYWxwaGEiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjAuMn0sImZpbGxfY29sb3IiOnsidHlwZSI6ImZpZWxkIiwiZmllbGQiOiJmaWxsX2NvbG9yIn0sImZpbGxfYWxwaGEiOnsidHlwZSI6InZhbHVlIiwidmFsdWUiOjAuMn0sImhhdGNoX2FscGhhIjp7InR5cGUiOiJ2YWx1ZSIsInZhbHVlIjowLjJ9fX19fV0sInRvb2xiYXIiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJUb29sYmFyIiwiaWQiOiJwMTAxNSIsImF0dHJpYnV0ZXMiOnsidG9vbHMiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiUGFuVG9vbCIsImlkIjoicDEwMjgifSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiV2hlZWxab29tVG9vbCIsImlkIjoicDEwMjkiLCJhdHRyaWJ1dGVzIjp7InJlbmRlcmVycyI6ImF1dG8ifX0seyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveFpvb21Ub29sIiwiaWQiOiJwMTAzMCIsImF0dHJpYnV0ZXMiOnsib3ZlcmxheSI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveEFubm90YXRpb24iLCJpZCI6InAxMDMxIiwiYXR0cmlidXRlcyI6eyJzeW5jYWJsZSI6ZmFsc2UsImxpbmVfY29sb3IiOiJibGFjayIsImxpbmVfYWxwaGEiOjEuMCwibGluZV93aWR0aCI6MiwibGluZV9kYXNoIjpbNCw0XSwiZmlsbF9jb2xvciI6ImxpZ2h0Z3JleSIsImZpbGxfYWxwaGEiOjAuNSwibGV2ZWwiOiJvdmVybGF5IiwidmlzaWJsZSI6ZmFsc2UsImxlZnQiOnsidHlwZSI6Im51bWJlciIsInZhbHVlIjoibmFuIn0sInJpZ2h0Ijp7InR5cGUiOiJudW1iZXIiLCJ2YWx1ZSI6Im5hbiJ9LCJ0b3AiOnsidHlwZSI6Im51bWJlciIsInZhbHVlIjoibmFuIn0sImJvdHRvbSI6eyJ0eXBlIjoibnVtYmVyIiwidmFsdWUiOiJuYW4ifSwibGVmdF91bml0cyI6ImNhbnZhcyIsInJpZ2h0X3VuaXRzIjoiY2FudmFzIiwidG9wX3VuaXRzIjoiY2FudmFzIiwiYm90dG9tX3VuaXRzIjoiY2FudmFzIiwiaGFuZGxlcyI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJveEludGVyYWN0aW9uSGFuZGxlcyIsImlkIjoicDEwMzciLCJhdHRyaWJ1dGVzIjp7ImFsbCI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkFyZWFWaXN1YWxzIiwiaWQiOiJwMTAzNiIsImF0dHJpYnV0ZXMiOnsiZmlsbF9jb2xvciI6IndoaXRlIiwiaG92ZXJfZmlsbF9jb2xvciI6ImxpZ2h0Z3JheSJ9fX19fX19fSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiU2F2ZVRvb2wiLCJpZCI6InAxMDM4In0seyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IlJlc2V0VG9vbCIsImlkIjoicDEwMzkifSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiSGVscFRvb2wiLCJpZCI6InAxMDQwIn1dfX0sImxlZnQiOlt7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiTGluZWFyQXhpcyIsImlkIjoicDEwMjMiLCJhdHRyaWJ1dGVzIjp7InRpY2tlciI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJhc2ljVGlja2VyIiwiaWQiOiJwMTAyNCIsImF0dHJpYnV0ZXMiOnsibWFudGlzc2FzIjpbMSwyLDVdfX0sImZvcm1hdHRlciI6eyJ0eXBlIjoib2JqZWN0IiwibmFtZSI6IkJhc2ljVGlja0Zvcm1hdHRlciIsImlkIjoicDEwMjUifSwiYXhpc19sYWJlbCI6InNlcGFsX3dpZHRoIiwibWFqb3JfbGFiZWxfcG9saWN5Ijp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQWxsTGFiZWxzIiwiaWQiOiJwMTAyNiJ9fX1dLCJiZWxvdyI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJMaW5lYXJBeGlzIiwiaWQiOiJwMTAxOCIsImF0dHJpYnV0ZXMiOnsidGlja2VyIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQmFzaWNUaWNrZXIiLCJpZCI6InAxMDE5IiwiYXR0cmlidXRlcyI6eyJtYW50aXNzYXMiOlsxLDIsNV19fSwiZm9ybWF0dGVyIjp7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiQmFzaWNUaWNrRm9ybWF0dGVyIiwiaWQiOiJwMTAyMCJ9LCJheGlzX2xhYmVsIjoicGV0YWxfd2lkdGgiLCJtYWpvcl9sYWJlbF9wb2xpY3kiOnsidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJBbGxMYWJlbHMiLCJpZCI6InAxMDIxIn19fV0sImNlbnRlciI6W3sidHlwZSI6Im9iamVjdCIsIm5hbWUiOiJHcmlkIiwiaWQiOiJwMTAyMiIsImF0dHJpYnV0ZXMiOnsiYXhpcyI6eyJpZCI6InAxMDE4In19fSx7InR5cGUiOiJvYmplY3QiLCJuYW1lIjoiR3JpZCIsImlkIjoicDEwMjciLCJhdHRyaWJ1dGVzIjp7ImRpbWVuc2lvbiI6MSwiYXhpcyI6eyJpZCI6InAxMDIzIn19fV19fV19fQogICAgPC9zY3JpcHQ+CiAgICA8c2NyaXB0PgogICAgICAoZnVuY3Rpb24oKSB7CiAgICAgICAgY29uc3QgZm4gPSBmdW5jdGlvbigpIHsKICAgICAgICAgIEJva2VoLnNhZmVseShmdW5jdGlvbigpIHsKICAgICAgICAgICAgKGZ1bmN0aW9uKHJvb3QpIHsKICAgICAgICAgICAgICBmdW5jdGlvbiBlbWJlZF9kb2N1bWVudChyb290KSB7CiAgICAgICAgICAgICAgY29uc3QgZG9jc19qc29uID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2MxMTM0OWMyLTA0MWItNGE5ZC05OWEwLTY1ZjE3MTRkZTMzZScpLnRleHRDb250ZW50OwogICAgICAgICAgICAgIGNvbnN0IHJlbmRlcl9pdGVtcyA9IFt7ImRvY2lkIjoiMjBlZWNhNjAtY2RmYS00MzBmLWE0ZWItMmI0ZWI4ZTY1NDBhIiwicm9vdHMiOnsicDEwMDYiOiJkN2Y0YThkNS0xZWY3LTRlZDAtOTg3Mi01NjQzZmM1NjYxMDYifSwicm9vdF9pZHMiOlsicDEwMDYiXX1dOwogICAgICAgICAgICAgIHJvb3QuQm9rZWguZW1iZWQuZW1iZWRfaXRlbXMoZG9jc19qc29uLCByZW5kZXJfaXRlbXMpOwogICAgICAgICAgICAgIH0KICAgICAgICAgICAgICBpZiAocm9vdC5Cb2tlaCAhPT0gdW5kZWZpbmVkKSB7CiAgICAgICAgICAgICAgICBlbWJlZF9kb2N1bWVudChyb290KTsKICAgICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgbGV0IGF0dGVtcHRzID0gMDsKICAgICAgICAgICAgICAgIGNvbnN0IHRpbWVyID0gc2V0SW50ZXJ2YWwoZnVuY3Rpb24ocm9vdCkgewogICAgICAgICAgICAgICAgICBpZiAocm9vdC5Cb2tlaCAhPT0gdW5kZWZpbmVkKSB7CiAgICAgICAgICAgICAgICAgICAgY2xlYXJJbnRlcnZhbCh0aW1lcik7CiAgICAgICAgICAgICAgICAgICAgZW1iZWRfZG9jdW1lbnQocm9vdCk7CiAgICAgICAgICAgICAgICAgIH0gZWxzZSB7CiAgICAgICAgICAgICAgICAgICAgYXR0ZW1wdHMrKzsKICAgICAgICAgICAgICAgICAgICBpZiAoYXR0ZW1wdHMgPiAxMDApIHsKICAgICAgICAgICAgICAgICAgICAgIGNsZWFySW50ZXJ2YWwodGltZXIpOwogICAgICAgICAgICAgICAgICAgICAgY29uc29sZS5sb2coIkJva2VoOiBFUlJPUjogVW5hYmxlIHRvIHJ1biBCb2tlaEpTIGNvZGUgYmVjYXVzZSBCb2tlaEpTIGxpYnJhcnkgaXMgbWlzc2luZyIpOwogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfSwgMTAsIHJvb3QpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9KSh3aW5kb3cpOwogICAgICAgICAgfSk7CiAgICAgICAgfTsKICAgICAgICBpZiAoZG9jdW1lbnQucmVhZHlTdGF0ZSAhPSAibG9hZGluZyIpIGZuKCk7CiAgICAgICAgZWxzZSBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJET01Db250ZW50TG9hZGVkIiwgZm4pOwogICAgICB9KSgpOwogICAgPC9zY3JpcHQ+CiAgPC9ib2R5Pgo8L2h0bWw+");
+    iframe_d1e11eb5d3124c859111f13cc6070979.srcdoc = srcdoc_d1e11eb5d3124c859111f13cc6070979;
     </script>
     
     </div>
     
-None
 </object>
             </div>
         </div>
@@ -485,8 +486,8 @@ var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScop
 Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0,greedy:!0},"string-interpolation":{pattern:/(?:f|fr|rf)(?:("""|''')[\s\S]*?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:\{\{)*)\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}])+\})+\})+\}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=\}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|br|rb)?("""|''')[\s\S]*?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|br|rb)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^[\t ]*)@\w+(?:\.\w+)*/m,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:_(?=\s*:)|and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:False|None|True)\b/,number:/\b0(?:b(?:_?[01])+|o(?:_?[0-7])+|x(?:_?[a-f0-9])+)\b|(?:\b\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\B\.\d+(?:_\d+)*)(?:e[+-]?\d+(?:_\d+)*)?j?(?!\w)/i,operator:/[-+%=]=?|!=|:=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;</script>
 <footer class="container merkury-container merkury-foot">
     <small>
-<p>Script <em>intro-py.py</em> triggered by piotr on 2026-09-02 21:35:53 CEST, ran in 1179ms</p>
-        <p>Generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v0.12.</p>
+<p>Script <em>intro-py.py</em> triggered by piotr on 2026-09-03 12:07:00 CEST, ran in 1475ms</p>
+        <p>Generated with <a target="_blank" href="https://github.com/ppatrzyk/merkury">merkury</a> v0.13.</p>
     </small>
 </footer>
 </body>

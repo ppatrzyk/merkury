@@ -75,6 +75,6 @@ plot.scatter(
     iris["petal_width"], iris["sepal_width"], fill_color=iris["color"], size=10
 )
 
-print(output_bokeh(plot))
+output_bokeh(plot)
 #HTML
 #TITLE Interactive bokeh plot

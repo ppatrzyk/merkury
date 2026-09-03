@@ -7,6 +7,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+.merkury-icon-prefix {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
 .merkury-chunks {
   min-width: 0;
 }
@@ -18,8 +23,8 @@ body {
   content: none;
   display: none;
 }
-.merkury-chunk-code-toggle {
-  padding: 0.35rem 0.75rem;
+.merkury-toggle {
+  padding: 0.5rem 0.75rem;
 }
 .merkury-code-block {
   margin-bottom: 2em;

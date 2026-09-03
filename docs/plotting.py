@@ -13,9 +13,7 @@ Libraries that produce interactive, Javascript-based plots work only with _html_
 For _markdown_, produce static plot images (e.g., with _matplotlib_).
 """
 print(intro)
-#MARKDOWN
-
-print("## Altair")
+#TITLE Plotting
 #MARKDOWN
 
 import altair as alt
@@ -27,10 +25,8 @@ chart = alt.Chart(data).mark_point().encode(
 )
 
 output_altair(chart)
+#TITLE Altair
 #HTML
-
-print("## Bokeh")
-#MARKDOWN
 
 from bokeh.plotting import figure
 
@@ -38,10 +34,8 @@ plot = figure()
 plot.scatter([1, 2, 3, ], [3, 5, 4, ])
 
 output_bokeh(plot)
+#TITLE Bokeh
 #HTML
-
-print("## Matplotlib")
-#MARKDOWN
 
 import matplotlib.pyplot as plt
 
@@ -49,10 +43,8 @@ fig, ax = plt.subplots()
 ax.plot([1, 2, 3, 4], [1, 4, 9, 16])
 
 output_matplotlib(fig)
+#TITLE Matplotlib
 #HTML
-
-print("## Plotly")
-#MARKDOWN
 
 import plotly.graph_objs as go
 
@@ -64,10 +56,8 @@ data = [go.Scatter(
 fig = go.Figure(data=data)
 
 output_plotly(fig)
+#TITLE Plotly
 #HTML
-
-print("## pyecharts")
-#MARKDOWN
 
 from pyecharts.charts import Bar
 
@@ -77,4 +67,5 @@ fig.add_xaxis(["A", "B", "C"])
 fig.add_yaxis("Metric", [1, 3, 2])
 
 output_pyecharts(fig)
+#TITLE Pyecharts
 #HTML

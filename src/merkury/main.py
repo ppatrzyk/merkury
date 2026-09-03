@@ -61,6 +61,7 @@ def main(argv=None):
         "toc": bool(args.get("--toc")),
         "author": (args.get("--author") or getlogin()),
         "title": args.get("--title"),
+        "server_mode": False,
     }
     specified_output = process_output_path(args.get("--output"))
     batch = bool(args.get("batch"))
@@ -107,7 +108,7 @@ def main(argv=None):
                 int(server_port),
                 sub_paths,
                 specified_output,
-                template_data,
+                {**template_data, "server_mode": True},
             )
         else:
             logger.warning(f"no python files found inside {path}")
