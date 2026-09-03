@@ -23,6 +23,7 @@ jinja.filters["markdown"] = lambda content: markdown(
     extensions=[
         "fenced_code",
         "tables",
+        "toc",
     ],
 )
 
@@ -82,6 +83,7 @@ def generate_chunks(code: Code) -> list[dict]:
         chunk["number"] = i
         if chunk.get("title") is None:
             chunk["title"] = f"Chunk {i}"
+        chunk["node_id"] = chunk["title"].lower().replace(" ", "-")
         chunks.append(chunk)
     # if last chunk does not print anything, it is appended to previous one
     if (len(chunks) > 1) and (chunks[-1]["out"] is None):

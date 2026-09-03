@@ -6,11 +6,7 @@ _{{ timestamp }}_
 ## Contents
 
 {% for chunk in chunks %}
-{% if chunk.title is not none %}
-{{ chunk.number }}. {{ chunk.title }}
-{% else %}
-{{ chunk.number }}. Chunk {{ chunk.number }}
-{% endif %}
+{{ chunk.number }}. [{{ chunk.title }}](#{{chunk.node_id}})
 {% endfor %}
 
 {% endif %}

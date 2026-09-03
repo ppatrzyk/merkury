@@ -24,6 +24,7 @@ def test_generate_chunks():
             "markdown": False,
             "number": 1,
             "title": "Chunk 1",
+            "node_id": "chunk-1",
             "chunk_duration_ms": 10,
         },
         {
@@ -33,6 +34,7 @@ def test_generate_chunks():
             "markdown": False,
             "number": 2,
             "title": "last title",
+            "node_id": "last-title",
             "chunk_duration_ms": 50,
         },
     ]

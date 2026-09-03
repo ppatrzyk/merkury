@@ -18,6 +18,9 @@ body {
   content: none;
   display: none;
 }
+.merkury-chunk-code-toggle {
+  padding: 0.35rem 0.75rem;
+}
 .merkury-code-block {
   margin-bottom: 2em;
 }
