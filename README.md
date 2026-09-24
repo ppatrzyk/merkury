@@ -67,9 +67,18 @@ With this configuration, there is:
     - Execution endpoint to run it (and refresh report html) at [/execute/s](http://localhost:8000/execute/s),
     - Report endpoint to view latest report at [/read/s](http://localhost:8000/read/s).
 
-Arguments to script can be passed via query params. Calling `/execute/s?arg=mycommand&arg=123` is equivalent to running `python3 s.py mycommand 123`.
+Arguments to script can be passed via query params. Calling [/execute/s?arg=mycommand&arg=123](http://localhost:8000/execute/s?arg=mycommand&arg=123) is equivalent to running `python3 s.py mycommand 123`.
 
-### Options
+If a script reads data from _stdin_, it can be passed via body in POST request:
+
+```bash
+curl \
+    -X POST \
+    -d 'in data' \
+    http://localhost:8000/execute/s
+```
+
+## Options
 
 ```bash
 $ merkury -h

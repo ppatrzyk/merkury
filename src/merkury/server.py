@@ -1,4 +1,6 @@
 import logging
+import sys
+from io import StringIO
 from pathlib import Path
 
 import uvicorn
@@ -61,6 +63,9 @@ async def execute(request: Request):
         "execute_link": request.app.url_path_for("execute", script=script),
         "args": args,
     }
+    if request.method == "POST":
+        body = await request.body()
+        sys.stdin = StringIO(body.decode())
 
     get_report(script_path, report_file_path, template_data)
     return RedirectResponse(
@@ -86,7 +91,15 @@ async def read(request: Request):
 
 routes = [
     Route(path="/", endpoint=home, name="home"),
-    Route(path="/execute/{script:str}", endpoint=execute, name="execute"),
+    Route(
+        path="/execute/{script:str}",
+        endpoint=execute,
+        name="execute",
+        methods=[
+            "GET",
+            "POST",
+        ],
+    ),
     Route(path="/read/{script:str}", endpoint=read, name="read"),
 ]
 
