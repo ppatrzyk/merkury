@@ -31,7 +31,7 @@ podman run \
     --rm \
     -p 8000:8000 \
     -v path/to/script/dir:/etc/merkury/scripts \
-    ghcr.io/ppatrzyk/merkury:0.13
+    ghcr.io/ppatrzyk/merkury:0.14
 ```
 
 ## Usage
@@ -74,9 +74,9 @@ $ merkury -h
 merkury
 
 Usage:
-    merkury [options] <script_path>
-    merkury [options] batch <dir_path>
     merkury [options] server <dir_path>
+    merkury [options] batch <dir_path> [ARGS...]
+    merkury [options] <script_path> [ARGS...]
 
 Options:
     -h --help                         Show this screen.
@@ -161,7 +161,7 @@ pip3 install -e .[dev,server]
 docker build:
 
 ```bash
-podman build -t ghcr.io/ppatrzyk/merkury:0.13 .
+podman build -t ghcr.io/ppatrzyk/merkury:0.14 .
 ```
 
 docs:

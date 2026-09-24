@@ -1,6 +1,6 @@
 [project]
 name = "merkury"
-version = "0.13"
+version = "0.14"
 description = "Turn Python scripts into HTML reports"
 authors = [ {name = "Piotr Patrzyk"}, ]
 license = {text = "MIT"}
@@ -22,13 +22,13 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "httpx2>=2.12.0",
+    "httpx2>=2.13.1",
     "pytest>=9.1.1",
-    "ruff>=0.16.5",
+    "ruff>=0.16.8",
 ]
 server = [
-    "starlette>=1.6.0",
-    "uvicorn>=0.52.4",
+    "starlette>=1.7.0",
+    "uvicorn>=0.53.0",
 ]
 
 [project.urls]

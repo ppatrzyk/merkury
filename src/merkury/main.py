@@ -1,9 +1,9 @@
 """merkury
 
 Usage:
-    merkury [options] <script_path>
-    merkury [options] batch <dir_path>
     merkury [options] server <dir_path>
+    merkury [options] batch <dir_path> [ARGS...]
+    merkury [options] <script_path> [ARGS...]
 
 Options:
     -h --help                         Show this screen.
@@ -25,6 +25,7 @@ Source:
 
 import logging
 import multiprocessing
+import sys
 from os import getlogin
 from pathlib import Path
 
@@ -50,6 +51,7 @@ def main(argv=None):
     args = docopt(__doc__, argv=argv, version=f"merkury v{VERSION}")
     if bool(args.get("--debug")):
         logging.basicConfig(level=logging.DEBUG)
+    script_args = [str(arg) for arg in args.get("ARGS", [])]
     output_format = (args.get("--format") or "html").lower()
     assert output_format in FORMATS, (
         f"Unknown format: {output_format}. Options: html, md"
@@ -90,7 +92,8 @@ def main(argv=None):
                     report_file_path = get_report_path(
                         sub_path, specified_output, output_format, add_timestamp
                     )
-                    get_report_args.append((sub_path, report_file_path, template_data))
+                    args = [str(sub_path), ] + script_args
+                    get_report_args.append((sub_path, report_file_path, {**template_data, "args": args}))
                 pool.starmap(get_report, get_report_args)
         else:
             logger.warning(f"no python files found inside {path}")
@@ -116,7 +119,8 @@ def main(argv=None):
         report_file_path = get_report_path(
             path, specified_output, output_format, add_timestamp
         )
-        get_report(path, report_file_path, template_data)
+        args = [str(path), ] + script_args
+        get_report(path, report_file_path, {**template_data, "args": args})
     return 0
 
 

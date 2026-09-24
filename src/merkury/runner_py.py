@@ -4,6 +4,7 @@ Functions for running python scripts.
 
 import ast
 import logging
+import sys
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
@@ -93,6 +94,9 @@ def _execute_python(script_path: Path) -> tuple[float, Code]:
 
 
 def get_report(path: Path, report_file_path: Path, template_data: dict) -> bool:
+    args = template_data.get("args")
+    if args is not None:
+        sys.argv = args
     if template_data.get("title") is None:
         template_data = {**template_data, "title": path.name}
     total_duration_ms, code = _execute_python(path)
