@@ -6,21 +6,22 @@ from starlette.testclient import TestClient
 from merkury.server import _get_app
 from merkury.utils import get_python_files
 
+SERVER_TEMPLATE_DATA = {
+    "output_format": "html",
+    "show_input_blocks": False,
+    "toc": False,
+    "author": "pytest",
+}
 
-def test_server(tmp_path):
-    template_data = {
-        "output_format": "html",
-        "show_input_blocks": True,
-        "toc": False,
-        "author": "pytest",
-    }
+
+def test_server_execution(tmp_path):
     path = Path("tests/dir")
     sub_paths = tuple(p.absolute() for p in get_python_files(path))
-    out_path = Path(tmp_path, "out_dir")
+    out_path = Path(tmp_path, "out_dir_execution")
     out_path.mkdir()
     expected_file = Path(out_path, "s1.html")
     assert not expected_file.exists()
-    app = _get_app(sub_paths, out_path, template_data)
+    app = _get_app(sub_paths, out_path, SERVER_TEMPLATE_DATA)
     with TestClient(app=app, follow_redirects=False) as client:
         home = client.get("/")
         assert home.status_code == 200
@@ -40,3 +41,28 @@ def test_server(tmp_path):
         assert client.get("/execute/s1").status_code == 303
         assert expected_file.is_file()
         assert client.get("/read/s1").status_code == 200
+
+
+def test_server_args(tmp_path):
+    sub_paths = (Path("tests/scripts/args.py").absolute(),)
+    out_path = Path(tmp_path, "out_dir_args")
+    out_path.mkdir()
+    app = _get_app(sub_paths, out_path, SERVER_TEMPLATE_DATA)
+    with TestClient(app=app, follow_redirects=False) as client:
+        arg1 = "arg123456"
+        arg2 = "arg7890"
+        assert (
+            client.get(
+                f"/execute/args?arg={arg1}&arg={arg2}&otherarg=otherarg"
+            ).status_code
+            == 303
+        )
+        report = client.get("/read/args").text
+        result = "__NOT_PRINTED__"
+        try:
+            result = report.split("__start__", 1)[1].split("__end__", 1)[0]
+        except:
+            pass
+        assert arg1 in result
+        assert arg2 in result
+        assert not "otherarg" in result

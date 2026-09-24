@@ -59,7 +59,9 @@ def test_main(tmp_path):
     assert out_dir_path.exists()
     assert out_dir_path.is_dir()
     assert Path(out_dir_path, "script.html").is_file()
-    assert main(["-o", "/dev/null", "-f", "html", "tests/scripts/script.py", "arg1"]) == 0
+    assert (
+        main(["-o", "/dev/null", "-f", "html", "tests/scripts/script.py", "arg1"]) == 0
+    )
     # batch
     assert main(["-o", "/dev/null", "-f", "html", "batch", "tests/dir"]) == 0
     batch_dir_out = Path(tmp_path, "batch_dir_out")
@@ -78,17 +80,30 @@ def test_main(tmp_path):
     assert main(["-o", "/dev/null", "-f", "html", "batch", "tests/dir", "arg1"]) == 0
     # server runs indefinitely, correct config tested in test_server.py
 
+
 def test_main_args(tmp_path):
     script_path = Path("tests/scripts/args.py")
-    for i, script_args in enumerate([[], ["arg1", "arg2"], ["456", "567"], ]):
+    for i, script_args in enumerate(
+        [
+            [],
+            ["arg1", "arg2"],
+            ["456", "567"],
+        ]
+    ):
         report_path = Path(tmp_path, f"args{i}.md")
-        assert main(["-f", "md", "-o", str(report_path), str(script_path)] + script_args) == 0
+        assert (
+            main(
+                ["--no-input", "-f", "md", "-o", str(report_path), str(script_path)]
+                + script_args
+            )
+            == 0
+        )
         assert report_path.exists()
         with report_path.open("r") as file:
             report = file.read()
         result = "__NOT_PRINTED__"
         try:
-            result = report.split("_Out_", 1)[1].split("__start__", 1)[1].split("__end__", 1)[0]
+            result = report.split("__start__", 1)[1].split("__end__", 1)[0]
         except:
             pass
         assert str(script_path) in result

@@ -67,6 +67,8 @@ With this configuration, there is:
     - Execution endpoint to run it (and refresh report html) at [/execute/s](http://localhost:8000/execute/s),
     - Report endpoint to view latest report at [/read/s](http://localhost:8000/read/s).
 
+Arguments to script can be passed via query params. Calling `/execute/s?arg=mycommand&arg=123` is equivalent to running `python3 s.py mycommand 123`.
+
 ### Options
 
 ```bash

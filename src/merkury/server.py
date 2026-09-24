@@ -50,9 +50,16 @@ async def execute(request: Request):
         script_path, request.app.state.specified_output, "html", False
     )
     logger.debug(f"executes {script_path}, will write to {report_file_path}")
+    script_args = [
+        val for key, val in request.query_params.multi_items() if key == "arg"
+    ]
+    args = [
+        str(script_path),
+    ] + script_args
     template_data = {
         **request.app.state.template_data,
         "execute_link": request.app.url_path_for("execute", script=script),
+        "args": args,
     }
 
     get_report(script_path, report_file_path, template_data)
