@@ -23,9 +23,18 @@ body {
   content: none;
   display: none;
 }
-.merkury-toggle {
+.merkury-toggle-button {
   padding: 0.5rem 0.75rem;
 }
+details.merkury-toggle .merkury-toggle-button {
+  background: var(--pico-secondary-background);
+  border: var(--pico-secondary-background);
+}
+details.merkury-toggle[open] .merkury-toggle-button {
+  background: var(--pico-primary-background);
+  border: var(--pico-primary-background);
+}
+
 .merkury-code-block {
   margin-bottom: 2em;
 }
