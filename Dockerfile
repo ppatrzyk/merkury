@@ -1,6 +1,4 @@
-LABEL org.opencontainers.image.source="https://github.com/ppatrzyk/merkury"
-
-FROM docker.io/library/python:3.14.2-trixie AS python-build
+FROM docker.io/library/python:3.15.0-trixie AS python-build
 
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -8,7 +6,8 @@ WORKDIR /merkury
 COPY . /merkury
 RUN pip3 install .[server]
 
-FROM docker.io/library/python:3.14.2-slim-trixie AS final-image
+FROM docker.io/library/python:3.15.0-slim-trixie AS final-image
+LABEL org.opencontainers.image.source=https://github.com/ppatrzyk/merkury
 
 COPY --from=python-build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
